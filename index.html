@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="Сеть XaMa — статус, клиенты и протоколы подключения.">
+<title>XaMa — Сетевой портал</title>
+<script>
+  (function(){
+    try{
+      var saved = localStorage.getItem('xama-theme');
+      if(saved === 'light') document.documentElement.setAttribute('data-theme','light');
+    }catch(e){}
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #000000;
+    --surface: #0e0e0e;
+    --surface-2: #191919;
+    --border: #2a2a2a;
+    --border-strong: #454545;
+    --ink: #f5f5f3;
+    --ink-dim: #9a9a97;
+    --ink-faint: #656562;
+    --white: #ffffff;
+    --invert: #000000;
+    --bg-translucent: rgba(0,0,0,0.86);
+    --radius: 14px;
+    --mono: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+    --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  html[data-theme="light"]{
+    --bg: #ffffff;
+    --surface: #f4f4f4;
+    --surface-2: #ebebeb;
+    --border: #dcdcdc;
+    --border-strong: #b8b8b8;
+    --ink: #0a0a0a;
+    --ink-dim: #5c5c5c;
+    --ink-faint: #8a8a8a;
+    --white: #000000;
+    --invert: #ffffff;
+    --bg-translucent: rgba(255,255,255,0.86);
+  }
+
+  *{ box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
+
+  html{ background:var(--bg); transition: background-color .2s ease; }
+
+  body{
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--ink);
+    margin:0;
+    line-height:1.55;
+    -webkit-font-smoothing: antialiased;
+    padding-bottom: 40px;
+  }
+
+  a{ color:inherit; }
+
+  :focus-visible{
+    outline: 2px solid var(--white);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition: none !important; }
+  }
+
+  .wrap{
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
+
+  /* ---------- HEADER / STATUS SIGNATURE ---------- */
+  .topbar{
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    background: var(--bg-translucent);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .topbar-inner{
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 14px 16px;
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .brand{
+    display:flex;
+    align-items:baseline;
+    gap: 8px;
+  }
+  .brand-mark{
+    font-weight: 800;
+    font-size: 19px;
+    letter-spacing: -0.02em;
+  }
+  .brand-tag{
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--ink-faint);
+    letter-spacing: 0.06em;
+    display:none;
+  }
+  @media (min-width:400px){ .brand-tag{ display:inline; } }
+
+  .topbar-right{
+    display:flex;
+    align-items:center;
+    gap: 8px;
+  }
+
+  .status-pill{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-dim);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    padding: 6px 10px 6px 8px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .theme-toggle{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width: 32px;
+    height: 32px;
+    flex-shrink:0;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--ink);
+    cursor: pointer;
+    padding: 0;
+    transition: border-color .15s ease, background-color .15s ease;
+  }
+  .theme-toggle:hover{ border-color: var(--border-strong); }
+  .theme-toggle svg{ width:16px; height:16px; display:block; }
+  .theme-toggle .icon-sun{ display:none; }
+  html[data-theme="light"] .theme-toggle .icon-moon{ display:none; }
+  html[data-theme="light"] .theme-toggle .icon-sun{ display:block; }
+
+  .dot{
+    width:7px; height:7px; border-radius:50%;
+    background: var(--white);
+    position: relative;
+    flex-shrink:0;
+  }
+  .dot::after{
+    content:"";
+    position:absolute; inset:-5px;
+    border-radius:50%;
+    border:1px solid var(--white);
+    opacity:0.5;
+    animation: pulse 2.2s ease-out infinite;
+  }
+  @keyframes pulse{
+    0%{ transform:scale(0.4); opacity:0.6; }
+    100%{ transform:scale(1.9); opacity:0; }
+  }
+
+  /* ---------- HERO ---------- */
+  header.hero{
+    padding: 28px 0 18px;
+  }
+  h1.hero-title{
+    font-size: clamp(30px, 8vw, 38px);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin: 0 0 6px;
+  }
+  .hero-sub{
+    font-family: var(--mono);
+    font-size: 12.5px;
+    color: var(--ink-dim);
+    letter-spacing: 0.03em;
+    margin:0;
+  }
+
+  /* ---------- TABS ---------- */
+  .tabs{
+    position: sticky;
+    top: 57px;
+    z-index: 20;
+    display:flex;
+    gap: 6px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding: 10px 0 14px;
+    margin-bottom: 6px;
+    background: linear-gradient(var(--bg) 60%, transparent);
+  }
+  .tabs::-webkit-scrollbar{ display:none; }
+
+  .tab-btn{
+    font-family: var(--mono);
+    flex: 0 0 auto;
+    padding: 9px 14px;
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    background: var(--surface);
+    color: var(--ink-dim);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    cursor:pointer;
+    transition: background .15s ease, color .15s ease, border-color .15s ease;
+  }
+  .tab-btn:hover{ border-color: var(--border-strong); color: var(--ink); }
+  .tab-btn.active{
+    background: var(--white);
+    color: var(--invert);
+    border-color: var(--white);
+  }
+
+  /* ---------- CONTENT ---------- */
+  .content-section{ display:none; }
+  .content-section.active{ display:block; animation: fadeIn .25s ease; }
+  @keyframes fadeIn{ from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:translateY(0);} }
+
+  .eyebrow{
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-faint);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin: 26px 0 10px;
+  }
+  .eyebrow:first-child{ margin-top: 4px; }
+
+  p{ margin: 0 0 12px; font-size: 15px; color: var(--ink); }
+  p.muted{ color: var(--ink-dim); }
+
+  .card{
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px;
+    margin-bottom: 12px;
+  }
+
+  h2.section-title{
+    font-size: 19px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin: 4px 0 12px;
+  }
+
+  h3.card-title{
+    font-size: 15.5px;
+    font-weight: 700;
+    margin: 0 0 4px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+
+  .badge{
+    font-family: var(--mono);
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--ink-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display:block;
+    margin: 14px 0 8px;
+  }
+  .card .badge:first-of-type{ margin-top: 0; }
+
+  /* recommended / priority card */
+  .card.top-pick{
+    border-color: var(--border-strong);
+    background: var(--surface-2);
+  }
+  .card.top-pick .card-title::after{
+    content: "РЕКОМЕНДУЕТСЯ";
+    font-family: var(--mono);
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--invert);
+    background: var(--white);
+    padding: 3px 7px;
+    border-radius: 5px;
+    margin-left: auto;
+  }
+
+  /* ---------- WARNING / NOTICE ---------- */
+  .notice{
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius);
+    padding: 18px 16px 15px;
+    margin: 22px 0 14px;
+    position: relative;
+    background: var(--surface);
+  }
+  .notice-label{
+    position:absolute;
+    top:-11px; left:14px;
+    background: var(--bg);
+    padding: 0 8px;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+  }
+  .notice p{ margin:0; font-size: 14px; color: var(--ink-dim); }
+  .notice p strong{ color: var(--ink); }
+
+  .notice.urgent{ border-color: var(--white); }
+  .notice.urgent .notice-label{ color: var(--white); }
+
+  /* ---------- BUTTONS ---------- */
+  .btn-group{
+    display:flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+  @media (min-width: 480px){
+    .btn-group.pair{ flex-direction: row; }
+  }
+
+  .btn{
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 18px;
+    border-radius: 10px;
+    text-decoration:none;
+    font-weight: 600;
+    font-size: 14.5px;
+    font-family: var(--sans);
+    border: 1px solid transparent;
+    transition: opacity .15s ease, background-color .15s ease, border-color .15s ease;
+    flex: 1;
+  }
+  .btn:active{ opacity: 0.75; }
+
+  .btn-primary{ background: var(--white); color: var(--invert); }
+  .btn-primary:hover{ background: #e6e6e6; }
+
+  .btn-outline{
+    background: transparent;
+    color: var(--ink);
+    border-color: var(--border-strong);
+  }
+  .btn-outline:hover{ border-color: var(--white); background: var(--surface-2); }
+
+  .btn-ghost{
+    background: var(--surface-2);
+    color: var(--ink-dim);
+    border-color: var(--border);
+  }
+  .btn-ghost:hover{ color: var(--ink); border-color: var(--border-strong); }
+
+  /* ---------- LISTS ---------- */
+  ul, ol{ padding-left: 19px; margin: 0 0 4px; }
+  li{ margin-bottom: 7px; font-size: 14.5px; color: var(--ink-dim); }
+  li strong{ color: var(--ink); }
+  li::marker{ font-family: var(--mono); color: var(--ink-faint); font-size: 13px; }
+
+  /* ---------- FOOTER ---------- */
+  .footer{
+    margin-top: 34px;
+    text-align:center;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-faint);
+    letter-spacing: 0.05em;
+    padding-top: 18px;
+    border-top: 1px solid var(--border);
+  }
+</style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <span class="brand-mark">XaMa</span>
+        <span class="brand-tag">// сетевой портал</span>
+      </div>
+      <div class="topbar-right">
+        <div class="status-pill" role="status" aria-live="polite">
+          <span class="dot" aria-hidden="true"></span>
+          <span>сеть активна</span>
+        </div>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Переключить светлую/тёмную тему">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66 4.93 19.07M19.07 4.93 17.66 6.34"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+
+    <header class="hero">
+      <h1 class="hero-title">Сеть XaMa</h1>
+      <p class="hero-sub">мониторинг · клиенты · протоколы подключения</p>
+    </header>
+
+    <div class="tabs" role="tablist" aria-label="Разделы">
+      <button class="tab-btn active" role="tab" aria-selected="true" id="tab-btn-main" aria-controls="main" onclick="switchTab('main', this)">Главное</button>
+      <button class="tab-btn" role="tab" aria-selected="false" id="tab-btn-auto" aria-controls="auto" onclick="switchTab('auto', this)">Авто-режимы</button>
+      <button class="tab-btn" role="tab" aria-selected="false" id="tab-btn-manual" aria-controls="manual" onclick="switchTab('manual', this)">Протоколы</button>
+      <button class="tab-btn" role="tab" aria-selected="false" id="tab-btn-troubleshoot" aria-controls="troubleshoot" onclick="switchTab('troubleshoot', this)">Проблемы</button>
+    </div>
+
+    <!-- ВКЛАДКА 1: ГЛАВНОЕ -->
+    <div id="main" class="content-section active" role="tabpanel" aria-labelledby="tab-btn-main">
+
+      <p class="eyebrow">Стабильность</p>
+      <h2 class="section-title">Мониторинг 24/7</h2>
+      <div class="card">
+        <p>Специальный бот непрерывно проверяет состояние всех серверов и мгновенно сообщает команде о любых сбоях.</p>
+        <p>В режиме <strong>«Авто»</strong> сеть сама переключит вас на другой доступный узел при сбое — вы не заметите перебоев в работе интернета.</p>
+        <p class="muted">От вас требуется только одно: если подписка не обновилась автоматически — обновите её вручную (иконка из двух стрелочек по кругу).</p>
+      </div>
+
+      <p class="eyebrow">Приложения</p>
+      <h2 class="section-title">Скачать клиент</h2>
+      <p class="muted">Настройки сети работают в разных клиентах — выберите подходящий для вашего устройства.</p>
+
+      <div class="card">
+        <h3 class="card-title">📱 Мобильные устройства</h3>
+
+        <span class="badge">Happ · основной клиент</span>
+        <div class="btn-group pair">
+          <a href="https://apps.apple.com/us/app/happ-proxy-utility/id6504287215" class="btn btn-primary" target="_blank" rel="noopener">Happ · iOS (Global)</a>
+          <a href="https://play.google.com/store/apps/details?id=com.happproxy" class="btn btn-primary" target="_blank" rel="noopener">Happ · Android</a>
+        </div>
+
+        <span class="badge">Incy · идеально для РФ</span>
+        <div class="btn-group pair">
+          <a href="https://apps.apple.com/us/app/incy/id6756943388" class="btn btn-outline" target="_blank" rel="noopener">Incy · iOS</a>
+          <a href="https://play.google.com/store/apps/details?id=llc.itdev.incy&hl=ru" class="btn btn-outline" target="_blank" rel="noopener">Incy · Android</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">💻 Компьютер и ТВ</h3>
+
+        <span class="badge">Официальный клиент XaMa</span>
+        <div class="btn-group">
+          <a href="https://github.com/khakievma-dot/khakiev-kvn/releases/download/3.0.5/Install_Khakiev_KVN_3.0.5.exe" class="btn btn-primary">XaMa Client · Windows</a>
+        </div>
+
+        <span class="badge">Альтернативные варианты</span>
+        <div class="btn-group pair">
+          <a href="https://github.com/Happ-proxy/happ-desktop/releases/latest/download/setup-Happ.x64.exe" class="btn btn-ghost" target="_blank" rel="noopener">Happ · Windows</a>
+          <a href="https://play.google.com/store/apps/details?id=com.happproxy" class="btn btn-ghost" target="_blank" rel="noopener">Happ · Android TV</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ВКЛАДКА 2: АВТО-РЕЖИМЫ -->
+    <div id="auto" class="content-section" role="tabpanel" aria-labelledby="tab-btn-auto">
+      <p class="muted">Система оценивает пинг и автоматически направляет трафик на наименее загруженный сервер.</p>
+
+      <div class="notice">
+        <span class="notice-label">⚠ важно</span>
+        <p>Функция «Авто» не рекомендуется тем, кто часто работает с нейросетями (ИИ) — частая смена IP-адреса может привести к риску блокировки аккаунта.</p>
+      </div>
+
+      <div class="card top-pick">
+        <h3 class="card-title">🔀 Авто · Умный</h3>
+        <span class="badge">Подходит в 90% случаев</span>
+        <p>Клиент на лету анализирует запрос: заблокированные ресурсы (Instagram, YouTube) заворачиваются в защищённый туннель, а российские сервисы (банки, Госуслуги) работают напрямую от вашего провайдера. Включили один раз — и забыли.</p>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">🌐 Авто · Полный</h3>
+        <span class="badge">Глобальный proxy</span>
+        <p>Все приложения на телефоне работают через зарубежный сервер. Помогает, если не грузятся картинки и кружочки в мессенджерах (решает конфликты DNS в iOS). Из-за этого могут временно не открываться российские банки.</p>
+      </div>
+    </div>
+
+    <!-- ВКЛАДКА 3: ПРОТОКОЛЫ -->
+    <div id="manual" class="content-section" role="tabpanel" aria-labelledby="tab-btn-manual">
+      <p class="muted">Если оборудование провайдера блокирует авто-режимы — выберите страну вручную. Под каждой локацией доступно 4 варианта транспорта.</p>
+
+      <div class="card top-pick">
+        <h3 class="card-title">01 · Базовый</h3>
+        <span class="badge">Без приписок · золотой стандарт</span>
+        <p>Классическое зашифрованное соединение, маскирующее трафик под обычный веб-сёрфинг. Выбирайте первым, если интернет работает стабильно.</p>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">02 · gRPC</h3>
+        <span class="badge">Скрытный режим · идеален для iOS</span>
+        <p>Передаёт данные через одно длительное соединение. Если уведомления приходят с опозданием или не проходят звонки — этот протокол решит проблему.</p>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">03 · xHTTP</h3>
+        <span class="badge">Бронебойный вариант</span>
+        <p>Передовой транспорт с адаптивной обфускацией — почти незаметен для систем анализа трафика (DPI). Включайте при жёстких блокировках мобильных операторов.</p>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">04 · HS2</h3>
+        <span class="badge">Для видео и Android</span>
+        <p>Самый быстрый протокол поверх UDP, идеален для 4K на YouTube — но часто блокируется на мобильном интернете. Лучше использовать на домашнем Wi-Fi.</p>
+      </div>
+
+      <div class="notice urgent">
+        <span class="notice-label">🛡 крайняя мера</span>
+        <h3 class="card-title" style="margin-bottom:6px;">Белые списки (Domain Fronting)</h3>
+        <p>Используйте эту кнопку <strong>только</strong>, если интернет заблокирован «наглухо» и ни один другой протокол (gRPC, xHTTP) не подключается.</p>
+      </div>
+    </div>
+
+    <!-- ВКЛАДКА 4: ПРОБЛЕМЫ -->
+    <div id="troubleshoot" class="content-section" role="tabpanel" aria-labelledby="tab-btn-troubleshoot">
+
+      <div class="notice">
+        <span class="notice-label">🍏 для iPhone</span>
+        <h3 class="card-title" style="margin-bottom:6px;">Зависает WhatsApp?</h3>
+        <p style="margin-bottom:10px;">Если сообщения не отправляются, а медиа не грузится — при том, что Telegram и YouTube работают — <strong>проблема не в сети XaMa</strong>. Это конфликт WhatsApp с системой iOS и алгоритмами некоторых клиентов.</p>
+        <p style="margin-bottom:10px;"><strong>Решение:</strong> попробуйте клиент <strong>Incy</strong> (ссылка во вкладке «Главное») — он отлично оптимизирован под iOS и решает зависания без дополнительных настроек.</p>
+        <p style="margin-bottom:8px; font-size:13px;">Альтернатива для Happ — переключитесь на специальные протоколы:</p>
+        <ul style="margin-bottom:0;">
+          <li>Тестовый I</li>
+          <li>Тестовый II</li>
+        </ul>
+      </div>
+
+      <div class="notice">
+        <span class="notice-label">🍏 для iPhone</span>
+        <h3 class="card-title" style="margin-bottom:6px;">Пропали обновления Happ?</h3>
+        <p>После удаления Happ из российского App Store приложение перестало получать критически важные обновления протоколов для аккаунтов РФ.</p>
+        <p style="margin-bottom:8px;"><strong>Как решить:</strong></p>
+        <ol style="margin-bottom:0;">
+          <li><strong>Проще всего:</strong> скачайте <strong>Incy</strong> — доступен в российском App Store, обновляется автоматически.</li>
+          <li><strong>Для тех, кто хочет остаться на Happ:</strong> смените регион Apple ID на США, полностью удалите старый Happ и установите новую версию из американского магазина.</li>
+        </ol>
+      </div>
+
+    </div>
+
+    <div class="footer">Команда XaMa</div>
+  </div>
+
+  <script>
+    function switchTab(tabId, btn){
+      document.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+      document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected','true');
+      document.getElementById(tabId).classList.add('active');
+
+      btn.scrollIntoView({ behavior:'smooth', inline:'center', block:'nearest' });
+    }
+
+    (function(){
+      var root = document.documentElement;
+      var toggle = document.getElementById('theme-toggle');
+      toggle.addEventListener('click', function(){
+        var isLight = root.getAttribute('data-theme') === 'light';
+        if(isLight){
+          root.removeAttribute('data-theme');
+        }else{
+          root.setAttribute('data-theme','light');
+        }
+        try{ localStorage.setItem('xama-theme', isLight ? 'dark' : 'light'); }catch(e){}
+      });
+    })();
+  </script>
+</body>
+</html>
