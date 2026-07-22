@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="description" content="Сеть XaMa — статус, клиенты и протоколы подключения.">
-<title>XaMa — Сетевой портал</title>
+<meta name="description" content="Сеть XAMA — клиенты, протоколы подключения и решение проблем.">
+<meta name="theme-color" content="#000000">
+<title>XAMA — Сетевой портал</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='112' fill='%23000'/%3E%3Cg fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M106 106L406 406M406 106L106 406' stroke-width='30'/%3E%3Cpath d='M172 106L256 190L340 106' stroke-width='18'/%3E%3Cpath d='M172 406L256 322L340 406' stroke-width='18'/%3E%3Cpath d='M106 172L190 256L106 340' stroke-width='18'/%3E%3Cpath d='M406 172L322 256L406 340' stroke-width='18'/%3E%3C/g%3E%3C/svg%3E">
 <script>
   (function(){
@@ -31,6 +32,7 @@
     --invert: #000000;
     --bg-translucent: rgba(0,0,0,0.86);
     --radius: 14px;
+    --topbar-h: 61px;
     --mono: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
     --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
@@ -81,7 +83,20 @@
     padding: 0 16px;
   }
 
-  /* ---------- HEADER / STATUS SIGNATURE ---------- */
+  /* ---------- ICONS ---------- */
+  .ic{
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    display: block;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* ---------- TOPBAR ---------- */
   .topbar{
     position: sticky;
     top: 0;
@@ -100,12 +115,13 @@
     align-items:center;
     justify-content: space-between;
     gap: 12px;
+    min-height: 60px;
   }
 
   .brand{
     display:flex;
     align-items:center;
-    gap: 8px;
+    gap: 9px;
   }
   .brand-icon{
     width: 26px;
@@ -117,7 +133,8 @@
   .brand-mark{
     font-weight: 800;
     font-size: 19px;
-    letter-spacing: -0.02em;
+    letter-spacing: 0.09em;
+    margin-right: -0.09em;
     line-height: 1;
   }
   .brand-tag{
@@ -127,7 +144,7 @@
     letter-spacing: 0.06em;
     display:none;
   }
-  @media (min-width:400px){ .brand-tag{ display:inline; } }
+  @media (min-width:440px){ .brand-tag{ display:inline; } }
 
   .topbar-right{
     display:flex;
@@ -189,15 +206,14 @@
   }
 
   /* ---------- HERO ---------- */
-  header.hero{
-    padding: 28px 0 18px;
-  }
+  header.hero{ padding: 28px 0 18px; }
   h1.hero-title{
     font-size: clamp(30px, 8vw, 38px);
     font-weight: 800;
     letter-spacing: -0.03em;
     margin: 0 0 6px;
   }
+  h1.hero-title .caps{ letter-spacing: 0.02em; }
   .hero-sub{
     font-family: var(--mono);
     font-size: 12.5px;
@@ -209,7 +225,7 @@
   /* ---------- TABS ---------- */
   .tabs{
     position: sticky;
-    top: 57px;
+    top: var(--topbar-h);
     z-index: 20;
     display:flex;
     gap: 6px;
@@ -253,12 +269,13 @@
     color: var(--ink-faint);
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    margin: 26px 0 10px;
+    margin: 30px 0 10px;
   }
   .eyebrow:first-child{ margin-top: 4px; }
 
   p{ margin: 0 0 12px; font-size: 15px; color: var(--ink); }
   p.muted{ color: var(--ink-dim); }
+  p:last-child{ margin-bottom: 0; }
 
   .card{
     background: var(--surface);
@@ -281,7 +298,7 @@
     margin: 0 0 4px;
     display:flex;
     align-items:center;
-    gap:8px;
+    gap:9px;
   }
 
   .badge{
@@ -296,7 +313,6 @@
   }
   .card .badge:first-of-type{ margin-top: 0; }
 
-  /* recommended / priority card */
   .card.top-pick{
     border-color: var(--border-strong);
     background: var(--surface-2);
@@ -314,12 +330,39 @@
     margin-left: auto;
   }
 
-  /* ---------- WARNING / NOTICE ---------- */
+  /* ---------- STEPS ---------- */
+  .steps{
+    display:grid;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+  @media (min-width: 560px){
+    .steps{ grid-template-columns: repeat(3, 1fr); }
+  }
+  .step{
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 15px;
+  }
+  .step-num{
+    display:block;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--ink-faint);
+    letter-spacing: 0.08em;
+    margin-bottom: 5px;
+  }
+  .step p{ font-size: 14px; margin: 0; color: var(--ink); }
+  .step p span{ color: var(--ink-dim); }
+
+  /* ---------- NOTICE ---------- */
   .notice{
     border: 1px solid var(--border-strong);
     border-radius: var(--radius);
-    padding: 18px 16px 15px;
-    margin: 22px 0 14px;
+    padding: 20px 16px 16px;
+    margin: 24px 0 14px;
     position: relative;
     background: var(--surface);
   }
@@ -328,14 +371,19 @@
     top:-11px; left:14px;
     background: var(--bg);
     padding: 0 8px;
+    display:flex;
+    align-items:center;
+    gap: 6px;
     font-family: var(--mono);
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.04em;
     color: var(--ink);
   }
-  .notice p{ margin:0; font-size: 14px; color: var(--ink-dim); }
+  .notice-label .ic{ width:13px; height:13px; }
+  .notice p{ font-size: 14px; color: var(--ink-dim); }
   .notice p strong{ color: var(--ink); }
+  .notice .card-title{ margin-bottom: 8px; }
 
   .notice.urgent{ border-color: var(--white); }
   .notice.urgent .notice-label{ color: var(--white); }
@@ -367,9 +415,16 @@
     flex: 1;
   }
   .btn:active{ opacity: 0.75; }
+  .btn-icon{
+    width: 19px;
+    height: 19px;
+    flex-shrink: 0;
+    display: block;
+  }
 
   .btn-primary{ background: var(--white); color: var(--invert); }
   .btn-primary:hover{ background: #e6e6e6; }
+  html[data-theme="light"] .btn-primary:hover{ background: #262626; }
 
   .btn-outline{
     background: transparent;
@@ -388,12 +443,13 @@
   /* ---------- LISTS ---------- */
   ul, ol{ padding-left: 19px; margin: 0 0 4px; }
   li{ margin-bottom: 7px; font-size: 14.5px; color: var(--ink-dim); }
+  li:last-child{ margin-bottom: 0; }
   li strong{ color: var(--ink); }
   li::marker{ font-family: var(--mono); color: var(--ink-faint); font-size: 13px; }
 
   /* ---------- FOOTER ---------- */
   .footer{
-    margin-top: 34px;
+    margin-top: 40px;
     text-align:center;
     font-family: var(--mono);
     font-size: 11px;
@@ -418,15 +474,15 @@
             <path d="M406 172 L322 256 L406 340" stroke-width="18"/>
           </g>
         </svg>
-        <span class="brand-mark">XaMa</span>
+        <span class="brand-mark">XAMA</span>
         <span class="brand-tag">// сетевой портал</span>
       </div>
       <div class="topbar-right">
-        <div class="status-pill" role="status" aria-live="polite">
+        <div class="status-pill">
           <span class="dot" aria-hidden="true"></span>
-          <span>сеть активна</span>
+          <span>мониторинг 24/7</span>
         </div>
-        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Переключить светлую/тёмную тему">
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Переключить светлую и тёмную тему">
           <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
           <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66 4.93 19.07M19.07 4.93 17.66 6.34"/></svg>
         </button>
@@ -437,26 +493,34 @@
   <div class="wrap">
 
     <header class="hero">
-      <h1 class="hero-title">Сеть XaMa</h1>
-      <p class="hero-sub">мониторинг · клиенты · протоколы подключения</p>
+      <h1 class="hero-title">Сеть <span class="caps">XAMA</span></h1>
+      <p class="hero-sub">клиенты · протоколы · решение проблем</p>
     </header>
 
     <div class="tabs" role="tablist" aria-label="Разделы">
-      <button class="tab-btn active" role="tab" aria-selected="true" id="tab-btn-main" aria-controls="main" onclick="switchTab('main', this)">Главное</button>
-      <button class="tab-btn" role="tab" aria-selected="false" id="tab-btn-auto" aria-controls="auto" onclick="switchTab('auto', this)">Авто-режимы</button>
-      <button class="tab-btn" role="tab" aria-selected="false" id="tab-btn-manual" aria-controls="manual" onclick="switchTab('manual', this)">Протоколы</button>
-      <button class="tab-btn" role="tab" aria-selected="false" id="tab-btn-troubleshoot" aria-controls="troubleshoot" onclick="switchTab('troubleshoot', this)">Проблемы</button>
+      <button class="tab-btn active" role="tab" aria-selected="true" id="tab-btn-main" aria-controls="main">Главное</button>
+      <button class="tab-btn" role="tab" aria-selected="false" tabindex="-1" id="tab-btn-auto" aria-controls="auto">Авто-режимы</button>
+      <button class="tab-btn" role="tab" aria-selected="false" tabindex="-1" id="tab-btn-manual" aria-controls="manual">Протоколы</button>
+      <button class="tab-btn" role="tab" aria-selected="false" tabindex="-1" id="tab-btn-troubleshoot" aria-controls="troubleshoot">Проблемы</button>
     </div>
 
     <!-- ВКЛАДКА 1: ГЛАВНОЕ -->
-    <div id="main" class="content-section active" role="tabpanel" aria-labelledby="tab-btn-main">
+    <div id="main" class="content-section active" role="tabpanel" aria-labelledby="tab-btn-main" tabindex="0">
 
-      <p class="eyebrow">Стабильность</p>
-      <h2 class="section-title">Мониторинг 24/7</h2>
-      <div class="card">
-        <p>Специальный бот непрерывно проверяет состояние всех серверов и мгновенно сообщает команде о любых сбоях.</p>
-        <p>В режиме <strong>«Авто»</strong> сеть сама переключит вас на другой доступный узел при сбое — вы не заметите перебоев в работе интернета.</p>
-        <p class="muted">От вас требуется только одно: если подписка не обновилась автоматически — обновите её вручную (иконка из двух стрелочек по кругу).</p>
+      <p class="eyebrow">С чего начать</p>
+      <div class="steps">
+        <div class="step">
+          <span class="step-num">ШАГ 01</span>
+          <p>Скачайте клиент <span>для своего устройства</span></p>
+        </div>
+        <div class="step">
+          <span class="step-num">ШАГ 02</span>
+          <p>Добавьте подписку <span>по ссылке, которую вам выдали</span></p>
+        </div>
+        <div class="step">
+          <span class="step-num">ШАГ 03</span>
+          <p>Включите «Авто&nbsp;· Умный» <span>и пользуйтесь</span></p>
+        </div>
       </div>
 
       <p class="eyebrow">Приложения</p>
@@ -464,7 +528,10 @@
       <p class="muted">Настройки сети работают в разных клиентах — выберите подходящий для вашего устройства.</p>
 
       <div class="card">
-        <h3 class="card-title">📱 Мобильные устройства</h3>
+        <h3 class="card-title">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2.5"/><path d="M12 18h.01"/></svg>
+          Телефон и планшет
+        </h3>
 
         <span class="badge">Happ · основной клиент</span>
         <div class="btn-group pair">
@@ -480,11 +547,25 @@
       </div>
 
       <div class="card">
-        <h3 class="card-title">💻 Компьютер и ТВ</h3>
+        <h3 class="card-title">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2.5"/><path d="M8 21h8M12 17v4"/></svg>
+          Компьютер и ТВ
+        </h3>
 
-        <span class="badge">Официальный клиент XaMa</span>
+        <span class="badge">Официальный клиент XAMA</span>
         <div class="btn-group">
-          <a href="https://github.com/khakievma-dot/khakiev-kvn/releases/download/3.0.5/Install_Khakiev_KVN_3.0.5.exe" class="btn btn-primary">XaMa Client · Windows</a>
+          <a href="https://github.com/khakievma-dot/khakiev-kvn/releases/download/3.0.5/Install_Khakiev_KVN_3.0.5.exe" class="btn btn-primary">
+            <svg class="btn-icon" viewBox="0 0 512 512" aria-hidden="true">
+              <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M106 106 L406 406 M406 106 L106 406" stroke-width="38"/>
+                <path d="M172 106 L256 190 L340 106" stroke-width="24"/>
+                <path d="M172 406 L256 322 L340 406" stroke-width="24"/>
+                <path d="M106 172 L190 256 L106 340" stroke-width="24"/>
+                <path d="M406 172 L322 256 L406 340" stroke-width="24"/>
+              </g>
+            </svg>
+            XAMA Client · Windows
+          </a>
         </div>
 
         <span class="badge">Альтернативные варианты</span>
@@ -493,32 +574,49 @@
           <a href="https://play.google.com/store/apps/details?id=com.happproxy" class="btn btn-ghost" target="_blank" rel="noopener">Happ · Android TV</a>
         </div>
       </div>
+
+      <p class="eyebrow">Стабильность</p>
+      <h2 class="section-title">Мониторинг 24/7</h2>
+      <div class="card">
+        <p>Специальный бот непрерывно проверяет состояние всех серверов и мгновенно сообщает команде о любых сбоях.</p>
+        <p>В режиме <strong>«Авто»</strong> сеть сама переключит вас на другой доступный узел при сбое — вы не заметите перебоев в работе интернета.</p>
+        <p class="muted">От вас требуется только одно: если подписка не обновилась автоматически — обновите её вручную, кнопкой с двумя круговыми стрелками.</p>
+      </div>
     </div>
 
     <!-- ВКЛАДКА 2: АВТО-РЕЖИМЫ -->
-    <div id="auto" class="content-section" role="tabpanel" aria-labelledby="tab-btn-auto">
+    <div id="auto" class="content-section" role="tabpanel" aria-labelledby="tab-btn-auto" tabindex="0">
       <p class="muted">Система оценивает пинг и автоматически направляет трафик на наименее загруженный сервер.</p>
 
       <div class="notice">
-        <span class="notice-label">⚠ важно</span>
-        <p>Функция «Авто» не рекомендуется тем, кто часто работает с нейросетями (ИИ) — частая смена IP-адреса может привести к риску блокировки аккаунта.</p>
+        <span class="notice-label">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg>
+          ВАЖНО
+        </span>
+        <p>Функция «Авто» не рекомендуется тем, кто часто работает с нейросетями — частая смена IP-адреса может привести к блокировке аккаунта.</p>
       </div>
 
       <div class="card top-pick">
-        <h3 class="card-title">🔀 Авто · Умный</h3>
+        <h3 class="card-title">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
+          Авто · Умный
+        </h3>
         <span class="badge">Подходит в 90% случаев</span>
-        <p>Клиент на лету анализирует запрос: заблокированные ресурсы (Instagram, YouTube) заворачиваются в защищённый туннель, а российские сервисы (банки, Госуслуги) работают напрямую от вашего провайдера. Включили один раз — и забыли.</p>
+        <p>Клиент на лету анализирует запрос: заблокированные ресурсы вроде Instagram и YouTube заворачиваются в защищённый туннель, а российские сервисы — банки, Госуслуги — работают напрямую от вашего провайдера. Включили один раз и забыли.</p>
       </div>
 
       <div class="card">
-        <h3 class="card-title">🌐 Авто · Полный</h3>
+        <h3 class="card-title">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5a15 15 0 0 1 4 9.5 15 15 0 0 1-4 9.5 15 15 0 0 1-4-9.5 15 15 0 0 1 4-9.5z"/></svg>
+          Авто · Полный
+        </h3>
         <span class="badge">Глобальный proxy</span>
-        <p>Все приложения на телефоне работают через зарубежный сервер. Помогает, если не грузятся картинки и кружочки в мессенджерах (решает конфликты DNS в iOS). Из-за этого могут временно не открываться российские банки.</p>
+        <p>Все приложения на телефоне работают через зарубежный сервер. Помогает, если не грузятся картинки и кружочки в мессенджерах — это решает конфликты DNS в iOS. Из-за этого могут временно не открываться российские банки.</p>
       </div>
     </div>
 
     <!-- ВКЛАДКА 3: ПРОТОКОЛЫ -->
-    <div id="manual" class="content-section" role="tabpanel" aria-labelledby="tab-btn-manual">
+    <div id="manual" class="content-section" role="tabpanel" aria-labelledby="tab-btn-manual" tabindex="0">
       <p class="muted">Если оборудование провайдера блокирует авто-режимы — выберите страну вручную. Под каждой локацией доступно 4 варианта транспорта.</p>
 
       <div class="card top-pick">
@@ -536,7 +634,7 @@
       <div class="card">
         <h3 class="card-title">03 · xHTTP</h3>
         <span class="badge">Бронебойный вариант</span>
-        <p>Передовой транспорт с адаптивной обфускацией — почти незаметен для систем анализа трафика (DPI). Включайте при жёстких блокировках мобильных операторов.</p>
+        <p>Передовой транспорт с адаптивной обфускацией — почти незаметен для систем анализа трафика. Включайте при жёстких блокировках мобильных операторов.</p>
       </div>
 
       <div class="card">
@@ -546,66 +644,120 @@
       </div>
 
       <div class="notice urgent">
-        <span class="notice-label">🛡 крайняя мера</span>
-        <h3 class="card-title" style="margin-bottom:6px;">Белые списки (Domain Fronting)</h3>
-        <p>Используйте эту кнопку <strong>только</strong>, если интернет заблокирован «наглухо» и ни один другой протокол (gRPC, xHTTP) не подключается.</p>
+        <span class="notice-label">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.5s7.5-3.8 7.5-9.5V5.2L12 2.5 4.5 5.2V12c0 5.7 7.5 9.5 7.5 9.5z"/></svg>
+          КРАЙНЯЯ МЕРА
+        </span>
+        <h3 class="card-title">Белые списки</h3>
+        <p>Используйте эту кнопку <strong>только</strong> если интернет заблокирован наглухо и ни один другой протокол не подключается.</p>
       </div>
     </div>
 
     <!-- ВКЛАДКА 4: ПРОБЛЕМЫ -->
-    <div id="troubleshoot" class="content-section" role="tabpanel" aria-labelledby="tab-btn-troubleshoot">
+    <div id="troubleshoot" class="content-section" role="tabpanel" aria-labelledby="tab-btn-troubleshoot" tabindex="0">
 
       <div class="notice">
-        <span class="notice-label">🍏 для iPhone</span>
-        <h3 class="card-title" style="margin-bottom:6px;">Зависает WhatsApp?</h3>
-        <p style="margin-bottom:10px;">Если сообщения не отправляются, а медиа не грузится — при том, что Telegram и YouTube работают — <strong>проблема не в сети XaMa</strong>. Это конфликт WhatsApp с системой iOS и алгоритмами некоторых клиентов.</p>
-        <p style="margin-bottom:10px;"><strong>Решение:</strong> попробуйте клиент <strong>Incy</strong> (ссылка во вкладке «Главное») — он отлично оптимизирован под iOS и решает зависания без дополнительных настроек.</p>
-        <p style="margin-bottom:8px; font-size:13px;">Альтернатива для Happ — переключитесь на специальные протоколы:</p>
-        <ul style="margin-bottom:0;">
+        <span class="notice-label">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2.5"/><path d="M12 18h.01"/></svg>
+          IPHONE
+        </span>
+        <h3 class="card-title">Зависает WhatsApp?</h3>
+        <p style="margin-bottom:10px;">Если сообщения не отправляются и медиа не грузится, при том что Telegram и YouTube работают — <strong>проблема не в сети XAMA</strong>. Это конфликт WhatsApp с системой iOS и алгоритмами некоторых клиентов.</p>
+        <p style="margin-bottom:10px;"><strong>Решение:</strong> попробуйте клиент <strong>Incy</strong> — ссылка во вкладке «Главное». Он оптимизирован под iOS и решает зависания без дополнительных настроек.</p>
+        <p style="margin-bottom:8px;">Альтернатива для Happ — переключитесь на специальные протоколы:</p>
+        <ul>
           <li>Тестовый I</li>
           <li>Тестовый II</li>
         </ul>
       </div>
 
       <div class="notice">
-        <span class="notice-label">🍏 для iPhone</span>
-        <h3 class="card-title" style="margin-bottom:6px;">Пропали обновления Happ?</h3>
-        <p>После удаления Happ из российского App Store приложение перестало получать критически важные обновления протоколов для аккаунтов РФ.</p>
+        <span class="notice-label">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 4v6h-6M2 20v-6h6"/><path d="M19.5 9A8.5 8.5 0 0 0 5.4 5.8L2 10m20 4-3.4 4.2A8.5 8.5 0 0 1 4.5 15"/></svg>
+          IPHONE
+        </span>
+        <h3 class="card-title">Пропали обновления Happ?</h3>
+        <p style="margin-bottom:10px;">После удаления Happ из российского App Store приложение перестало получать критически важные обновления протоколов для аккаунтов РФ.</p>
         <p style="margin-bottom:8px;"><strong>Как решить:</strong></p>
-        <ol style="margin-bottom:0;">
-          <li><strong>Проще всего:</strong> скачайте <strong>Incy</strong> — доступен в российском App Store, обновляется автоматически.</li>
-          <li><strong>Для тех, кто хочет остаться на Happ:</strong> смените регион Apple ID на США, полностью удалите старый Happ и установите новую версию из американского магазина.</li>
+        <ol>
+          <li><strong>Проще всего:</strong> скачайте <strong>Incy</strong> — он доступен в российском App Store и обновляется автоматически.</li>
+          <li><strong>Если хотите остаться на Happ:</strong> смените регион Apple ID на США, полностью удалите старый Happ и установите новую версию из американского магазина.</li>
         </ol>
       </div>
 
     </div>
 
-    <div class="footer">Команда XaMa</div>
+    <div class="footer">Команда XAMA</div>
   </div>
 
   <script>
-    function switchTab(tabId, btn){
-      document.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
-      document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+    (function(){
+      var buttons = Array.prototype.slice.call(document.querySelectorAll('.tab-btn'));
+      var panels  = Array.prototype.slice.call(document.querySelectorAll('.content-section'));
 
-      btn.classList.add('active');
-      btn.setAttribute('aria-selected','true');
-      document.getElementById(tabId).classList.add('active');
+      function activate(id, focusBtn, updateHash){
+        var btn = document.getElementById('tab-btn-' + id);
+        var panel = document.getElementById(id);
+        if(!btn || !panel) return;
 
-      btn.scrollIntoView({ behavior:'smooth', inline:'center', block:'nearest' });
-    }
+        buttons.forEach(function(b){
+          b.classList.remove('active');
+          b.setAttribute('aria-selected','false');
+          b.tabIndex = -1;
+        });
+        panels.forEach(function(p){ p.classList.remove('active'); });
+
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected','true');
+        btn.tabIndex = 0;
+        panel.classList.add('active');
+
+        btn.scrollIntoView({ behavior:'smooth', inline:'center', block:'nearest' });
+        if(focusBtn) btn.focus();
+        if(updateHash && history.replaceState) history.replaceState(null, '', '#' + id);
+      }
+
+      buttons.forEach(function(btn, i){
+        btn.addEventListener('click', function(){
+          activate(btn.getAttribute('aria-controls'), false, true);
+        });
+        btn.addEventListener('keydown', function(e){
+          var next = null;
+          if(e.key === 'ArrowRight') next = buttons[(i + 1) % buttons.length];
+          if(e.key === 'ArrowLeft')  next = buttons[(i - 1 + buttons.length) % buttons.length];
+          if(e.key === 'Home')       next = buttons[0];
+          if(e.key === 'End')        next = buttons[buttons.length - 1];
+          if(next){
+            e.preventDefault();
+            activate(next.getAttribute('aria-controls'), true, true);
+          }
+        });
+      });
+
+      function fromHash(){
+        var id = (location.hash || '').replace('#','');
+        if(id && document.getElementById(id) && document.getElementById('tab-btn-' + id)){
+          activate(id, false, false);
+        }
+      }
+      fromHash();
+      window.addEventListener('hashchange', fromHash);
+    })();
 
     (function(){
       var root = document.documentElement;
       var toggle = document.getElementById('theme-toggle');
+      var meta = document.querySelector('meta[name="theme-color"]');
+      function syncMeta(){
+        if(meta) meta.setAttribute('content', root.getAttribute('data-theme') === 'light' ? '#ffffff' : '#000000');
+      }
+      syncMeta();
       toggle.addEventListener('click', function(){
         var isLight = root.getAttribute('data-theme') === 'light';
-        if(isLight){
-          root.removeAttribute('data-theme');
-        }else{
-          root.setAttribute('data-theme','light');
-        }
+        if(isLight){ root.removeAttribute('data-theme'); }
+        else { root.setAttribute('data-theme','light'); }
         try{ localStorage.setItem('xama-theme', isLight ? 'dark' : 'light'); }catch(e){}
+        syncMeta();
       });
     })();
   </script>
