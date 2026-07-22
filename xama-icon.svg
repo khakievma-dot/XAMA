@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="XAMA">
+  <title>XAMA</title>
+  <rect width="512" height="512" rx="112" fill="#000000"/>
+  <g fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M106 106 L406 406 M406 106 L106 406" stroke-width="30"/>
+    <path d="M172 106 L256 190 L340 106" stroke-width="18"/>
+    <path d="M172 406 L256 322 L340 406" stroke-width="18"/>
+    <path d="M106 172 L190 256 L106 340" stroke-width="18"/>
+    <path d="M406 172 L322 256 L406 340" stroke-width="18"/>
+  </g>
+</svg>
