@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="description" content="Сеть XaMa — статус, клиенты и протоколы подключения.">
 <title>XaMa — Сетевой портал</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='112' fill='%23000'/%3E%3Cg fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M106 106L406 406M406 106L106 406' stroke-width='30'/%3E%3Cpath d='M172 106L256 190L340 106' stroke-width='18'/%3E%3Cpath d='M172 406L256 322L340 406' stroke-width='18'/%3E%3Cpath d='M106 172L190 256L106 340' stroke-width='18'/%3E%3Cpath d='M406 172L322 256L406 340' stroke-width='18'/%3E%3C/g%3E%3C/svg%3E">
 <script>
   (function(){
     try{
@@ -103,13 +104,21 @@
 
   .brand{
     display:flex;
-    align-items:baseline;
+    align-items:center;
     gap: 8px;
+  }
+  .brand-icon{
+    width: 26px;
+    height: 26px;
+    flex-shrink: 0;
+    display: block;
+    color: var(--ink);
   }
   .brand-mark{
     font-weight: 800;
     font-size: 19px;
     letter-spacing: -0.02em;
+    line-height: 1;
   }
   .brand-tag{
     font-family: var(--mono);
@@ -400,6 +409,15 @@
   <div class="topbar">
     <div class="topbar-inner">
       <div class="brand">
+        <svg class="brand-icon" viewBox="0 0 512 512" aria-hidden="true">
+          <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M106 106 L406 406 M406 106 L106 406" stroke-width="30"/>
+            <path d="M172 106 L256 190 L340 106" stroke-width="18"/>
+            <path d="M172 406 L256 322 L340 406" stroke-width="18"/>
+            <path d="M106 172 L190 256 L106 340" stroke-width="18"/>
+            <path d="M406 172 L322 256 L406 340" stroke-width="18"/>
+          </g>
+        </svg>
         <span class="brand-mark">XaMa</span>
         <span class="brand-tag">// сетевой портал</span>
       </div>
