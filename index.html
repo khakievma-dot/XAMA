@@ -662,6 +662,7 @@
     <!-- ВКЛАДКА: АВТО-РЕЖИМЫ -->
     <section id="auto" class="content-section" data-label="Авто-режимы" data-icon="bolt" role="tabpanel" tabindex="0">
       <p class="muted">Система оценивает пинг и автоматически направляет трафик на наименее загруженный сервер.</p>
+      <p class="muted">Подключение при этом всегда идёт по базовому протоколу (REALITY) — самому стабильному и универсальному. Если он у вас режется, выберите другой транспорт вручную во вкладке «Протоколы».</p>
 
       <div class="notice">
         <span class="notice-label">
@@ -696,7 +697,7 @@
 
       <div class="card top-pick">
         <h3 class="card-title">01 · Базовый</h3>
-        <span class="badge">Без приписок · золотой стандарт</span>
+        <span class="badge">REALITY · золотой стандарт</span>
         <p>Классическое зашифрованное соединение, маскирующее трафик под обычный веб-сёрфинг. Выбирайте первым, если интернет работает стабильно.</p>
       </div>
 
@@ -716,6 +717,12 @@
         <h3 class="card-title">04 · HS2</h3>
         <span class="badge">Для видео и Android</span>
         <p>Самый быстрый протокол поверх UDP, идеален для 4K на YouTube — но часто блокируется на мобильном интернете. Лучше использовать на домашнем Wi-Fi.</p>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">05 · WS</h3>
+        <span class="badge">Через CDN · надёжный запасной</span>
+        <p>Соединение по WebSocket — трафик выглядит как обычное веб-подключение и легко проходит через CDN. Берите, если базовый и gRPC режутся: чуть медленнее остальных, зато пролезает почти везде.</p>
       </div>
 
       <div class="notice urgent">
@@ -770,7 +777,18 @@
     <section id="faq" class="content-section" data-label="Вопросы" data-icon="help" role="tabpanel" tabindex="0">
       <p class="muted">Частые вопросы. Нажмите на вопрос, чтобы раскрыть ответ.</p>
 
-      <details class="faq-item">
+      <details class="faq-item" name="faq">
+        <summary>
+          Есть ли у вас свои приложения для Android и iOS?
+          <svg class="faq-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+        </summary>
+        <div class="faq-body">
+          <p>Для Windows у нас есть официальный клиент. Для Android и iOS мы настоятельно рекомендуем использовать приложение <strong>Happ</strong>. Мы могли бы чисто на вайбе накодить свои мобильные приложения, как это делают многие другие сервисы, но давайте будем честны — это не сравнится по качеству и стабильности с Happ, над которым постоянно трудится огромная команда разработчиков. Мы предпочитаем рекомендовать вам лучший инструмент из существующих.</p>
+          <p>Ссылки на Happ — во вкладке «Главное».</p>
+        </div>
+      </details>
+
+      <details class="faq-item" name="faq">
         <summary>
           Как купить вашу подписку?
           <svg class="faq-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
@@ -783,7 +801,7 @@
         </div>
       </details>
 
-      <details class="faq-item">
+      <details class="faq-item" name="faq">
         <summary>
           Хочу заказать сайт, бота или приложение
           <svg class="faq-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
@@ -796,7 +814,7 @@
         </div>
       </details>
 
-      <details class="faq-item">
+      <details class="faq-item" name="faq">
         <summary>
           Как связаться с техподдержкой?
           <svg class="faq-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
@@ -809,7 +827,7 @@
         </div>
       </details>
 
-      <details class="faq-item">
+      <details class="faq-item" name="faq">
         <summary>
           Хочу сообщить об ошибке
           <svg class="faq-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
