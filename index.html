@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="description" content="Сеть XAMA — клиенты, протоколы подключения и решение проблем.">
+<meta name="description" content="Сеть XAMA — подписки, клиенты для всех устройств, протоколы подключения и поддержка 24/7.">
 <meta name="theme-color" content="#000000">
 <title>XAMA — Сетевой портал</title>
 
 <!-- Open Graph — превью для Telegram / WhatsApp / VK -->
 <meta property="og:title" content="Сеть XAMA — сетевой портал">
-<meta property="og:description" content="Клиенты, протоколы подключения и решение проблем">
+<meta property="og:description" content="Подписки, клиенты для всех устройств, протоколы и поддержка 24/7">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://xama.life/">
 <meta property="og:image" content="https://xama.life/og-image.png">
@@ -92,6 +92,10 @@
     margin: 0 auto;
     padding: 0 16px;
   }
+  /* ПК: шире полотно и больше воздуха */
+  @media (min-width: 900px){
+    .wrap{ max-width: 920px; padding: 0 24px; }
+  }
 
   /* ---------- ICONS ---------- */
   .ic{
@@ -127,6 +131,9 @@
     gap: 12px;
     min-height: 60px;
   }
+  @media (min-width: 900px){
+    .topbar-inner{ max-width: 920px; padding: 14px 24px; }
+  }
 
   .brand{
     display:flex;
@@ -154,7 +161,7 @@
     letter-spacing: 0.06em;
     display:none;
   }
-  @media (min-width:440px){ .brand-tag{ display:inline; } }
+  @media (min-width:640px){ .brand-tag{ display:inline; } }
 
   .topbar-right{
     display:flex;
@@ -163,7 +170,7 @@
   }
 
   .status-pill{
-    display:flex;
+    display:none;
     align-items:center;
     gap:7px;
     font-family: var(--mono);
@@ -175,12 +182,36 @@
     border-radius: 999px;
     white-space: nowrap;
   }
+  @media (min-width: 620px){ .status-pill{ display:flex; } }
+
+  /* компактная кнопка «Личный кабинет» в шапке */
+  .topbar-cta{
+    display:flex;
+    align-items:center;
+    gap: 7px;
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    background: var(--white);
+    color: var(--invert);
+    border: 1px solid var(--white);
+    padding: 8px 13px;
+    border-radius: 999px;
+    white-space: nowrap;
+    transition: opacity .15s ease;
+  }
+  .topbar-cta:active{ opacity:.75; }
+  .topbar-cta .ic{ width:15px; height:15px; }
+  .topbar-cta span{ display:none; }
+  @media (min-width: 420px){ .topbar-cta span{ display:inline; } }
+
   .theme-toggle{
     display:flex;
     align-items:center;
     justify-content:center;
-    width: 32px;
-    height: 32px;
+    width: 34px;
+    height: 34px;
     flex-shrink:0;
     border-radius: 999px;
     border: 1px solid var(--border);
@@ -216,12 +247,15 @@
   }
 
   /* ---------- HERO ---------- */
-  header.hero{ padding: 28px 0 18px; }
+  header.hero{ padding: 30px 0 20px; }
+  @media (min-width: 900px){ header.hero{ padding: 46px 0 26px; } }
+
   h1.hero-title{
-    font-size: clamp(30px, 8vw, 38px);
+    font-size: clamp(31px, 8vw, 46px);
     font-weight: 800;
     letter-spacing: -0.03em;
-    margin: 0 0 6px;
+    line-height: 1.08;
+    margin: 0 0 8px;
   }
   h1.hero-title .caps{ letter-spacing: 0.02em; }
   .hero-sub{
@@ -229,21 +263,30 @@
     font-size: 12.5px;
     color: var(--ink-dim);
     letter-spacing: 0.03em;
-    margin:0;
+    margin:0 0 18px;
   }
+  @media (min-width: 900px){ .hero-sub{ font-size: 14px; } }
 
-  /* ---------- TABS (вариант 1: активная с текстом, остальные — иконки) ---------- */
+  .hero-cta{
+    display:flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 480px;
+  }
+  @media (min-width: 440px){ .hero-cta{ flex-direction: row; } }
+
+  /* ---------- TABS ---------- */
   .tabs{
     position: sticky;
     top: var(--topbar-h);
     z-index: 20;
     display:flex;
     gap: 6px;
-    overflow-x: auto;              /* страховка: если вкладок станет очень много */
+    overflow-x: auto;
     scrollbar-width: none;
     padding: 10px 0 14px;
     margin-bottom: 6px;
-    background: linear-gradient(var(--bg) 60%, transparent);
+    background: linear-gradient(var(--bg) 62%, transparent);
   }
   .tabs::-webkit-scrollbar{ display:none; }
 
@@ -253,7 +296,7 @@
     display:flex;
     align-items:center;
     gap: 7px;
-    padding: 9px 12px;
+    padding: 9px 11px;
     font-size: 12.5px;
     font-weight: 600;
     letter-spacing: 0.01em;
@@ -277,13 +320,20 @@
     stroke-linecap: round;
     stroke-linejoin: round;
   }
-  .tab-btn .tab-label{ display:none; }   /* по умолчанию текст скрыт */
+  /* мобильные: подпись только у активной вкладки — панель влезает в одну строку */
+  .tab-btn .tab-label{ display:none; }
   .tab-btn.active{
     background: var(--white);
     color: var(--invert);
     border-color: var(--white);
+    padding: 9px 14px;
   }
-  .tab-btn.active .tab-label{ display:inline; }  /* у активной — показываем */
+  .tab-btn.active .tab-label{ display:inline; }
+  /* ПК: места хватает — показываем подписи у всех вкладок */
+  @media (min-width: 760px){
+    .tab-btn{ padding: 9px 15px; }
+    .tab-btn .tab-label{ display:inline; }
+  }
 
   /* ---------- CONTENT ---------- */
   .content-section{ display:none; }
@@ -296,12 +346,13 @@
     color: var(--ink-faint);
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    margin: 30px 0 10px;
+    margin: 32px 0 10px;
   }
   .eyebrow:first-child{ margin-top: 4px; }
 
   p{ margin: 0 0 12px; font-size: 15px; color: var(--ink); }
   p.muted{ color: var(--ink-dim); }
+  p.lead{ font-size: 15.5px; color: var(--ink-dim); max-width: 64ch; }
   p:last-child{ margin-bottom: 0; }
 
   .card{
@@ -311,6 +362,7 @@
     padding: 18px;
     margin-bottom: 12px;
   }
+  @media (min-width: 900px){ .card{ padding: 22px; } }
 
   h2.section-title{
     font-size: 19px;
@@ -318,6 +370,7 @@
     letter-spacing: -0.01em;
     margin: 4px 0 12px;
   }
+  @media (min-width: 900px){ h2.section-title{ font-size: 23px; } }
 
   h3.card-title{
     font-size: 15.5px;
@@ -355,6 +408,109 @@
     padding: 3px 7px;
     border-radius: 5px;
     margin-left: auto;
+  }
+
+  /* ---------- БЫСТРЫЕ ССЫЛКИ ---------- */
+  .link-grid{
+    display:grid;
+    gap: 8px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 520px){ .link-grid{ grid-template-columns: 1fr 1fr; } }
+
+  .link-card{
+    display:flex;
+    align-items:center;
+    gap: 13px;
+    text-decoration:none;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 15px 16px;
+    transition: border-color .15s ease, background-color .15s ease, transform .15s ease;
+  }
+  .link-card:hover{ border-color: var(--border-strong); background: var(--surface-2); }
+  .link-card:active{ transform: scale(.99); }
+  .link-card .ic{ width:20px; height:20px; color: var(--ink); }
+  .link-card-text{ min-width:0; }
+  .link-card-title{
+    display:block;
+    font-size: 14.5px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.3;
+  }
+  .link-card-sub{
+    display:block;
+    font-size: 12.5px;
+    color: var(--ink-dim);
+    line-height: 1.35;
+    margin-top: 2px;
+  }
+  .link-card .chev{
+    margin-left: auto;
+    width: 16px; height:16px;
+    color: var(--ink-faint);
+    flex-shrink:0;
+  }
+
+  /* ---------- ТАРИФЫ ---------- */
+  .plans{
+    display:grid;
+    gap: 10px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 520px){ .plans{ grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 900px){ .plans{ grid-template-columns: repeat(4, 1fr); gap: 12px; } }
+
+  .plan{
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px;
+    display:flex;
+    flex-direction: column;
+    gap: 14px;
+    transition: border-color .15s ease;
+  }
+  .plan:hover{ border-color: var(--border-strong); }
+  .plan-head{
+    display:flex;
+    align-items:center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .plan-name{
+    font-size: 16px;
+    font-weight: 700;
+    margin:0;
+    letter-spacing: -0.01em;
+  }
+  .plan-figures{
+    display:flex;
+    gap: 26px;
+  }
+  @media (min-width: 900px){ .plan-figures{ flex-direction: column; gap: 13px; } }
+  .plan-fig{ display:flex; flex-direction:column; gap:2px; }
+  .plan-num{
+    font-family: var(--mono);
+    font-size: 27px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .plan-unit{
+    font-family: var(--mono);
+    font-size: 10.5px;
+    color: var(--ink-faint);
+    letter-spacing: 0.05em;
+  }
+  .plan-note{
+    font-size: 13.5px;
+    color: var(--ink-dim);
+    margin: 0;
+    line-height: 1.45;
   }
 
   /* ---------- STEPS ---------- */
@@ -474,7 +630,7 @@
   li strong{ color: var(--ink); }
   li::marker{ font-family: var(--mono); color: var(--ink-faint); font-size: 13px; }
 
-  /* ---------- FAQ (нативный аккордеон, без JS) ---------- */
+  /* ---------- FAQ ---------- */
   .faq-item{
     background: var(--surface);
     border: 1px solid var(--border);
@@ -494,7 +650,6 @@
     gap: 12px;
   }
   .faq-item summary::-webkit-details-marker{ display:none; }
-  .faq-item summary:hover{ color: var(--ink); }
   .faq-plus{
     margin-left: auto;
     flex-shrink: 0;
@@ -504,22 +659,40 @@
     fill:none; stroke: currentColor; stroke-width:2; stroke-linecap:round;
   }
   .faq-item[open] .faq-plus{ transform: rotate(45deg); color: var(--ink); }
-  .faq-body{
-    padding: 0 18px 18px;
-  }
+  .faq-body{ padding: 0 18px 18px; }
   .faq-body p{ font-size: 14.5px; color: var(--ink-dim); margin: 0 0 14px; }
   .faq-body p strong{ color: var(--ink); }
+  .faq-body p:last-child{ margin-bottom: 0; }
 
   /* ---------- FOOTER ---------- */
   .footer{
-    margin-top: 40px;
-    text-align:center;
+    margin-top: 44px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    gap: 14px;
+  }
+  .footer-links{
+    display:flex;
+    flex-wrap: wrap;
+    justify-content:center;
+    gap: 8px 18px;
+  }
+  .footer-links a{
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-dim);
+    text-decoration: none;
+    transition: color .15s ease;
+  }
+  .footer-links a:hover{ color: var(--ink); }
+  .footer-mark{
     font-family: var(--mono);
     font-size: 11px;
     color: var(--ink-faint);
     letter-spacing: 0.05em;
-    padding-top: 18px;
-    border-top: 1px solid var(--border);
   }
 </style>
 </head>
@@ -545,6 +718,10 @@
           <span class="dot" aria-hidden="true"></span>
           <span>мониторинг 24/7</span>
         </div>
+        <a class="topbar-cta" href="https://lk.xama.life" target="_blank" rel="noopener">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c.9-3.6 3.9-5.5 7.5-5.5s6.6 1.9 7.5 5.5"/></svg>
+          <span>Личный кабинет</span>
+        </a>
         <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Переключить светлую и тёмную тему">
           <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
           <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66 4.93 19.07M19.07 4.93 17.66 6.34"/></svg>
@@ -557,7 +734,11 @@
 
     <header class="hero">
       <h1 class="hero-title">Сеть <span class="caps">XAMA</span></h1>
-      <p class="hero-sub">клиенты · протоколы · решение проблем</p>
+      <p class="hero-sub">подписки · клиенты · протоколы · поддержка 24/7</p>
+      <div class="hero-cta">
+        <a href="https://lk.xama.life" class="btn btn-primary" target="_blank" rel="noopener">Открыть личный кабинет</a>
+        <a href="https://t.me/XAMA_life_bot" class="btn btn-outline" target="_blank" rel="noopener">Telegram-бот</a>
+      </div>
     </header>
 
     <!-- ================================================================== -->
@@ -574,7 +755,7 @@
     <!--  <section class="content-section" ...> ... </section> и поменяйте:  -->
     <!--    • id="..."          — короткое имя латиницей, уникальное         -->
     <!--    • data-label="..."  — как вкладка называется на кнопке           -->
-    <!--    • data-icon="..."   — иконка: home | bolt | shield | alert | help-->
+    <!--    • data-icon="..."   — иконка из списка TAB_ICONS внизу файла     -->
     <!--    • содержимое внутри                                             -->
     <!--  Кнопка вкладки появится сама. Порядок вкладок = порядок блоков.    -->
     <!-- ================================================================== -->
@@ -586,21 +767,70 @@
       <div class="steps">
         <div class="step">
           <span class="step-num">ШАГ 01</span>
-          <p>Скачайте клиент <span>для своего устройства</span></p>
+          <p>Оформите подписку <span>в кабинете или боте</span></p>
         </div>
         <div class="step">
           <span class="step-num">ШАГ 02</span>
-          <p>Добавьте подписку <span>по ссылке, которую вам выдали</span></p>
+          <p>Скачайте клиент <span>для своего устройства</span></p>
         </div>
         <div class="step">
           <span class="step-num">ШАГ 03</span>
-          <p>Включите «Авто&nbsp;· Умный» <span>и пользуйтесь</span></p>
+          <p>Добавьте подписку <span>и включите «Авто&nbsp;· Умный»</span></p>
         </div>
+      </div>
+
+      <p class="eyebrow">Всё по одному клику</p>
+      <h2 class="section-title">Куда идти</h2>
+      <div class="link-grid">
+        <a class="link-card" href="https://lk.xama.life" target="_blank" rel="noopener">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c.9-3.6 3.9-5.5 7.5-5.5s6.6 1.9 7.5 5.5"/></svg>
+          <span class="link-card-text">
+            <span class="link-card-title">Личный кабинет</span>
+            <span class="link-card-sub">Подписка, трафик, устройства</span>
+          </span>
+          <svg class="ic chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+        </a>
+
+        <a class="link-card" href="https://t.me/XAMA_life_bot" target="_blank" rel="noopener">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.6 3.4 2.9 10.5c-.8.3-.7 1.4.1 1.6l4.7 1.4 1.8 5.2c.3.7 1.2.8 1.6.2l2.4-2.5 4.6 3.4c.6.4 1.4.1 1.6-.6l3-14.4c.1-.8-.6-1.5-1.4-1.2z"/><path d="M7.7 13.5 19.6 6.2"/></svg>
+          <span class="link-card-text">
+            <span class="link-card-title">Telegram-бот</span>
+            <span class="link-card-sub">Оформить и управлять в чате</span>
+          </span>
+          <svg class="ic chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+        </a>
+
+        <a class="link-card" href="https://lk.xama.life/support" target="_blank" rel="noopener">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><circle cx="12" cy="12" r="4"/><path d="m5.3 5.3 3.9 3.9M14.8 14.8l3.9 3.9M18.7 5.3l-3.9 3.9M9.2 14.8l-3.9 3.9"/></svg>
+          <span class="link-card-text">
+            <span class="link-card-title">Техподдержка</span>
+            <span class="link-card-sub">Поможем с подключением</span>
+          </span>
+          <svg class="ic chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+        </a>
+
+        <a class="link-card" href="https://lk.xama.life/referral" target="_blank" rel="noopener">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 20.5v-1.8a3.6 3.6 0 0 0-3.6-3.6H6.1a3.6 3.6 0 0 0-3.6 3.6v1.8"/><circle cx="9" cy="7.4" r="3.6"/><path d="M21.5 20.5v-1.8a3.6 3.6 0 0 0-2.7-3.5M16 3.9a3.6 3.6 0 0 1 0 7"/></svg>
+          <span class="link-card-text">
+            <span class="link-card-title">Партнёрам</span>
+            <span class="link-card-sub">Реферальная ссылка и заявки</span>
+          </span>
+          <svg class="ic chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <div class="notice">
+        <span class="notice-label">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="m3 7.5 9 5.5 9-5.5"/></svg>
+          НОВОЕ
+        </span>
+        <h3 class="card-title">Вход по почте</h3>
+        <p>В личный кабинет теперь можно войти не только через Telegram, но и по электронной почте. Нет Telegram — просто откройте кабинет и авторизуйтесь по адресу почты.</p>
       </div>
 
       <p class="eyebrow">Приложения</p>
       <h2 class="section-title">Скачать клиент</h2>
-      <p class="muted">Настройки сети работают в разных клиентах — выберите подходящий для вашего устройства.</p>
+      <p class="muted">Подписка работает в разных клиентах — выберите подходящий для вашего устройства.</p>
 
       <div class="card">
         <h3 class="card-title">
@@ -629,7 +859,7 @@
 
         <span class="badge">Официальный клиент XAMA</span>
         <div class="btn-group">
-          <a href="https://github.com/khakievma-dot/khakiev-kvn/releases/download/4.0.1/Install_XAMA_4.0.1.exe" class="btn btn-primary" target="_blank" rel="noopener">
+          <a href="https://xama.life/client" class="btn btn-primary">
             <svg class="btn-icon" viewBox="0 0 512 512" aria-hidden="true">
               <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M106 106 L406 406 M406 106 L106 406" stroke-width="38"/>
@@ -659,10 +889,75 @@
       </div>
     </section>
 
+    <!-- ВКЛАДКА: ТАРИФЫ -->
+    <section id="plans" class="content-section" data-label="Тарифы" data-icon="card" role="tabpanel" tabindex="0">
+      <p class="lead">Четыре подписки — от одного устройства до целой компании. Трафик и устройства можно докупить к любой из них прямо в личном кабинете.</p>
+
+      <div class="plans">
+        <article class="plan">
+          <div class="plan-head"><h3 class="plan-name">Стандартный</h3></div>
+          <div class="plan-figures">
+            <div class="plan-fig"><span class="plan-num">100</span><span class="plan-unit">ГБ ТРАФИКА</span></div>
+            <div class="plan-fig"><span class="plan-num">1</span><span class="plan-unit">УСТРОЙСТВО</span></div>
+          </div>
+          <p class="plan-note">Для одного телефона или ноутбука.</p>
+        </article>
+
+        <article class="plan">
+          <div class="plan-head"><h3 class="plan-name">Личный</h3></div>
+          <div class="plan-figures">
+            <div class="plan-fig"><span class="plan-num">300</span><span class="plan-unit">ГБ ТРАФИКА</span></div>
+            <div class="plan-fig"><span class="plan-num">2</span><span class="plan-unit">УСТРОЙСТВА</span></div>
+          </div>
+          <p class="plan-note">Телефон плюс компьютер — запас на каждый день.</p>
+        </article>
+
+        <article class="plan">
+          <div class="plan-head"><h3 class="plan-name">Семейный</h3></div>
+          <div class="plan-figures">
+            <div class="plan-fig"><span class="plan-num">500</span><span class="plan-unit">ГБ ТРАФИКА</span></div>
+            <div class="plan-fig"><span class="plan-num">8</span><span class="plan-unit">УСТРОЙСТВ</span></div>
+          </div>
+          <p class="plan-note">Хватит на всю семью и домашнюю технику.</p>
+        </article>
+
+        <article class="plan">
+          <div class="plan-head"><h3 class="plan-name">Бизнес</h3></div>
+          <div class="plan-figures">
+            <div class="plan-fig"><span class="plan-num">∞</span><span class="plan-unit">БЕЗЛИМИТ</span></div>
+            <div class="plan-fig"><span class="plan-num">50</span><span class="plan-unit">УСТРОЙСТВ</span></div>
+          </div>
+          <p class="plan-note">Для команды и офиса — без ограничений по трафику.</p>
+        </article>
+      </div>
+
+      <div class="card" style="margin-top:14px;">
+        <h3 class="card-title">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+          Докупить трафик и устройства
+        </h3>
+        <p class="muted">Закончился трафик или нужно подключить ещё одно устройство? Менять подписку не нужно — добавьте недостающее к текущей прямо в кабинете.</p>
+        <div class="btn-group pair" style="margin-top:14px;">
+          <a href="https://lk.xama.life" class="btn btn-primary" target="_blank" rel="noopener">Открыть личный кабинет</a>
+          <a href="https://t.me/XAMA_life_bot" class="btn btn-outline" target="_blank" rel="noopener">Оформить в боте</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 20.5v-1.8a3.6 3.6 0 0 0-3.6-3.6H6.1a3.6 3.6 0 0 0-3.6 3.6v1.8"/><circle cx="9" cy="7.4" r="3.6"/><path d="M21.5 20.5v-1.8a3.6 3.6 0 0 0-2.7-3.5M16 3.9a3.6 3.6 0 0 1 0 7"/></svg>
+          Приводите друзей
+        </h3>
+        <p class="muted">Получите личную реферальную ссылку — или отправьте заявку на партнёрство, если хотите работать с нами вдолгую.</p>
+        <div class="btn-group" style="margin-top:14px;">
+          <a href="https://lk.xama.life/referral" class="btn btn-outline" target="_blank" rel="noopener">Реферальная программа и партнёрство</a>
+        </div>
+      </div>
+    </section>
+
     <!-- ВКЛАДКА: АВТО-РЕЖИМЫ -->
-    <section id="auto" class="content-section" data-label="Авто-режимы" data-icon="bolt" role="tabpanel" tabindex="0">
-      <p class="muted">Система оценивает пинг и автоматически направляет трафик на наименее загруженный сервер.</p>
-      <p class="muted">Подключение при этом всегда идёт по базовому протоколу (REALITY) — самому стабильному и универсальному. Если он у вас режется, выберите другой транспорт вручную во вкладке «Протоколы».</p>
+    <section id="auto" class="content-section" data-label="Авто" data-icon="bolt" role="tabpanel" tabindex="0">
+      <p class="lead">Система оценивает пинг и автоматически направляет трафик на наименее загруженный сервер. Подключение при этом всегда идёт по базовому протоколу (REALITY) — самому стабильному и универсальному.</p>
 
       <div class="notice">
         <span class="notice-label">
@@ -693,7 +988,7 @@
 
     <!-- ВКЛАДКА: ПРОТОКОЛЫ -->
     <section id="manual" class="content-section" data-label="Протоколы" data-icon="shield" role="tabpanel" tabindex="0">
-      <p class="muted">Если оборудование провайдера блокирует авто-режимы — выберите страну вручную. Под каждой локацией доступно 4 варианта транспорта.</p>
+      <p class="lead">Если оборудование провайдера блокирует авто-режимы — выберите страну вручную. Под каждой локацией доступно пять вариантов транспорта.</p>
 
       <div class="card top-pick">
         <h3 class="card-title">01 · Базовый</h3>
@@ -737,21 +1032,7 @@
 
     <!-- ВКЛАДКА: ПРОБЛЕМЫ -->
     <section id="troubleshoot" class="content-section" data-label="Проблемы" data-icon="alert" role="tabpanel" tabindex="0">
-
-      <div class="notice">
-        <span class="notice-label">
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20v-2M8 20v-6M13 20v-10M18 20V6"/><path d="M21 4l-3 2 3 2"/></svg>
-          ВСЕ УСТРОЙСТВА
-        </span>
-        <h3 class="card-title">Часть локаций не подключается на мобильном интернете?</h3>
-        <p style="margin-bottom:10px;">Бывает так: на сотовой сети (Билайн, МТС, Мегафон, Tele2) часть серверов не открывается, скорость падает почти до нуля или соединение обрывается — при этом по Wi-Fi те же локации работают нормально. В большинстве случаев <strong>это ограничения оператора</strong>, а не сбой сети XAMA: оборудование операторов выборочно распознаёт и режет VPN-трафик к некоторым адресам.</p>
-        <p style="margin-bottom:8px;"><strong>Что делать по порядку:</strong></p>
-        <ol>
-          <li><strong>Быстрый способ (помогает чаще всего):</strong> выключите мобильные данные — или включите режим полёта — на 3–5 секунд, затем включите обратно. Сессия с оператором пересоздаётся, и заблокированная локация обычно поднимается сразу.</li>
-          <li><strong>Не помогло или повторяется:</strong> смените транспорт на обфусцированный — <strong>xHTTP</strong> или <strong>WS</strong> во вкладке «Протоколы». Их сложнее распознать оборудованию оператора, поэтому на мобильном интернете они держатся стабильнее.</li>
-          <li><strong>Как убедиться, что дело в операторе:</strong> подключитесь к тем же локациям по Wi-Fi. Если по Wi-Fi всё работает, а на сотовой — нет, значит трафик режет именно оператор, и решение — пункты выше.</li>
-        </ol>
-      </div>
+      <p class="lead">Частые сложности и что с ними делать. Не нашли своё — напишите в поддержку, разберёмся вместе.</p>
 
       <div class="notice">
         <span class="notice-label">
@@ -782,15 +1063,39 @@
         </ol>
       </div>
 
+      <div class="notice">
+        <span class="notice-label">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 4v6h-6M2 20v-6h6"/><path d="M19.5 9A8.5 8.5 0 0 0 5.4 5.8L2 10m20 4-3.4 4.2A8.5 8.5 0 0 1 4.5 15"/></svg>
+          ПОДПИСКА
+        </span>
+        <h3 class="card-title">Интернет пропал, хотя подписка активна?</h3>
+        <p style="margin-bottom:10px;">Скорее всего, клиент не подтянул свежие настройки серверов. Обновите подписку вручную — кнопкой с двумя круговыми стрелками в приложении.</p>
+        <p>Если не помогло — проверьте в личном кабинете, остался ли трафик и не заняты ли все доступные устройства.</p>
+        <div class="btn-group" style="margin-top:14px;">
+          <a href="https://lk.xama.life" class="btn btn-outline" target="_blank" rel="noopener">Проверить в кабинете</a>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:20px;">
+        <h3 class="card-title">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><circle cx="12" cy="12" r="4"/><path d="m5.3 5.3 3.9 3.9M14.8 14.8l3.9 3.9M18.7 5.3l-3.9 3.9M9.2 14.8l-3.9 3.9"/></svg>
+          Не нашли решение?
+        </h3>
+        <p class="muted">Опишите, что происходит — поддержка на связи и поможет разобраться.</p>
+        <div class="btn-group" style="margin-top:14px;">
+          <a href="https://lk.xama.life/support" class="btn btn-primary" target="_blank" rel="noopener">Написать в поддержку</a>
+        </div>
+      </div>
     </section>
 
     <!-- ВКЛАДКА: ВОПРОСЫ (FAQ) -->
     <!--                                                                    -->
     <!--  ЧТОБЫ ДОБАВИТЬ ВОПРОС: скопируйте один блок <details ...> целиком  -->
     <!--  и поменяйте текст вопроса, ответа и ссылку/подпись кнопки.        -->
+    <!--  Атрибут name="faq" оставляйте — он закрывает соседние вопросы.    -->
     <!--  Ссылка живёт в href="..." — на кнопке её не видно.                -->
     <section id="faq" class="content-section" data-label="Вопросы" data-icon="help" role="tabpanel" tabindex="0">
-      <p class="muted">Частые вопросы. Нажмите на вопрос, чтобы раскрыть ответ.</p>
+      <p class="lead">Частые вопросы. Нажмите на вопрос, чтобы раскрыть ответ.</p>
 
       <details class="faq-item" name="faq">
         <summary>
@@ -805,13 +1110,79 @@
 
       <details class="faq-item" name="faq">
         <summary>
-          Как купить или получить вашу подписку?
+          Как оформить подписку?
           <svg class="faq-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
         </summary>
         <div class="faq-body">
-          <p>Личный кабинет и бот в Telegram закрыты на глобальное обновление. Сейчас подписки выдаются индивидуально — просто напишите нам.</p>
+          <p>Двумя способами — как удобнее. В личном кабинете или прямо в Telegram-боте: выбираете подписку, оплачиваете и получаете ссылку для клиента.</p>
+          <div class="btn-group pair">
+            <a href="https://lk.xama.life" class="btn btn-primary" target="_blank" rel="noopener">Личный кабинет</a>
+            <a href="https://t.me/XAMA_life_bot" class="btn btn-outline" target="_blank" rel="noopener">Telegram-бот</a>
+          </div>
+        </div>
+      </details>
+
+      <details class="faq-item" name="faq">
+        <summary>
+          У меня нет Telegram — что делать?
+          <svg class="faq-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+        </summary>
+        <div class="faq-body">
+          <p>Telegram больше не обязателен. Откройте личный кабинет и войдите по электронной почте — все возможности будут доступны так же, как при входе через Telegram.</p>
           <div class="btn-group">
-            <a href="https://t.me/xama_life" class="btn btn-primary" target="_blank" rel="noopener">Написать в Telegram</a>
+            <a href="https://lk.xama.life" class="btn btn-primary" target="_blank" rel="noopener">Войти по почте</a>
+          </div>
+        </div>
+      </details>
+
+      <details class="faq-item" name="faq">
+        <summary>
+          Закончился трафик или не хватает устройств
+          <svg class="faq-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+        </summary>
+        <div class="faq-body">
+          <p>Менять подписку не нужно. К любой из них можно докупить нужное количество трафика или дополнительные устройства — прямо в личном кабинете.</p>
+          <div class="btn-group">
+            <a href="https://lk.xama.life" class="btn btn-primary" target="_blank" rel="noopener">Докупить в кабинете</a>
+          </div>
+        </div>
+      </details>
+
+      <details class="faq-item" name="faq">
+        <summary>
+          Как участвовать в реферальной программе?
+          <svg class="faq-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+        </summary>
+        <div class="faq-body">
+          <p>Получите личную реферальную ссылку в кабинете и делитесь ею. Там же можно отправить заявку на партнёрство, если хотите сотрудничать с нами на постоянной основе.</p>
+          <div class="btn-group">
+            <a href="https://lk.xama.life/referral" class="btn btn-primary" target="_blank" rel="noopener">Получить ссылку</a>
+          </div>
+        </div>
+      </details>
+
+      <details class="faq-item" name="faq">
+        <summary>
+          Как связаться с техподдержкой?
+          <svg class="faq-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+        </summary>
+        <div class="faq-body">
+          <p>Через раздел поддержки в личном кабинете — опишите ситуацию, поможем разобраться.</p>
+          <div class="btn-group">
+            <a href="https://lk.xama.life/support" class="btn btn-primary" target="_blank" rel="noopener">Связаться с поддержкой</a>
+          </div>
+        </div>
+      </details>
+
+      <details class="faq-item" name="faq">
+        <summary>
+          Хочу сообщить об ошибке
+          <svg class="faq-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+        </summary>
+        <div class="faq-body">
+          <p>Спасибо, что помогаете нам стать лучше. Напишите, что именно не работает — по возможности приложите скриншот.</p>
+          <div class="btn-group">
+            <a href="https://lk.xama.life/support" class="btn btn-primary" target="_blank" rel="noopener">Сообщить об ошибке</a>
           </div>
         </div>
       </details>
@@ -828,45 +1199,29 @@
           </div>
         </div>
       </details>
-
-      <details class="faq-item" name="faq">
-        <summary>
-          Как связаться с техподдержкой?
-          <svg class="faq-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-        </summary>
-        <div class="faq-body">
-          <p>Поддержка на связи в Telegram — опишите ситуацию, поможем разобраться.</p>
-          <div class="btn-group">
-            <a href="https://t.me/xama_life" class="btn btn-primary" target="_blank" rel="noopener">Связаться с поддержкой</a>
-          </div>
-        </div>
-      </details>
-
-      <details class="faq-item" name="faq">
-        <summary>
-          Хочу сообщить об ошибке
-          <svg class="faq-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-        </summary>
-        <div class="faq-body">
-          <p>Спасибо, что помогаете нам стать лучше. Напишите, что именно не работает — по возможности приложите скриншот.</p>
-          <div class="btn-group">
-            <a href="https://t.me/xama_life" class="btn btn-primary" target="_blank" rel="noopener">Сообщить об ошибке</a>
-          </div>
-        </div>
-      </details>
     </section>
 
-    <div class="footer">Команда XAMA</div>
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="https://lk.xama.life" target="_blank" rel="noopener">Личный кабинет</a>
+        <a href="https://t.me/XAMA_life_bot" target="_blank" rel="noopener">Telegram-бот</a>
+        <a href="https://lk.xama.life/support" target="_blank" rel="noopener">Поддержка</a>
+        <a href="https://lk.xama.life/referral" target="_blank" rel="noopener">Партнёрам</a>
+        <a href="https://xama.life/client">Клиент</a>
+      </div>
+      <div class="footer-mark">Команда XAMA</div>
+    </footer>
   </div>
 
   <script>
     /* ==================================================================
        НАБОР ИКОНОК ДЛЯ ВКЛАДОК.
-       В data-icon у секции пишете имя отсюда: home, bolt, shield, alert, help.
+       В data-icon у секции пишете имя отсюда.
        Чтобы добавить свою иконку — впишите новую строку "имя": "<path .../>".
        ================================================================== */
     var TAB_ICONS = {
       home:   '<path d="M3 11 12 3l9 8"/><path d="M5 10v10h5v-6h4v6h5V10"/>',
+      card:   '<rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19"/>',
       bolt:   '<path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/>',
       shield: '<path d="M12 3 5 6v5c0 4.5 3 7.6 7 9 4-1.4 7-4.5 7-9V6l-7-3z"/>',
       alert:  '<path d="M10.3 4 2 18a2 2 0 0 0 1.7 3h16.6a2 2 0 0 0 1.7-3L13.7 4a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/>',
@@ -879,7 +1234,7 @@
       var buttons = [];
 
       /* строим кнопки вкладок из секций */
-      panels.forEach(function(panel, i){
+      panels.forEach(function(panel){
         var id    = panel.id;
         var label = panel.getAttribute('data-label') || id;
         var icon  = panel.getAttribute('data-icon') || '';
@@ -944,7 +1299,7 @@
         var id = (location.hash || '').replace('#','');
         if(id && document.getElementById(id) && document.getElementById('tab-btn-' + id)){
           activate(id, false, false);
-        } else if(buttons.length){
+        } else if(panels.length){
           activate(panels[0].id, false, false);
         }
       }
