@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="description" content="Сеть XAMA — подписки, клиенты для всех устройств, протоколы подключения и поддержка 24/7.">
+<meta name="description" content="Сеть XAMA — подписки, приложения для всех устройств, быстрое подключение и поддержка 24/7.">
 <meta name="theme-color" content="#000000">
 <title>XAMA — Сетевой портал</title>
 
 <!-- Open Graph — превью для Telegram / WhatsApp / VK -->
 <meta property="og:title" content="Сеть XAMA — сетевой портал">
-<meta property="og:description" content="Подписки, клиенты для всех устройств, протоколы и поддержка 24/7">
+<meta property="og:description" content="Подписки, приложения для всех устройств и поддержка 24/7">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://xama.life/">
 <meta property="og:image" content="https://xama.life/og-image.png">
@@ -329,6 +329,13 @@
     padding: 9px 14px;
   }
   .tab-btn.active .tab-label{ display:inline; }
+  /* узкие телефоны (360px и меньше): поджимаем, чтобы всё влезло в строку */
+  @media (max-width: 400px){
+    .tabs{ gap: 5px; }
+    .tab-btn{ padding: 9px 9px; }
+    .tab-btn.active{ padding: 9px 12px; }
+    .tab-btn .tab-ic{ width:16px; height:16px; }
+  }
   /* ПК: места хватает — показываем подписи у всех вкладок */
   @media (min-width: 760px){
     .tab-btn{ padding: 9px 15px; }
@@ -512,6 +519,73 @@
     margin: 0;
     line-height: 1.45;
   }
+
+  /* ---------- ВАРИАНТЫ СОЕДИНЕНИЯ ---------- */
+  .conn-list{
+    display:grid;
+    gap: 8px;
+  }
+  @media (min-width: 900px){ .conn-list{ grid-template-columns: 1fr 1fr; } }
+
+  .conn{
+    display:flex;
+    gap: 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 17px;
+    transition: border-color .15s ease;
+  }
+  .conn:hover{ border-color: var(--border-strong); }
+  .conn-num{
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink-faint);
+    line-height: 1.5;
+    flex-shrink: 0;
+  }
+  .conn-text{ min-width:0; }
+  .conn-name{
+    display:block;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .conn-name em{
+    font-style: normal;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    font-weight: 500;
+    color: var(--ink-faint);
+    letter-spacing: 0.02em;
+  }
+  .conn-text p{ font-size: 14px; color: var(--ink-dim); margin: 0; line-height: 1.5; }
+
+  /* ---------- ПЛИТКИ ПРЕИМУЩЕСТВ ---------- */
+  .feature-grid{
+    display:grid;
+    gap: 8px;
+    grid-template-columns: 1fr 1fr;
+  }
+  @media (min-width: 900px){ .feature-grid{ grid-template-columns: repeat(4, 1fr); } }
+
+  .feature{
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 15px;
+  }
+  .feature .ic{ width:20px; height:20px; color: var(--ink); margin-bottom: 10px; }
+  .feature-title{
+    display:block;
+    font-size: 14.5px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 3px;
+  }
+  .feature p{ font-size: 13px; color: var(--ink-dim); margin: 0; line-height: 1.45; }
 
   /* ---------- STEPS ---------- */
   .steps{
@@ -734,7 +808,7 @@
 
     <header class="hero">
       <h1 class="hero-title">Сеть <span class="caps">XAMA</span></h1>
-      <p class="hero-sub">подписки · клиенты · протоколы · поддержка 24/7</p>
+      <p class="hero-sub">подписки · приложения · настройка · поддержка 24/7</p>
       <div class="hero-cta">
         <a href="https://lk.xama.life" class="btn btn-primary" target="_blank" rel="noopener">Открыть личный кабинет</a>
         <a href="https://t.me/XAMA_life_bot" class="btn btn-outline" target="_blank" rel="noopener">Telegram-бот</a>
@@ -775,7 +849,31 @@
         </div>
         <div class="step">
           <span class="step-num">ШАГ 03</span>
-          <p>Добавьте подписку <span>и включите «Авто&nbsp;· Умный»</span></p>
+          <p>Добавьте подписку <span>и включите режим «Умный»</span></p>
+        </div>
+      </div>
+
+      <p class="eyebrow">Что вы получаете</p>
+      <div class="feature-grid">
+        <div class="feature">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></svg>
+          <span class="feature-title">Скорость</span>
+          <p>Серверы с запасом мощности — хватает на 4K и звонки.</p>
+        </div>
+        <div class="feature">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 6v5c0 4.5 3 7.6 7 9 4-1.4 7-4.5 7-9V6l-7-3z"/><path d="m9 12 2 2 4-4"/></svg>
+          <span class="feature-title">Стабильность</span>
+          <p>Мониторинг 24/7 и автоматическое переключение при сбое.</p>
+        </div>
+        <div class="feature">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="14" height="11" rx="2"/><rect x="16" y="9" width="6" height="11" rx="1.6"/><path d="M7 19h5"/></svg>
+          <span class="feature-title">Все устройства</span>
+          <p>Телефон, компьютер, планшет и телевизор.</p>
+        </div>
+        <div class="feature">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a2.5 2.5 0 0 1-2.5 2.5H8L3.5 21V5.5A2.5 2.5 0 0 1 6 3h12.5A2.5 2.5 0 0 1 21 5.5z"/></svg>
+          <span class="feature-title">Поддержка</span>
+          <p>Отвечаем в кабинете и помогаем с настройкой.</p>
         </div>
       </div>
 
@@ -884,7 +982,7 @@
       <h2 class="section-title">Мониторинг 24/7</h2>
       <div class="card">
         <p>Специальный бот непрерывно проверяет состояние всех серверов и мгновенно сообщает команде о любых сбоях.</p>
-        <p>В режиме <strong>«Авто»</strong> сеть сама переключит вас на другой доступный узел при сбое — вы не заметите перебоев в работе интернета.</p>
+        <p>В автоматическом режиме сеть сама переключит вас на другой доступный сервер при сбое — вы не заметите перебоев в работе интернета.</p>
         <p class="muted">От вас требуется только одно: если подписка не обновилась автоматически — обновите её вручную, кнопкой с двумя круговыми стрелками.</p>
       </div>
     </section>
@@ -915,7 +1013,7 @@
         <article class="plan">
           <div class="plan-head"><h3 class="plan-name">Семейный</h3></div>
           <div class="plan-figures">
-            <div class="plan-fig"><span class="plan-num">1000</span><span class="plan-unit">ГБ ТРАФИКА</span></div>
+            <div class="plan-fig"><span class="plan-num">500</span><span class="plan-unit">ГБ ТРАФИКА</span></div>
             <div class="plan-fig"><span class="plan-num">8</span><span class="plan-unit">УСТРОЙСТВ</span></div>
           </div>
           <p class="plan-note">Хватит на всю семью и домашнюю технику.</p>
@@ -955,78 +1053,94 @@
       </div>
     </section>
 
-    <!-- ВКЛАДКА: АВТО-РЕЖИМЫ -->
-    <section id="auto" class="content-section" data-label="Авто" data-icon="bolt" role="tabpanel" tabindex="0">
-      <p class="lead">Система оценивает пинг и автоматически направляет трафик на наименее загруженный сервер. Подключение при этом всегда идёт по базовому протоколу (REALITY) — самому стабильному и универсальному.</p>
+    <!-- ВКЛАДКА: ПОДКЛЮЧЕНИЕ -->
+    <section id="connect" class="content-section" data-label="Подключение" data-icon="bolt" role="tabpanel" tabindex="0">
+      <p class="lead">Сеть сама подбирает наименее загруженный сервер по скорости отклика. Если хочется контроля — выберите страну и вариант соединения вручную.</p>
 
-      <div class="notice">
-        <span class="notice-label">
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg>
-          ВАЖНО
-        </span>
-        <p>Функция «Авто» не рекомендуется тем, кто часто работает с нейросетями — частая смена IP-адреса может привести к блокировке аккаунта.</p>
-      </div>
+      <p class="eyebrow">Режимы работы</p>
+      <h2 class="section-title">Как распределяется трафик</h2>
 
       <div class="card top-pick">
         <h3 class="card-title">
           <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
-          Авто · Умный
+          Умный
         </h3>
         <span class="badge">Подходит в 90% случаев</span>
-        <p>Клиент на лету анализирует запрос: заблокированные ресурсы вроде Instagram и YouTube заворачиваются в защищённый туннель, а российские сервисы — банки, Госуслуги — работают напрямую от вашего провайдера. Включили один раз и забыли.</p>
+        <p>Приложение само распределяет соединения: зарубежные сервисы идут через нашу сеть, а российские — банки, Госуслуги, доставка — напрямую от вашего провайдера. Так они отвечают быстрее, а вам не нужно ничего переключать вручную.</p>
       </div>
 
       <div class="card">
         <h3 class="card-title">
           <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5a15 15 0 0 1 4 9.5 15 15 0 0 1-4 9.5 15 15 0 0 1-4-9.5 15 15 0 0 1 4-9.5z"/></svg>
-          Авто · Полный
+          Полный
         </h3>
-        <span class="badge">Глобальный proxy</span>
-        <p>Все приложения на телефоне работают через зарубежный сервер. Помогает, если не грузятся картинки и кружочки в мессенджерах — это решает конфликты DNS в iOS. Из-за этого могут временно не открываться российские банки.</p>
-      </div>
-    </section>
-
-    <!-- ВКЛАДКА: ПРОТОКОЛЫ -->
-    <section id="manual" class="content-section" data-label="Протоколы" data-icon="shield" role="tabpanel" tabindex="0">
-      <p class="lead">Если оборудование провайдера блокирует авто-режимы — выберите страну вручную. Под каждой локацией доступно пять вариантов транспорта.</p>
-
-      <div class="card top-pick">
-        <h3 class="card-title">01 · Базовый</h3>
-        <span class="badge">REALITY · золотой стандарт</span>
-        <p>Классическое зашифрованное соединение, маскирующее трафик под обычный веб-сёрфинг. Выбирайте первым, если интернет работает стабильно.</p>
+        <span class="badge">Все приложения через сеть</span>
+        <p>Все приложения на устройстве работают через сервер сети. Помогает, если в мессенджерах не грузятся картинки и кружочки — так решаются конфликты DNS в iOS. При этом российские сервисы могут временно не открываться.</p>
       </div>
 
-      <div class="card">
-        <h3 class="card-title">02 · gRPC</h3>
-        <span class="badge">Скрытный режим · идеален для iOS</span>
-        <p>Передаёт данные через одно длительное соединение. Если уведомления приходят с опозданием или не проходят звонки — этот протокол решит проблему.</p>
-      </div>
-
-      <div class="card">
-        <h3 class="card-title">03 · xHTTP</h3>
-        <span class="badge">Бронебойный вариант</span>
-        <p>Передовой транспорт с адаптивной обфускацией — почти незаметен для систем анализа трафика. Включайте при жёстких блокировках мобильных операторов.</p>
-      </div>
-
-      <div class="card">
-        <h3 class="card-title">04 · HS2</h3>
-        <span class="badge">Для видео и Android</span>
-        <p>Самый быстрый протокол поверх UDP, идеален для 4K на YouTube — но часто блокируется на мобильном интернете. Лучше использовать на домашнем Wi-Fi.</p>
-      </div>
-
-      <div class="card">
-        <h3 class="card-title">05 · WS</h3>
-        <span class="badge">Через CDN · надёжный запасной</span>
-        <p>Соединение по WebSocket — трафик выглядит как обычное веб-подключение и легко проходит через CDN. Берите, если базовый и gRPC режутся: чуть медленнее остальных, зато пролезает почти везде.</p>
-      </div>
-
-      <div class="notice urgent">
+      <div class="notice">
         <span class="notice-label">
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.5s7.5-3.8 7.5-9.5V5.2L12 2.5 4.5 5.2V12c0 5.7 7.5 9.5 7.5 9.5z"/></svg>
-          КРАЙНЯЯ МЕРА
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg>
+          СОВЕТ
         </span>
-        <h3 class="card-title">Белые списки</h3>
-        <p>Используйте эту кнопку <strong>только</strong> если интернет заблокирован наглухо и ни один другой протокол не подключается.</p>
+        <p>Если вы часто работаете с нейросетями, выберите один сервер вручную и оставайтесь на нём: при автоматическом переключении сервис может лишний раз запросить подтверждение входа.</p>
+      </div>
+
+      <p class="eyebrow">Ручной выбор</p>
+      <h2 class="section-title">Варианты соединения</h2>
+      <p class="muted">Под каждой страной доступно пять вариантов. Они отличаются скоростью и тем, как ведут себя в разных сетях — начните с основного, а если что-то работает не так, попробуйте следующий.</p>
+
+      <div class="conn-list">
+        <div class="conn">
+          <span class="conn-num">01</span>
+          <div class="conn-text">
+            <span class="conn-name">Основной <em>· начните с него</em></span>
+            <p>Универсальный вариант с ровной скоростью на всех устройствах. Подходит большинству — если интернет работает нормально, остальные не нужны.</p>
+          </div>
+        </div>
+
+        <div class="conn">
+          <span class="conn-num">02</span>
+          <div class="conn-text">
+            <span class="conn-name">gRPC <em>· уведомления и звонки</em></span>
+            <p>Держит одно постоянное соединение вместо множества коротких. Берите, если сообщения приходят с задержкой или не проходят звонки — особенно на iPhone.</p>
+          </div>
+        </div>
+
+        <div class="conn">
+          <span class="conn-num">03</span>
+          <div class="conn-text">
+            <span class="conn-name">xHTTP <em>· слабый сигнал</em></span>
+            <p>Спокойно переживает перепады качества связи. Хороший выбор для мобильного интернета в дороге, метро и там, где сигнал скачет.</p>
+          </div>
+        </div>
+
+        <div class="conn">
+          <span class="conn-num">04</span>
+          <div class="conn-text">
+            <span class="conn-name">HS2 <em>· видео и загрузки</em></span>
+            <p>Самый быстрый вариант, заметно лучше остальных тянет 4K на YouTube и крупные файлы. Раскрывается на домашнем Wi-Fi.</p>
+          </div>
+        </div>
+
+        <div class="conn">
+          <span class="conn-num">05</span>
+          <div class="conn-text">
+            <span class="conn-name">WS <em>· запасной</em></span>
+            <p>Совместим практически с любой сетью, включая корпоративные и гостевые Wi-Fi. Чуть медленнее остальных — берите, если предыдущие капризничают.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:18px;">
+        <h3 class="card-title">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><circle cx="12" cy="12" r="4"/><path d="m5.3 5.3 3.9 3.9M14.8 14.8l3.9 3.9M18.7 5.3l-3.9 3.9M9.2 14.8l-3.9 3.9"/></svg>
+          Не знаете, что выбрать?
+        </h3>
+        <p class="muted">Напишите нам — подскажем подходящий вариант под ваше устройство и оператора.</p>
+        <div class="btn-group" style="margin-top:14px;">
+          <a href="https://lk.xama.life/support" class="btn btn-outline" target="_blank" rel="noopener">Спросить поддержку</a>
+        </div>
       </div>
     </section>
 
@@ -1042,7 +1156,7 @@
         <h3 class="card-title">Зависает WhatsApp?</h3>
         <p style="margin-bottom:10px;">Если сообщения не отправляются и медиа не грузится, при том что Telegram и YouTube работают — <strong>проблема не в сети XAMA</strong>. Это конфликт WhatsApp с системой iOS и алгоритмами некоторых клиентов.</p>
         <p style="margin-bottom:10px;"><strong>Решение:</strong> попробуйте клиент <strong>Incy</strong> — ссылка во вкладке «Главное». Он оптимизирован под iOS и решает зависания без дополнительных настроек.</p>
-        <p style="margin-bottom:8px;">Альтернатива для Happ — переключитесь на специальные протоколы:</p>
+        <p style="margin-bottom:8px;">Альтернатива для Happ — переключитесь на специальные варианты соединения:</p>
         <ul>
           <li>Тестовый I</li>
           <li>Тестовый II</li>
@@ -1055,7 +1169,7 @@
           IPHONE
         </span>
         <h3 class="card-title">Пропали обновления Happ?</h3>
-        <p style="margin-bottom:10px;">После удаления Happ из российского App Store приложение перестало получать критически важные обновления протоколов для аккаунтов РФ.</p>
+        <p style="margin-bottom:10px;">После удаления Happ из российского App Store приложение перестало получать важные обновления для аккаунтов РФ.</p>
         <p style="margin-bottom:8px;"><strong>Как решить:</strong></p>
         <ol>
           <li><strong>Проще всего:</strong> скачайте <strong>Incy</strong> — он доступен в российском App Store и обновляется автоматически.</li>
@@ -1069,7 +1183,7 @@
           ПОДПИСКА
         </span>
         <h3 class="card-title">Интернет пропал, хотя подписка активна?</h3>
-        <p style="margin-bottom:10px;">Скорее всего, клиент не подтянул свежие настройки серверов. Обновите подписку вручную — кнопкой с двумя круговыми стрелками в приложении.</p>
+        <p style="margin-bottom:10px;">Скорее всего, приложение не подтянуло свежий список серверов. Обновите подписку вручную — кнопкой с двумя круговыми стрелками в приложении.</p>
         <p>Если не помогло — проверьте в личном кабинете, остался ли трафик и не заняты ли все доступные устройства.</p>
         <div class="btn-group" style="margin-top:14px;">
           <a href="https://lk.xama.life" class="btn btn-outline" target="_blank" rel="noopener">Проверить в кабинете</a>
