@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="description" content="Сеть XAMA — подписки, приложения для всех устройств, быстрое подключение и поддержка 24/7.">
+<meta name="description" content="Сеть XAMA — подписки, приложения для всех устройств и поддержка 24/7.">
 <meta name="theme-color" content="#000000">
 <title>XAMA — Сетевой портал</title>
 
@@ -29,6 +29,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
+  /* ==================================================================
+     ЦВЕТА И БАЗОВЫЕ НАСТРОЙКИ
+     Меняете переменную здесь — меняется весь сайт.
+     ================================================================== */
   :root{
     --bg: #000000;
     --surface: #0e0e0e;
@@ -40,8 +44,9 @@
     --ink-faint: #656562;
     --white: #ffffff;
     --invert: #000000;
-    --bg-translucent: rgba(0,0,0,0.86);
-    --radius: 14px;
+    --bg-translucent: rgba(0,0,0,0.88);
+    --radius: 16px;
+    --radius-sm: 11px;
     --topbar-h: 61px;
     --mono: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
     --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -49,20 +54,19 @@
 
   html[data-theme="light"]{
     --bg: #ffffff;
-    --surface: #f4f4f4;
-    --surface-2: #ebebeb;
-    --border: #dcdcdc;
-    --border-strong: #b8b8b8;
+    --surface: #f5f5f4;
+    --surface-2: #ebebe9;
+    --border: #dcdcda;
+    --border-strong: #b6b6b3;
     --ink: #0a0a0a;
-    --ink-dim: #5c5c5c;
-    --ink-faint: #8a8a8a;
+    --ink-dim: #5c5c5a;
+    --ink-faint: #8a8a87;
     --white: #000000;
     --invert: #ffffff;
-    --bg-translucent: rgba(255,255,255,0.86);
+    --bg-translucent: rgba(255,255,255,0.88);
   }
 
   *{ box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
-
   html{ background:var(--bg); transition: background-color .2s ease; }
 
   body{
@@ -72,7 +76,7 @@
     margin:0;
     line-height:1.55;
     -webkit-font-smoothing: antialiased;
-    padding-bottom: 40px;
+    padding-bottom: 48px;
   }
 
   a{ color:inherit; }
@@ -80,146 +84,77 @@
   :focus-visible{
     outline: 2px solid var(--white);
     outline-offset: 2px;
-    border-radius: 6px;
+    border-radius: 8px;
   }
 
   @media (prefers-reduced-motion: reduce){
-    *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition: none !important; }
+    *{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition:none !important; }
   }
 
-  .wrap{
-    max-width: 640px;
-    margin: 0 auto;
-    padding: 0 16px;
-  }
-  /* ПК: шире полотно и больше воздуха */
-  @media (min-width: 900px){
-    .wrap{ max-width: 920px; padding: 0 24px; }
-  }
+  .wrap{ max-width: 680px; margin: 0 auto; padding: 0 16px; }
+  @media (min-width: 900px){ .wrap{ max-width: 960px; padding: 0 28px; } }
 
-  /* ---------- ICONS ---------- */
   .ic{
-    width: 18px;
-    height: 18px;
-    flex-shrink: 0;
-    display: block;
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
+    width:18px; height:18px; flex-shrink:0; display:block;
+    fill:none; stroke:currentColor; stroke-width:2;
+    stroke-linecap:round; stroke-linejoin:round;
   }
 
-  /* ---------- TOPBAR ---------- */
+  /* ---------- ШАПКА ---------- */
   .topbar{
-    position: sticky;
-    top: 0;
-    z-index: 30;
+    position: sticky; top:0; z-index:30;
     background: var(--bg-translucent);
-    backdrop-filter: blur(14px) saturate(140%);
-    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    backdrop-filter: blur(16px) saturate(150%);
+    -webkit-backdrop-filter: blur(16px) saturate(150%);
     border-bottom: 1px solid var(--border);
   }
-
   .topbar-inner{
-    max-width: 640px;
-    margin: 0 auto;
-    padding: 14px 16px;
-    display:flex;
-    align-items:center;
-    justify-content: space-between;
-    gap: 12px;
+    max-width: 680px; margin:0 auto;
+    padding: 13px 16px;
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
     min-height: 60px;
   }
-  @media (min-width: 900px){
-    .topbar-inner{ max-width: 920px; padding: 14px 24px; }
-  }
+  @media (min-width: 900px){ .topbar-inner{ max-width: 960px; padding: 13px 28px; } }
 
-  .brand{
-    display:flex;
-    align-items:center;
-    gap: 9px;
-  }
-  .brand-icon{
-    width: 26px;
-    height: 26px;
-    flex-shrink: 0;
-    display: block;
-    color: var(--ink);
-  }
-  .brand-mark{
-    font-weight: 800;
-    font-size: 19px;
-    letter-spacing: 0.09em;
-    margin-right: -0.09em;
-    line-height: 1;
-  }
+  .brand{ display:flex; align-items:center; gap:9px; }
+  .brand-icon{ width:26px; height:26px; flex-shrink:0; display:block; color:var(--ink); }
+  .brand-mark{ font-weight:800; font-size:19px; letter-spacing:.09em; margin-right:-.09em; line-height:1; }
   .brand-tag{
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--ink-faint);
-    letter-spacing: 0.06em;
-    display:none;
+    font-family: var(--mono); font-size:10px; color:var(--ink-faint);
+    letter-spacing:.06em; display:none;
   }
-  @media (min-width:640px){ .brand-tag{ display:inline; } }
+  @media (min-width:700px){ .brand-tag{ display:inline; } }
 
-  .topbar-right{
-    display:flex;
-    align-items:center;
-    gap: 8px;
-  }
+  .topbar-right{ display:flex; align-items:center; gap:8px; }
 
   .status-pill{
-    display:none;
-    align-items:center;
-    gap:7px;
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--ink-dim);
-    border: 1px solid var(--border);
-    background: var(--surface);
-    padding: 6px 10px 6px 8px;
-    border-radius: 999px;
-    white-space: nowrap;
+    display:none; align-items:center; gap:7px;
+    font-family:var(--mono); font-size:11px; color:var(--ink-dim);
+    border:1px solid var(--border); background:var(--surface);
+    padding:6px 11px 6px 9px; border-radius:999px; white-space:nowrap;
   }
-  @media (min-width: 620px){ .status-pill{ display:flex; } }
+  @media (min-width: 720px){ .status-pill{ display:flex; } }
 
-  /* компактная кнопка «Личный кабинет» в шапке */
   .topbar-cta{
-    display:flex;
-    align-items:center;
-    gap: 7px;
-    font-family: var(--sans);
-    font-size: 13px;
-    font-weight: 600;
-    text-decoration: none;
-    background: var(--white);
-    color: var(--invert);
-    border: 1px solid var(--white);
-    padding: 8px 13px;
-    border-radius: 999px;
-    white-space: nowrap;
+    display:flex; align-items:center; gap:7px;
+    font-size:13px; font-weight:600; text-decoration:none;
+    background:var(--white); color:var(--invert);
+    border:1px solid var(--white);
+    padding:8px 14px; border-radius:999px; white-space:nowrap;
     transition: opacity .15s ease;
   }
   .topbar-cta:active{ opacity:.75; }
   .topbar-cta .ic{ width:15px; height:15px; }
   .topbar-cta span{ display:none; }
-  @media (min-width: 420px){ .topbar-cta span{ display:inline; } }
+  @media (min-width: 400px){ .topbar-cta span{ display:inline; } }
 
   .theme-toggle{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    width: 34px;
-    height: 34px;
-    flex-shrink:0;
-    border-radius: 999px;
-    border: 1px solid var(--border);
-    background: var(--surface);
-    color: var(--ink);
-    cursor: pointer;
-    padding: 0;
-    transition: border-color .15s ease, background-color .15s ease;
+    display:flex; align-items:center; justify-content:center;
+    width:34px; height:34px; flex-shrink:0;
+    border-radius:999px; border:1px solid var(--border);
+    background:var(--surface); color:var(--ink);
+    cursor:pointer; padding:0;
+    transition: border-color .15s ease;
   }
   .theme-toggle:hover{ border-color: var(--border-strong); }
   .theme-toggle svg{ width:16px; height:16px; display:block; }
@@ -227,547 +162,330 @@
   html[data-theme="light"] .theme-toggle .icon-moon{ display:none; }
   html[data-theme="light"] .theme-toggle .icon-sun{ display:block; }
 
-  .dot{
-    width:7px; height:7px; border-radius:50%;
-    background: var(--white);
-    position: relative;
-    flex-shrink:0;
-  }
+  .dot{ width:7px; height:7px; border-radius:50%; background:var(--white); position:relative; flex-shrink:0; }
   .dot::after{
-    content:"";
-    position:absolute; inset:-5px;
-    border-radius:50%;
-    border:1px solid var(--white);
-    opacity:0.5;
+    content:""; position:absolute; inset:-5px; border-radius:50%;
+    border:1px solid var(--white); opacity:.5;
     animation: pulse 2.2s ease-out infinite;
   }
-  @keyframes pulse{
-    0%{ transform:scale(0.4); opacity:0.6; }
-    100%{ transform:scale(1.9); opacity:0; }
-  }
+  @keyframes pulse{ 0%{ transform:scale(.4); opacity:.6; } 100%{ transform:scale(1.9); opacity:0; } }
 
-  /* ---------- HERO ---------- */
-  header.hero{ padding: 30px 0 20px; }
-  @media (min-width: 900px){ header.hero{ padding: 46px 0 26px; } }
+  /* ---------- ГЕРОЙ ---------- */
+  header.hero{ padding: 34px 0 22px; }
+  @media (min-width: 900px){ header.hero{ padding: 58px 0 30px; text-align:center; } }
 
   h1.hero-title{
-    font-size: clamp(31px, 8vw, 46px);
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    line-height: 1.08;
-    margin: 0 0 8px;
+    font-size: clamp(33px, 8.6vw, 54px);
+    font-weight:800; letter-spacing:-.035em; line-height:1.05;
+    margin:0 0 10px;
   }
-  h1.hero-title .caps{ letter-spacing: 0.02em; }
+  h1.hero-title .caps{ letter-spacing:.02em; }
   .hero-sub{
-    font-family: var(--mono);
-    font-size: 12.5px;
-    color: var(--ink-dim);
-    letter-spacing: 0.03em;
-    margin:0 0 18px;
+    font-size: 15.5px; color: var(--ink-dim);
+    margin:0 0 22px; max-width: 46ch;
   }
-  @media (min-width: 900px){ .hero-sub{ font-size: 14px; } }
-
-  .hero-cta{
-    display:flex;
-    flex-direction: column;
-    gap: 8px;
-    max-width: 480px;
+  @media (min-width: 900px){
+    .hero-sub{ font-size:17px; margin-left:auto; margin-right:auto; }
   }
-  @media (min-width: 440px){ .hero-cta{ flex-direction: row; } }
+  .hero-cta{ display:flex; flex-direction:column; gap:9px; }
+  @media (min-width: 440px){ .hero-cta{ flex-direction:row; } }
+  @media (min-width: 900px){ .hero-cta{ justify-content:center; max-width:560px; margin:0 auto; } }
 
-  /* ---------- TABS ---------- */
-  .tabs{
-    position: sticky;
-    top: var(--topbar-h);
-    z-index: 20;
-    display:flex;
-    gap: 6px;
-    overflow-x: auto;
-    scrollbar-width: none;
-    padding: 10px 0 14px;
-    margin-bottom: 6px;
-    background: linear-gradient(var(--bg) 62%, transparent);
+  /* ---------- СЕГМЕНТИРОВАННАЯ НАВИГАЦИЯ ---------- */
+  .nav-holder{
+    position: sticky; top: var(--topbar-h); z-index: 20;
+    padding: 12px 0 16px;
+    background: linear-gradient(var(--bg) 66%, transparent);
   }
-  .tabs::-webkit-scrollbar{ display:none; }
+  @media (min-width: 900px){ .nav-holder{ display:flex; justify-content:center; } }
 
-  .tab-btn{
-    font-family: var(--mono);
-    flex: 0 0 auto;
+  .segmented{
+    position:relative;
     display:flex;
-    align-items:center;
-    gap: 7px;
-    padding: 9px 11px;
-    font-size: 12.5px;
-    font-weight: 600;
-    letter-spacing: 0.01em;
+    gap:2px;
     background: var(--surface);
-    color: var(--ink-dim);
-    border: 1px solid var(--border);
+    border:1px solid var(--border);
     border-radius: 999px;
-    cursor:pointer;
-    white-space: nowrap;
-    transition: background .18s ease, color .18s ease, border-color .18s ease;
+    padding:4px;
+    width:100%;
   }
-  .tab-btn:hover{ border-color: var(--border-strong); color: var(--ink); }
-  .tab-btn .tab-ic{
-    width: 17px;
-    height: 17px;
-    flex-shrink: 0;
-    display: block;
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-  /* мобильные: подпись только у активной вкладки — панель влезает в одну строку */
-  .tab-btn .tab-label{ display:none; }
-  .tab-btn.active{
+  @media (min-width: 900px){ .segmented{ width:auto; min-width:430px; } }
+
+  .seg-indicator{
+    position:absolute;
+    top:4px; bottom:4px; left:4px;
+    border-radius:999px;
     background: var(--white);
-    color: var(--invert);
-    border-color: var(--white);
-    padding: 9px 14px;
-  }
-  .tab-btn.active .tab-label{ display:inline; }
-  /* узкие телефоны (360px и меньше): поджимаем, чтобы всё влезло в строку */
-  @media (max-width: 400px){
-    .tabs{ gap: 5px; }
-    .tab-btn{ padding: 9px 9px; }
-    .tab-btn.active{ padding: 9px 12px; }
-    .tab-btn .tab-ic{ width:16px; height:16px; }
-  }
-  /* ПК: места хватает — показываем подписи у всех вкладок */
-  @media (min-width: 760px){
-    .tab-btn{ padding: 9px 15px; }
-    .tab-btn .tab-label{ display:inline; }
+    transition: transform .28s cubic-bezier(.4,.1,.2,1), width .28s cubic-bezier(.4,.1,.2,1);
+    pointer-events:none;
   }
 
-  /* ---------- CONTENT ---------- */
+  .seg-btn{
+    position:relative;
+    z-index:1;
+    flex:1 1 0;
+    display:flex; align-items:center; justify-content:center; gap:7px;
+    padding: 10px 6px;
+    font-family: var(--mono);
+    font-size: 12.5px; font-weight:600; letter-spacing:.01em;
+    background:transparent; border:0; border-radius:999px;
+    color: var(--ink-dim);
+    cursor:pointer; white-space:nowrap;
+    transition: color .2s ease;
+  }
+  .seg-btn:hover{ color: var(--ink); }
+  .seg-btn.active{ color: var(--invert); }
+  .seg-btn .seg-ic{
+    width:16px; height:16px; flex-shrink:0; display:block;
+    fill:none; stroke:currentColor; stroke-width:2;
+    stroke-linecap:round; stroke-linejoin:round;
+  }
+  @media (min-width: 900px){ .seg-btn{ padding:11px 22px; font-size:13.5px; } }
+
+  /* ---------- ОБЩИЕ ЭЛЕМЕНТЫ ---------- */
   .content-section{ display:none; }
-  .content-section.active{ display:block; animation: fadeIn .25s ease; }
-  @keyframes fadeIn{ from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:translateY(0);} }
+  .content-section.active{ display:block; animation: fadeIn .26s ease; }
+  @keyframes fadeIn{ from{opacity:0; transform:translateY(5px);} to{opacity:1; transform:translateY(0);} }
 
   .eyebrow{
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--ink-faint);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    margin: 32px 0 10px;
+    font-family: var(--mono); font-size:11px; color:var(--ink-faint);
+    letter-spacing:.09em; text-transform:uppercase;
+    margin: 36px 0 10px;
   }
-  .eyebrow:first-child{ margin-top: 4px; }
+  .eyebrow:first-child{ margin-top: 2px; }
 
-  p{ margin: 0 0 12px; font-size: 15px; color: var(--ink); }
+  p{ margin:0 0 12px; font-size:15px; color:var(--ink); }
   p.muted{ color: var(--ink-dim); }
-  p.lead{ font-size: 15.5px; color: var(--ink-dim); max-width: 64ch; }
-  p:last-child{ margin-bottom: 0; }
+  p.lead{ font-size:15.5px; color:var(--ink-dim); max-width:64ch; }
+  p:last-child{ margin-bottom:0; }
+
+  h2.section-title{
+    font-size:20px; font-weight:700; letter-spacing:-.015em;
+    margin: 2px 0 14px;
+  }
+  @media (min-width: 900px){ h2.section-title{ font-size:24px; } }
+
+  h3.card-title{
+    font-size:15.5px; font-weight:700; margin:0 0 4px;
+    display:flex; align-items:center; gap:9px;
+  }
 
   .card{
     background: var(--surface);
-    border: 1px solid var(--border);
+    border:1px solid var(--border);
     border-radius: var(--radius);
-    padding: 18px;
-    margin-bottom: 12px;
+    padding:18px;
+    margin-bottom:12px;
   }
-  @media (min-width: 900px){ .card{ padding: 22px; } }
-
-  h2.section-title{
-    font-size: 19px;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-    margin: 4px 0 12px;
-  }
-  @media (min-width: 900px){ h2.section-title{ font-size: 23px; } }
-
-  h3.card-title{
-    font-size: 15.5px;
-    font-weight: 700;
-    margin: 0 0 4px;
-    display:flex;
-    align-items:center;
-    gap:9px;
-  }
+  @media (min-width: 900px){ .card{ padding:24px; } }
 
   .badge{
-    font-family: var(--mono);
-    font-size: 10.5px;
-    font-weight: 600;
-    color: var(--ink-dim);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    display:block;
-    margin: 14px 0 8px;
+    font-family: var(--mono); font-size:10.5px; font-weight:600;
+    color: var(--ink-dim); text-transform:uppercase; letter-spacing:.05em;
+    display:block; margin:16px 0 9px;
   }
-  .card .badge:first-of-type{ margin-top: 0; }
+  .card .badge:first-of-type{ margin-top:0; }
 
-  .card.top-pick{
-    border-color: var(--border-strong);
-    background: var(--surface-2);
-  }
-  .card.top-pick .card-title::after{
-    content: "РЕКОМЕНДУЕТСЯ";
-    font-family: var(--mono);
-    font-size: 9.5px;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    color: var(--invert);
-    background: var(--white);
-    padding: 3px 7px;
-    border-radius: 5px;
-    margin-left: auto;
-  }
+  /* ---------- КНОПКИ ---------- */
+  .btn-group{ display:flex; flex-direction:column; gap:9px; margin-bottom:2px; }
+  @media (min-width: 480px){ .btn-group.pair{ flex-direction:row; } }
 
-  /* ---------- БЫСТРЫЕ ССЫЛКИ ---------- */
-  .link-grid{
-    display:grid;
-    gap: 8px;
-    grid-template-columns: 1fr;
+  .btn{
+    display:flex; align-items:center; justify-content:center; gap:9px;
+    padding:14px 20px; border-radius: var(--radius-sm);
+    text-decoration:none; font-weight:600; font-size:14.5px;
+    border:1px solid transparent; flex:1;
+    transition: opacity .15s ease, background-color .15s ease, border-color .15s ease;
   }
-  @media (min-width: 520px){ .link-grid{ grid-template-columns: 1fr 1fr; } }
+  .btn:active{ opacity:.75; }
+  .btn-icon{ width:19px; height:19px; flex-shrink:0; display:block; }
+
+  .btn-primary{ background: var(--white); color: var(--invert); }
+  .btn-primary:hover{ background:#e6e6e6; }
+  html[data-theme="light"] .btn-primary:hover{ background:#262626; }
+
+  .btn-outline{ background:transparent; color: var(--ink); border-color: var(--border-strong); }
+  .btn-outline:hover{ border-color: var(--white); background: var(--surface-2); }
+
+  .btn-ghost{ background: var(--surface-2); color: var(--ink-dim); border-color: var(--border); }
+  .btn-ghost:hover{ color: var(--ink); border-color: var(--border-strong); }
+
+  /* ---------- ШАГИ ---------- */
+  .steps{ display:grid; gap:9px; }
+  @media (min-width: 620px){ .steps{ grid-template-columns: repeat(3, 1fr); } }
+  .step{
+    background: var(--surface); border:1px solid var(--border);
+    border-radius: var(--radius); padding:16px 17px;
+  }
+  .step-num{
+    display:block; font-family: var(--mono); font-size:11px; font-weight:600;
+    color: var(--ink-faint); letter-spacing:.09em; margin-bottom:6px;
+  }
+  .step p{ font-size:14.5px; margin:0; color: var(--ink); }
+  .step p span{ color: var(--ink-dim); }
+
+  /* ---------- КАРТОЧКИ-ССЫЛКИ ---------- */
+  .link-grid{ display:grid; gap:9px; grid-template-columns:1fr; }
+  @media (min-width: 560px){ .link-grid{ grid-template-columns:1fr 1fr; } }
 
   .link-card{
-    display:flex;
-    align-items:center;
-    gap: 13px;
+    display:flex; align-items:center; gap:14px;
     text-decoration:none;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 15px 16px;
-    transition: border-color .15s ease, background-color .15s ease, transform .15s ease;
+    background: var(--surface); border:1px solid var(--border);
+    border-radius: var(--radius); padding:16px 17px;
+    transition: border-color .15s ease, background-color .15s ease, transform .12s ease;
   }
   .link-card:hover{ border-color: var(--border-strong); background: var(--surface-2); }
   .link-card:active{ transform: scale(.99); }
-  .link-card .ic{ width:20px; height:20px; color: var(--ink); }
+  .link-card .ic{ width:21px; height:21px; color: var(--ink); }
   .link-card-text{ min-width:0; }
-  .link-card-title{
-    display:block;
-    font-size: 14.5px;
-    font-weight: 700;
-    color: var(--ink);
-    line-height: 1.3;
+  .link-card-title{ display:block; font-size:14.5px; font-weight:700; color:var(--ink); line-height:1.3; }
+  .link-card-sub{ display:block; font-size:12.5px; color:var(--ink-dim); line-height:1.35; margin-top:2px; }
+  .link-card .chev{ margin-left:auto; width:16px; height:16px; color:var(--ink-faint); flex-shrink:0; }
+
+  /* ---------- РЕЖИМЫ ---------- */
+  .modes{ display:grid; gap:9px; }
+  @media (min-width: 820px){ .modes{ grid-template-columns: repeat(3, 1fr); } }
+
+  .mode{
+    background: var(--surface); border:1px solid var(--border);
+    border-radius: var(--radius); padding:18px;
+    display:flex; flex-direction:column; gap:9px;
+    transition: border-color .15s ease;
   }
-  .link-card-sub{
-    display:block;
-    font-size: 12.5px;
-    color: var(--ink-dim);
-    line-height: 1.35;
-    margin-top: 2px;
+  .mode:hover{ border-color: var(--border-strong); }
+  .mode.featured{ border-color: var(--border-strong); background: var(--surface-2); }
+  .mode-head{ display:flex; align-items:center; gap:9px; }
+  .mode-head .ic{ width:19px; height:19px; color: var(--ink); }
+  .mode-name{ font-size:15.5px; font-weight:700; margin:0; }
+  .mode-tag{
+    margin-left:auto; font-family:var(--mono); font-size:9.5px; font-weight:700;
+    letter-spacing:.04em; color: var(--invert); background: var(--white);
+    padding:3px 7px; border-radius:5px; white-space:nowrap;
   }
-  .link-card .chev{
-    margin-left: auto;
-    width: 16px; height:16px;
-    color: var(--ink-faint);
-    flex-shrink:0;
+  .mode p{ font-size:14px; color: var(--ink-dim); margin:0; line-height:1.5; }
+
+  /* ---------- ПЛИТКИ ---------- */
+  .feature-grid{ display:grid; gap:9px; grid-template-columns:1fr 1fr; }
+  @media (min-width: 900px){ .feature-grid{ grid-template-columns: repeat(4, 1fr); } }
+  .feature{
+    background: var(--surface); border:1px solid var(--border);
+    border-radius: var(--radius); padding:17px 16px;
   }
+  .feature .ic{ width:20px; height:20px; color:var(--ink); margin-bottom:11px; }
+  .feature-title{ display:block; font-size:14.5px; font-weight:700; color:var(--ink); margin-bottom:3px; }
+  .feature p{ font-size:13px; color:var(--ink-dim); margin:0; line-height:1.45; }
 
   /* ---------- ТАРИФЫ ---------- */
-  .plans{
-    display:grid;
-    gap: 10px;
-    grid-template-columns: 1fr;
-  }
-  @media (min-width: 520px){ .plans{ grid-template-columns: 1fr 1fr; } }
-  @media (min-width: 900px){ .plans{ grid-template-columns: repeat(4, 1fr); gap: 12px; } }
+  .plans{ display:grid; gap:10px; grid-template-columns:1fr; }
+  @media (min-width: 560px){ .plans{ grid-template-columns:1fr 1fr; } }
+  @media (min-width: 900px){ .plans{ grid-template-columns: repeat(4, 1fr); gap:12px; } }
 
   .plan{
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 18px;
-    display:flex;
-    flex-direction: column;
-    gap: 14px;
-    transition: border-color .15s ease;
+    background: var(--surface); border:1px solid var(--border);
+    border-radius: var(--radius); padding:20px 18px;
+    display:flex; flex-direction:column; gap:16px;
+    transition: border-color .15s ease, transform .12s ease;
   }
   .plan:hover{ border-color: var(--border-strong); }
-  .plan-head{
-    display:flex;
-    align-items:center;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-  .plan-name{
-    font-size: 16px;
-    font-weight: 700;
-    margin:0;
-    letter-spacing: -0.01em;
-  }
-  .plan-figures{
-    display:flex;
-    gap: 26px;
-  }
-  @media (min-width: 900px){ .plan-figures{ flex-direction: column; gap: 13px; } }
+  .plan-name{ font-size:16px; font-weight:700; margin:0; letter-spacing:-.01em; }
+  .plan-figures{ display:flex; gap:28px; }
+  @media (min-width: 900px){ .plan-figures{ flex-direction:column; gap:14px; } }
   .plan-fig{ display:flex; flex-direction:column; gap:2px; }
   .plan-num{
-    font-family: var(--mono);
-    font-size: 27px;
-    font-weight: 700;
-    line-height: 1;
-    letter-spacing: -0.02em;
-    color: var(--ink);
+    font-family: var(--mono); font-size:29px; font-weight:700;
+    line-height:1; letter-spacing:-.02em; color: var(--ink);
   }
-  .plan-unit{
-    font-family: var(--mono);
-    font-size: 10.5px;
-    color: var(--ink-faint);
-    letter-spacing: 0.05em;
-  }
-  .plan-note{
-    font-size: 13.5px;
-    color: var(--ink-dim);
-    margin: 0;
-    line-height: 1.45;
-  }
+  .plan-unit{ font-family: var(--mono); font-size:10.5px; color: var(--ink-faint); letter-spacing:.05em; }
+  .plan-note{ font-size:13.5px; color: var(--ink-dim); margin:0; line-height:1.45; }
 
-  /* ---------- ВАРИАНТЫ СОЕДИНЕНИЯ ---------- */
-  .conn-list{
-    display:grid;
-    gap: 8px;
-  }
-  @media (min-width: 900px){ .conn-list{ grid-template-columns: 1fr 1fr; } }
-
-  .conn{
-    display:flex;
-    gap: 14px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 16px 17px;
-    transition: border-color .15s ease;
-  }
-  .conn:hover{ border-color: var(--border-strong); }
-  .conn-num{
-    font-family: var(--mono);
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--ink-faint);
-    line-height: 1.5;
-    flex-shrink: 0;
-  }
-  .conn-text{ min-width:0; }
-  .conn-name{
-    display:block;
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--ink);
-    margin-bottom: 4px;
-  }
-  .conn-name em{
-    font-style: normal;
-    font-family: var(--mono);
-    font-size: 11.5px;
-    font-weight: 500;
-    color: var(--ink-faint);
-    letter-spacing: 0.02em;
-  }
-  .conn-text p{ font-size: 14px; color: var(--ink-dim); margin: 0; line-height: 1.5; }
-
-  /* ---------- ПЛИТКИ ПРЕИМУЩЕСТВ ---------- */
-  .feature-grid{
-    display:grid;
-    gap: 8px;
-    grid-template-columns: 1fr 1fr;
-  }
-  @media (min-width: 900px){ .feature-grid{ grid-template-columns: repeat(4, 1fr); } }
-
-  .feature{
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 16px 15px;
-  }
-  .feature .ic{ width:20px; height:20px; color: var(--ink); margin-bottom: 10px; }
-  .feature-title{
-    display:block;
-    font-size: 14.5px;
-    font-weight: 700;
-    color: var(--ink);
-    margin-bottom: 3px;
-  }
-  .feature p{ font-size: 13px; color: var(--ink-dim); margin: 0; line-height: 1.45; }
-
-  /* ---------- STEPS ---------- */
-  .steps{
-    display:grid;
-    gap: 8px;
-    margin-bottom: 4px;
-  }
-  @media (min-width: 560px){
-    .steps{ grid-template-columns: repeat(3, 1fr); }
-  }
-  .step{
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 14px 15px;
-  }
-  .step-num{
-    display:block;
-    font-family: var(--mono);
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--ink-faint);
-    letter-spacing: 0.08em;
-    margin-bottom: 5px;
-  }
-  .step p{ font-size: 14px; margin: 0; color: var(--ink); }
-  .step p span{ color: var(--ink-dim); }
-
-  /* ---------- NOTICE ---------- */
+  /* ---------- ЗАМЕТКА ---------- */
   .notice{
-    border: 1px solid var(--border-strong);
-    border-radius: var(--radius);
-    padding: 20px 16px 16px;
-    margin: 24px 0 14px;
-    position: relative;
-    background: var(--surface);
+    border:1px solid var(--border-strong); border-radius: var(--radius);
+    padding:22px 17px 17px; margin:26px 0 14px;
+    position:relative; background: var(--surface);
   }
   .notice-label{
-    position:absolute;
-    top:-11px; left:14px;
-    background: var(--bg);
-    padding: 0 8px;
-    display:flex;
-    align-items:center;
-    gap: 6px;
-    font-family: var(--mono);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    color: var(--ink);
+    position:absolute; top:-11px; left:15px;
+    background: var(--bg); padding:0 8px;
+    display:flex; align-items:center; gap:6px;
+    font-family: var(--mono); font-size:11px; font-weight:700;
+    letter-spacing:.04em; color: var(--ink);
   }
   .notice-label .ic{ width:13px; height:13px; }
-  .notice p{ font-size: 14px; color: var(--ink-dim); }
+  .notice p{ font-size:14px; color: var(--ink-dim); }
   .notice p strong{ color: var(--ink); }
-  .notice .card-title{ margin-bottom: 8px; }
+  .notice .card-title{ margin-bottom:8px; }
 
-  .notice.urgent{ border-color: var(--white); }
-  .notice.urgent .notice-label{ color: var(--white); }
-
-  /* ---------- BUTTONS ---------- */
-  .btn-group{
-    display:flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-bottom: 4px;
+  /* ---------- ВОПРОСЫ ---------- */
+  .faq-search{
+    position:relative;
+    margin-bottom: 14px;
   }
-  @media (min-width: 480px){
-    .btn-group.pair{ flex-direction: row; }
+  .faq-search .ic{
+    position:absolute; left:15px; top:50%; transform:translateY(-50%);
+    width:17px; height:17px; color: var(--ink-faint); pointer-events:none;
   }
-
-  .btn{
-    display:flex;
-    align-items:center;
-    justify-content: center;
-    gap: 8px;
-    padding: 14px 18px;
-    border-radius: 10px;
-    text-decoration:none;
-    font-weight: 600;
-    font-size: 14.5px;
-    font-family: var(--sans);
-    border: 1px solid transparent;
-    transition: opacity .15s ease, background-color .15s ease, border-color .15s ease;
-    flex: 1;
-  }
-  .btn:active{ opacity: 0.75; }
-  .btn-icon{
-    width: 19px;
-    height: 19px;
-    flex-shrink: 0;
-    display: block;
-  }
-
-  .btn-primary{ background: var(--white); color: var(--invert); }
-  .btn-primary:hover{ background: #e6e6e6; }
-  html[data-theme="light"] .btn-primary:hover{ background: #262626; }
-
-  .btn-outline{
-    background: transparent;
+  .faq-search input{
+    width:100%;
+    font-family: var(--sans); font-size:15px;
     color: var(--ink);
-    border-color: var(--border-strong);
-  }
-  .btn-outline:hover{ border-color: var(--white); background: var(--surface-2); }
-
-  .btn-ghost{
-    background: var(--surface-2);
-    color: var(--ink-dim);
-    border-color: var(--border);
-  }
-  .btn-ghost:hover{ color: var(--ink); border-color: var(--border-strong); }
-
-  /* ---------- LISTS ---------- */
-  ul, ol{ padding-left: 19px; margin: 0 0 4px; }
-  li{ margin-bottom: 7px; font-size: 14.5px; color: var(--ink-dim); }
-  li:last-child{ margin-bottom: 0; }
-  li strong{ color: var(--ink); }
-  li::marker{ font-family: var(--mono); color: var(--ink-faint); font-size: 13px; }
-
-  /* ---------- FAQ ---------- */
-  .faq-item{
     background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    margin-bottom: 10px;
-    overflow: hidden;
+    border:1px solid var(--border);
+    border-radius: 999px;
+    padding: 13px 18px 13px 42px;
+    outline:none;
+    transition: border-color .15s ease;
   }
+  .faq-search input::placeholder{ color: var(--ink-faint); }
+  .faq-search input:focus{ border-color: var(--border-strong); }
+
+  .faq-item{
+    background: var(--surface); border:1px solid var(--border);
+    border-radius: var(--radius); margin-bottom:10px; overflow:hidden;
+    transition: border-color .15s ease;
+  }
+  .faq-item:hover{ border-color: var(--border-strong); }
   .faq-item summary{
-    list-style: none;
-    cursor: pointer;
-    padding: 16px 18px;
-    font-weight: 700;
-    font-size: 15px;
-    color: var(--ink);
-    display:flex;
-    align-items:center;
-    gap: 12px;
+    list-style:none; cursor:pointer;
+    padding:17px 18px;
+    font-weight:700; font-size:15px; color: var(--ink);
+    display:flex; align-items:center; gap:12px;
   }
   .faq-item summary::-webkit-details-marker{ display:none; }
   .faq-plus{
-    margin-left: auto;
-    flex-shrink: 0;
-    width: 18px; height: 18px;
+    margin-left:auto; flex-shrink:0; width:18px; height:18px;
     color: var(--ink-faint);
-    transition: transform .2s ease;
-    fill:none; stroke: currentColor; stroke-width:2; stroke-linecap:round;
+    transition: transform .22s ease, color .22s ease;
+    fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round;
   }
   .faq-item[open] .faq-plus{ transform: rotate(45deg); color: var(--ink); }
   .faq-body{ padding: 0 18px 18px; }
-  .faq-body p{ font-size: 14.5px; color: var(--ink-dim); margin: 0 0 14px; }
+  .faq-body p{ font-size:14.5px; color: var(--ink-dim); margin:0 0 14px; }
   .faq-body p strong{ color: var(--ink); }
-  .faq-body p:last-child{ margin-bottom: 0; }
+  .faq-body p:last-child{ margin-bottom:0; }
+  .faq-item.hidden{ display:none; }
 
-  /* ---------- FOOTER ---------- */
+  .faq-empty{
+    display:none;
+    text-align:center; padding: 26px 10px;
+    font-family: var(--mono); font-size:13px; color: var(--ink-faint);
+  }
+  .faq-empty.show{ display:block; }
+
+  /* ---------- ПОДВАЛ ---------- */
   .footer{
-    margin-top: 44px;
-    padding-top: 20px;
-    border-top: 1px solid var(--border);
-    display:flex;
-    flex-direction: column;
-    align-items:center;
-    gap: 14px;
+    margin-top:48px; padding-top:22px;
+    border-top:1px solid var(--border);
+    display:flex; flex-direction:column; align-items:center; gap:15px;
   }
-  .footer-links{
-    display:flex;
-    flex-wrap: wrap;
-    justify-content:center;
-    gap: 8px 18px;
-  }
+  .footer-links{ display:flex; flex-wrap:wrap; justify-content:center; gap:9px 20px; }
   .footer-links a{
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--ink-dim);
-    text-decoration: none;
-    transition: color .15s ease;
+    font-family: var(--mono); font-size:12px; color: var(--ink-dim);
+    text-decoration:none; transition: color .15s ease;
   }
   .footer-links a:hover{ color: var(--ink); }
-  .footer-mark{
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--ink-faint);
-    letter-spacing: 0.05em;
-  }
+  .footer-mark{ font-family: var(--mono); font-size:11px; color: var(--ink-faint); letter-spacing:.05em; }
 </style>
 </head>
 <body>
@@ -794,7 +512,7 @@
         </div>
         <a class="topbar-cta" href="https://lk.xama.life" target="_blank" rel="noopener">
           <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c.9-3.6 3.9-5.5 7.5-5.5s6.6 1.9 7.5 5.5"/></svg>
-          <span>Личный кабинет</span>
+          <span>Кабинет</span>
         </a>
         <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Переключить светлую и тёмную тему">
           <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
@@ -808,72 +526,51 @@
 
     <header class="hero">
       <h1 class="hero-title">Сеть <span class="caps">XAMA</span></h1>
-      <p class="hero-sub">подписки · приложения · настройка · поддержка 24/7</p>
+      <p class="hero-sub">Быстрый интернет на всех ваших устройствах. Подписка, трафик и устройства — в кабинете, а поддержка на связи круглосуточно.</p>
       <div class="hero-cta">
-        <a href="https://lk.xama.life" class="btn btn-primary" target="_blank" rel="noopener">Открыть личный кабинет</a>
-        <a href="https://t.me/XAMA_life_bot" class="btn btn-outline" target="_blank" rel="noopener">Telegram-бот</a>
+        <a href="https://lk.xama.life" class="btn btn-primary" target="_blank" rel="noopener">Кабинет в браузере</a>
+        <a href="https://t.me/XAMA_life_bot" class="btn btn-outline" target="_blank" rel="noopener">Кабинет в Telegram</a>
       </div>
     </header>
 
     <!-- ================================================================== -->
-    <!--  ПАНЕЛЬ ВКЛАДОК СОБИРАЕТСЯ АВТОМАТИЧЕСКИ из секций ниже.            -->
-    <!--  Ничего здесь править не нужно.                                    -->
+    <!--  НАВИГАЦИЯ СОБИРАЕТСЯ АВТОМАТИЧЕСКИ из секций ниже.                -->
+    <!--  Здесь править ничего не нужно.                                    -->
     <!-- ================================================================== -->
-    <nav class="tabs" id="tabs" role="tablist" aria-label="Разделы"></nav>
+    <div class="nav-holder">
+      <nav class="segmented" id="segmented" role="tablist" aria-label="Разделы">
+        <span class="seg-indicator" id="seg-indicator" aria-hidden="true"></span>
+      </nav>
+    </div>
 
 
     <!-- ================================================================== -->
-    <!--  КОНТЕНТ ВКЛАДОК                                                    -->
+    <!--  РАЗДЕЛЫ САЙТА                                                      -->
     <!--                                                                    -->
-    <!--  ЧТОБЫ ДОБАВИТЬ НОВУЮ ВКЛАДКУ: скопируйте целиком один блок         -->
-    <!--  <section class="content-section" ...> ... </section> и поменяйте:  -->
+    <!--  ДОБАВИТЬ РАЗДЕЛ: скопируйте блок <section class="content-section"> -->
+    <!--  целиком и поменяйте:                                              -->
     <!--    • id="..."          — короткое имя латиницей, уникальное         -->
-    <!--    • data-label="..."  — как вкладка называется на кнопке           -->
-    <!--    • data-icon="..."   — иконка из списка TAB_ICONS внизу файла     -->
-    <!--    • содержимое внутри                                             -->
-    <!--  Кнопка вкладки появится сама. Порядок вкладок = порядок блоков.    -->
+    <!--    • data-label="..."  — название на кнопке                        -->
+    <!--    • data-icon="..."   — иконка из списка SECTION_ICONS внизу файла -->
+    <!--  Кнопка появится сама. Порядок кнопок = порядок секций.            -->
     <!-- ================================================================== -->
 
-    <!-- ВКЛАДКА: ГЛАВНОЕ -->
+    <!-- РАЗДЕЛ: ГЛАВНОЕ -->
     <section id="main" class="content-section" data-label="Главное" data-icon="home" role="tabpanel" tabindex="0">
 
       <p class="eyebrow">С чего начать</p>
       <div class="steps">
         <div class="step">
           <span class="step-num">ШАГ 01</span>
-          <p>Оформите подписку <span>в кабинете или боте</span></p>
+          <p>Оформите подписку <span>в кабинете — в браузере или в Telegram</span></p>
         </div>
         <div class="step">
           <span class="step-num">ШАГ 02</span>
-          <p>Скачайте клиент <span>для своего устройства</span></p>
+          <p>Скачайте приложение <span>для своего устройства</span></p>
         </div>
         <div class="step">
           <span class="step-num">ШАГ 03</span>
-          <p>Добавьте подписку <span>и включите режим «Умный»</span></p>
-        </div>
-      </div>
-
-      <p class="eyebrow">Что вы получаете</p>
-      <div class="feature-grid">
-        <div class="feature">
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></svg>
-          <span class="feature-title">Скорость</span>
-          <p>Серверы с запасом мощности — хватает на 4K и звонки.</p>
-        </div>
-        <div class="feature">
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 6v5c0 4.5 3 7.6 7 9 4-1.4 7-4.5 7-9V6l-7-3z"/><path d="m9 12 2 2 4-4"/></svg>
-          <span class="feature-title">Стабильность</span>
-          <p>Мониторинг 24/7 и автоматическое переключение при сбое.</p>
-        </div>
-        <div class="feature">
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="14" height="11" rx="2"/><rect x="16" y="9" width="6" height="11" rx="1.6"/><path d="M7 19h5"/></svg>
-          <span class="feature-title">Все устройства</span>
-          <p>Телефон, компьютер, планшет и телевизор.</p>
-        </div>
-        <div class="feature">
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a2.5 2.5 0 0 1-2.5 2.5H8L3.5 21V5.5A2.5 2.5 0 0 1 6 3h12.5A2.5 2.5 0 0 1 21 5.5z"/></svg>
-          <span class="feature-title">Поддержка</span>
-          <p>Отвечаем в кабинете и помогаем с настройкой.</p>
+          <p>Добавьте подписку <span>и выберите режим «Умный»</span></p>
         </div>
       </div>
 
@@ -883,8 +580,8 @@
         <a class="link-card" href="https://lk.xama.life" target="_blank" rel="noopener">
           <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c.9-3.6 3.9-5.5 7.5-5.5s6.6 1.9 7.5 5.5"/></svg>
           <span class="link-card-text">
-            <span class="link-card-title">Личный кабинет</span>
-            <span class="link-card-sub">Подписка, трафик, устройства</span>
+            <span class="link-card-title">Кабинет в браузере</span>
+            <span class="link-card-sub">Вход по Telegram или почте</span>
           </span>
           <svg class="ic chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
         </a>
@@ -892,8 +589,8 @@
         <a class="link-card" href="https://t.me/XAMA_life_bot" target="_blank" rel="noopener">
           <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.6 3.4 2.9 10.5c-.8.3-.7 1.4.1 1.6l4.7 1.4 1.8 5.2c.3.7 1.2.8 1.6.2l2.4-2.5 4.6 3.4c.6.4 1.4.1 1.6-.6l3-14.4c.1-.8-.6-1.5-1.4-1.2z"/><path d="M7.7 13.5 19.6 6.2"/></svg>
           <span class="link-card-text">
-            <span class="link-card-title">Telegram-бот</span>
-            <span class="link-card-sub">Оформить и управлять в чате</span>
+            <span class="link-card-title">Кабинет в Telegram</span>
+            <span class="link-card-sub">Тот же кабинет, прямо в чате</span>
           </span>
           <svg class="ic chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
         </a>
@@ -901,7 +598,7 @@
         <a class="link-card" href="https://lk.xama.life/support" target="_blank" rel="noopener">
           <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><circle cx="12" cy="12" r="4"/><path d="m5.3 5.3 3.9 3.9M14.8 14.8l3.9 3.9M18.7 5.3l-3.9 3.9M9.2 14.8l-3.9 3.9"/></svg>
           <span class="link-card-text">
-            <span class="link-card-title">Техподдержка</span>
+            <span class="link-card-title">Поддержка</span>
             <span class="link-card-sub">Поможем с подключением</span>
           </span>
           <svg class="ic chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
@@ -917,27 +614,9 @@
         </a>
       </div>
 
-      <div class="notice">
-        <span class="notice-label">
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="m3 7.5 9 5.5 9-5.5"/></svg>
-          НОВОЕ
-        </span>
-        <h3 class="card-title">Вход по почте</h3>
-        <p>В личный кабинет теперь можно войти не только через Telegram, но и по электронной почте. Нет Telegram — просто откройте кабинет и авторизуйтесь по адресу почты.</p>
-      </div>
-
-      <div class="notice">
-        <span class="notice-label">
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2.5"/><path d="M12 18h.01"/></svg>
-          НОВОЕ
-        </span>
-        <h3 class="card-title">Happ вернулся в российский App Store</h3>
-        <p>Приложение снова можно скачать напрямую — менять регион Apple ID больше не нужно. Если у вас стоит старая версия, установите свежую по кнопке ниже.</p>
-      </div>
-
       <p class="eyebrow">Приложения</p>
-      <h2 class="section-title">Скачать клиент</h2>
-      <p class="muted">Подписка работает в разных клиентах — выберите подходящий для вашего устройства.</p>
+      <h2 class="section-title">Скачать</h2>
+      <p class="muted">Подписка работает в приложении Happ — оно доступно на всех платформах.</p>
 
       <div class="card">
         <h3 class="card-title">
@@ -963,7 +642,7 @@
           Компьютер и ТВ
         </h3>
 
-        <span class="badge">Официальный клиент XAMA</span>
+        <span class="badge">Официальное приложение XAMA</span>
         <div class="btn-group">
           <a href="https://xama.life/client" class="btn btn-primary">
             <svg class="btn-icon" viewBox="0 0 512 512" aria-hidden="true">
@@ -979,29 +658,89 @@
           </a>
         </div>
 
-        <span class="badge">Альтернативные варианты</span>
+        <span class="badge">Другие варианты</span>
         <div class="btn-group pair">
           <a href="https://github.com/Happ-proxy/happ-desktop/releases/latest/download/setup-Happ.x64.exe" class="btn btn-ghost" target="_blank" rel="noopener">Happ · Windows</a>
           <a href="https://play.google.com/store/apps/details?id=com.happproxy" class="btn btn-ghost" target="_blank" rel="noopener">Happ · Android TV</a>
         </div>
       </div>
 
-      <p class="eyebrow">Стабильность</p>
-      <h2 class="section-title">Мониторинг 24/7</h2>
-      <div class="card">
-        <p>Специальный бот непрерывно проверяет состояние всех серверов и мгновенно сообщает команде о любых сбоях.</p>
-        <p>В автоматическом режиме сеть сама переключит вас на другой доступный сервер при сбое — вы не заметите перебоев в работе интернета.</p>
-        <p class="muted">От вас требуется только одно: если подписка не обновилась автоматически — обновите её вручную, кнопкой с двумя круговыми стрелками.</p>
+      <p class="eyebrow">В приложении</p>
+      <h2 class="section-title">Три автоматических режима</h2>
+      <p class="muted" style="margin-bottom:14px;">Сеть сама подбирает наименее загруженный сервер. Отличаются они тем, какие приложения идут через сеть.</p>
+
+      <div class="modes">
+        <div class="mode featured">
+          <div class="mode-head">
+            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
+            <h3 class="mode-name">Умный</h3>
+            <span class="mode-tag">СОВЕТУЕМ</span>
+          </div>
+          <p>Российские сервисы — банки, Госуслуги, доставка — идут напрямую от вашего провайдера и отвечают быстрее. Остальное работает через нашу сеть. Включили один раз и забыли.</p>
+        </div>
+
+        <div class="mode">
+          <div class="mode-head">
+            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5a15 15 0 0 1 4 9.5 15 15 0 0 1-4 9.5 15 15 0 0 1-4-9.5 15 15 0 0 1 4-9.5z"/></svg>
+            <h3 class="mode-name">Полный</h3>
+          </div>
+          <p>Все приложения на устройстве работают через сеть XAMA. Помогает, когда в мессенджерах не грузятся картинки и кружочки. Российские сервисы при этом могут открываться медленнее.</p>
+        </div>
+
+        <div class="mode">
+          <div class="mode-head">
+            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7c-1.6-1.7-4.5-1.9-6 .4-1.4 2.2-.6 5.5 1.4 8.2 1 1.3 2 2.4 3 2.4.8 0 1.2-.5 2.2-.5s1.3.5 2.2.5c1 0 2-1.1 3-2.4 1-1.4 1.5-2.7 1.5-2.8-2.6-1-3-4.6-.4-6-1.2-1.5-3.2-1.9-4.6-1.1"/><path d="M14.5 4.2c.7-.9.6-2.2.5-2.7-1.2.1-2.4.8-3 1.6"/></svg>
+            <h3 class="mode-name">Apple</h3>
+          </div>
+          <p>Для iPhone и iPad. Включайте, если первые два режима работают нестабильно — он учитывает особенности iOS.</p>
+        </div>
+      </div>
+
+      <p class="eyebrow">Почему XAMA</p>
+      <div class="feature-grid">
+        <div class="feature">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></svg>
+          <span class="feature-title">Скорость</span>
+          <p>Серверы с запасом мощности — хватает на 4K и звонки.</p>
+        </div>
+        <div class="feature">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 6v5c0 4.5 3 7.6 7 9 4-1.4 7-4.5 7-9V6l-7-3z"/><path d="m9 12 2 2 4-4"/></svg>
+          <span class="feature-title">Стабильность</span>
+          <p>Мониторинг 24/7 и переключение на другой сервер при сбое.</p>
+        </div>
+        <div class="feature">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="14" height="11" rx="2"/><rect x="16" y="9" width="6" height="11" rx="1.6"/><path d="M7 19h5"/></svg>
+          <span class="feature-title">Все устройства</span>
+          <p>Телефон, компьютер, планшет и телевизор.</p>
+        </div>
+        <div class="feature">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a2.5 2.5 0 0 1-2.5 2.5H8L3.5 21V5.5A2.5 2.5 0 0 1 6 3h12.5A2.5 2.5 0 0 1 21 5.5z"/></svg>
+          <span class="feature-title">Поддержка</span>
+          <p>Отвечаем в кабинете и помогаем с настройкой.</p>
+        </div>
+      </div>
+
+      <div class="notice">
+        <span class="notice-label">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 4v6h-6M2 20v-6h6"/><path d="M19.5 9A8.5 8.5 0 0 0 5.4 5.8L2 10m20 4-3.4 4.2A8.5 8.5 0 0 1 4.5 15"/></svg>
+          ЕСЛИ ЧТО-ТО НЕ РАБОТАЕТ
+        </span>
+        <p style="margin-bottom:10px;">Сначала обновите подписку в приложении — кнопкой с двумя круговыми стрелками. Так подтянется свежий список серверов, и в большинстве случаев этого достаточно.</p>
+        <p>Не помогло — проверьте в кабинете остаток трафика и количество подключённых устройств, а затем напишите нам.</p>
+        <div class="btn-group pair" style="margin-top:15px;">
+          <a href="https://lk.xama.life" class="btn btn-outline" target="_blank" rel="noopener">Проверить в кабинете</a>
+          <a href="https://lk.xama.life/support" class="btn btn-outline" target="_blank" rel="noopener">Написать в поддержку</a>
+        </div>
       </div>
     </section>
 
-    <!-- ВКЛАДКА: ТАРИФЫ -->
+    <!-- РАЗДЕЛ: ТАРИФЫ -->
     <section id="plans" class="content-section" data-label="Тарифы" data-icon="card" role="tabpanel" tabindex="0">
-      <p class="lead">Четыре подписки — от одного устройства до целой компании. Трафик и устройства можно докупить к любой из них прямо в личном кабинете.</p>
+      <p class="lead">Четыре подписки — от одного устройства до целой компании. Трафик и устройства можно докупить к любой из них прямо в кабинете.</p>
 
-      <div class="plans">
+      <div class="plans" style="margin-top:18px;">
         <article class="plan">
-          <div class="plan-head"><h3 class="plan-name">Стандартный</h3></div>
+          <h3 class="plan-name">Стандартный</h3>
           <div class="plan-figures">
             <div class="plan-fig"><span class="plan-num">100</span><span class="plan-unit">ГБ ТРАФИКА</span></div>
             <div class="plan-fig"><span class="plan-num">1</span><span class="plan-unit">УСТРОЙСТВО</span></div>
@@ -1010,7 +749,7 @@
         </article>
 
         <article class="plan">
-          <div class="plan-head"><h3 class="plan-name">Личный</h3></div>
+          <h3 class="plan-name">Личный</h3>
           <div class="plan-figures">
             <div class="plan-fig"><span class="plan-num">300</span><span class="plan-unit">ГБ ТРАФИКА</span></div>
             <div class="plan-fig"><span class="plan-num">2</span><span class="plan-unit">УСТРОЙСТВА</span></div>
@@ -1019,7 +758,7 @@
         </article>
 
         <article class="plan">
-          <div class="plan-head"><h3 class="plan-name">Семейный</h3></div>
+          <h3 class="plan-name">Семейный</h3>
           <div class="plan-figures">
             <div class="plan-fig"><span class="plan-num">1000</span><span class="plan-unit">ГБ ТРАФИКА</span></div>
             <div class="plan-fig"><span class="plan-num">8</span><span class="plan-unit">УСТРОЙСТВ</span></div>
@@ -1028,7 +767,7 @@
         </article>
 
         <article class="plan">
-          <div class="plan-head"><h3 class="plan-name">Бизнес</h3></div>
+          <h3 class="plan-name">Бизнес</h3>
           <div class="plan-figures">
             <div class="plan-fig"><span class="plan-num">∞</span><span class="plan-unit">БЕЗЛИМИТ</span></div>
             <div class="plan-fig"><span class="plan-num">50</span><span class="plan-unit">УСТРОЙСТВ</span></div>
@@ -1037,15 +776,15 @@
         </article>
       </div>
 
-      <div class="card" style="margin-top:14px;">
+      <div class="card" style="margin-top:16px;">
         <h3 class="card-title">
           <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
           Докупить трафик и устройства
         </h3>
-        <p class="muted">Закончился трафик или нужно подключить ещё одно устройство? Менять подписку не нужно — добавьте недостающее к текущей прямо в кабинете.</p>
-        <div class="btn-group pair" style="margin-top:14px;">
-          <a href="https://lk.xama.life" class="btn btn-primary" target="_blank" rel="noopener">Открыть личный кабинет</a>
-          <a href="https://t.me/XAMA_life_bot" class="btn btn-outline" target="_blank" rel="noopener">Оформить в боте</a>
+        <p class="muted">Закончился трафик или нужно подключить ещё одно устройство? Менять подписку не нужно — добавьте недостающее к текущей.</p>
+        <div class="btn-group pair" style="margin-top:15px;">
+          <a href="https://lk.xama.life" class="btn btn-primary" target="_blank" rel="noopener">Кабинет в браузере</a>
+          <a href="https://t.me/XAMA_life_bot" class="btn btn-outline" target="_blank" rel="noopener">Кабинет в Telegram</a>
         </div>
       </div>
 
@@ -1055,268 +794,162 @@
           Приводите друзей
         </h3>
         <p class="muted">Получите личную реферальную ссылку — или отправьте заявку на партнёрство, если хотите работать с нами вдолгую.</p>
-        <div class="btn-group" style="margin-top:14px;">
+        <div class="btn-group" style="margin-top:15px;">
           <a href="https://lk.xama.life/referral" class="btn btn-outline" target="_blank" rel="noopener">Реферальная программа и партнёрство</a>
         </div>
       </div>
     </section>
 
-    <!-- ВКЛАДКА: ПОДКЛЮЧЕНИЕ -->
-    <section id="connect" class="content-section" data-label="Подключение" data-icon="bolt" role="tabpanel" tabindex="0">
-      <p class="lead">Сеть сама подбирает наименее загруженный сервер по скорости отклика. Если хочется контроля — выберите страну и вариант соединения вручную.</p>
-
-      <p class="eyebrow">Режимы работы</p>
-      <h2 class="section-title">Как распределяется трафик</h2>
-
-      <div class="card top-pick">
-        <h3 class="card-title">
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
-          Умный
-        </h3>
-        <span class="badge">Подходит в 90% случаев</span>
-        <p>Приложение само распределяет соединения: зарубежные сервисы идут через нашу сеть, а российские — банки, Госуслуги, доставка — напрямую от вашего провайдера. Так они отвечают быстрее, а вам не нужно ничего переключать вручную.</p>
-      </div>
-
-      <div class="card">
-        <h3 class="card-title">
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5a15 15 0 0 1 4 9.5 15 15 0 0 1-4 9.5 15 15 0 0 1-4-9.5 15 15 0 0 1 4-9.5z"/></svg>
-          Полный
-        </h3>
-        <span class="badge">Все приложения через сеть</span>
-        <p>Все приложения на устройстве работают через сервер сети. Помогает, если в мессенджерах не грузятся картинки и кружочки — так решаются конфликты DNS в iOS. При этом российские сервисы могут временно не открываться.</p>
-      </div>
-
-      <div class="notice">
-        <span class="notice-label">
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg>
-          СОВЕТ
-        </span>
-        <p>Если вы часто работаете с нейросетями, выберите один сервер вручную и оставайтесь на нём: при автоматическом переключении сервис может лишний раз запросить подтверждение входа.</p>
-      </div>
-
-      <p class="eyebrow">Ручной выбор</p>
-      <h2 class="section-title">Варианты соединения</h2>
-      <p class="muted">Под каждой страной доступно пять вариантов. Они отличаются скоростью и тем, как ведут себя в разных сетях — начните с основного, а если что-то работает не так, попробуйте следующий.</p>
-
-      <div class="conn-list">
-        <div class="conn">
-          <span class="conn-num">01</span>
-          <div class="conn-text">
-            <span class="conn-name">Основной <em>· начните с него</em></span>
-            <p>Универсальный вариант с ровной скоростью на всех устройствах. Подходит большинству — если интернет работает нормально, остальные не нужны.</p>
-          </div>
-        </div>
-
-        <div class="conn">
-          <span class="conn-num">02</span>
-          <div class="conn-text">
-            <span class="conn-name">gRPC <em>· уведомления и звонки</em></span>
-            <p>Держит одно постоянное соединение вместо множества коротких. Берите, если сообщения приходят с задержкой или не проходят звонки — особенно на iPhone.</p>
-          </div>
-        </div>
-
-        <div class="conn">
-          <span class="conn-num">03</span>
-          <div class="conn-text">
-            <span class="conn-name">xHTTP <em>· слабый сигнал</em></span>
-            <p>Спокойно переживает перепады качества связи. Хороший выбор для мобильного интернета в дороге, метро и там, где сигнал скачет.</p>
-          </div>
-        </div>
-
-        <div class="conn">
-          <span class="conn-num">04</span>
-          <div class="conn-text">
-            <span class="conn-name">HS2 <em>· видео и загрузки</em></span>
-            <p>Самый быстрый вариант, заметно лучше остальных тянет 4K на YouTube и крупные файлы. Раскрывается на домашнем Wi-Fi.</p>
-          </div>
-        </div>
-
-        <div class="conn">
-          <span class="conn-num">05</span>
-          <div class="conn-text">
-            <span class="conn-name">WS <em>· запасной</em></span>
-            <p>Совместим практически с любой сетью, включая корпоративные и гостевые Wi-Fi. Чуть медленнее остальных — берите, если предыдущие капризничают.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="card" style="margin-top:18px;">
-        <h3 class="card-title">
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><circle cx="12" cy="12" r="4"/><path d="m5.3 5.3 3.9 3.9M14.8 14.8l3.9 3.9M18.7 5.3l-3.9 3.9M9.2 14.8l-3.9 3.9"/></svg>
-          Не знаете, что выбрать?
-        </h3>
-        <p class="muted">Напишите нам — подскажем подходящий вариант под ваше устройство и оператора.</p>
-        <div class="btn-group" style="margin-top:14px;">
-          <a href="https://lk.xama.life/support" class="btn btn-outline" target="_blank" rel="noopener">Спросить поддержку</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ВКЛАДКА: ПРОБЛЕМЫ -->
-    <section id="troubleshoot" class="content-section" data-label="Проблемы" data-icon="alert" role="tabpanel" tabindex="0">
-      <p class="lead">Частые сложности и что с ними делать. Не нашли своё — напишите в поддержку, разберёмся вместе.</p>
-
-      <div class="notice">
-        <span class="notice-label">
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2.5"/><path d="M12 18h.01"/></svg>
-          IPHONE
-        </span>
-        <h3 class="card-title">Зависает WhatsApp?</h3>
-        <p style="margin-bottom:10px;">Если сообщения не отправляются и медиа не грузится, при том что Telegram и YouTube работают — <strong>проблема не в сети XAMA</strong>. Это конфликт WhatsApp с системой iOS и алгоритмами некоторых клиентов.</p>
-        <p style="margin-bottom:10px;"><strong>Сначала:</strong> убедитесь, что установлена свежая версия Happ — ссылка во вкладке «Главное».</p>
-        <p style="margin-bottom:8px;">Если не помогло — переключитесь на специальные варианты соединения:</p>
-        <ul>
-          <li>Тестовый I</li>
-          <li>Тестовый II</li>
-        </ul>
-      </div>
-
-      
-      <div class="notice">
-        <span class="notice-label">
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 4v6h-6M2 20v-6h6"/><path d="M19.5 9A8.5 8.5 0 0 0 5.4 5.8L2 10m20 4-3.4 4.2A8.5 8.5 0 0 1 4.5 15"/></svg>
-          ПОДПИСКА
-        </span>
-        <h3 class="card-title">Интернет пропал, хотя подписка активна?</h3>
-        <p style="margin-bottom:10px;">Скорее всего, приложение не подтянуло свежий список серверов. Обновите подписку вручную — кнопкой с двумя круговыми стрелками в приложении.</p>
-        <p>Если не помогло — проверьте в личном кабинете, остался ли трафик и не заняты ли все доступные устройства.</p>
-        <div class="btn-group" style="margin-top:14px;">
-          <a href="https://lk.xama.life" class="btn btn-outline" target="_blank" rel="noopener">Проверить в кабинете</a>
-        </div>
-      </div>
-
-      <div class="card" style="margin-top:20px;">
-        <h3 class="card-title">
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><circle cx="12" cy="12" r="4"/><path d="m5.3 5.3 3.9 3.9M14.8 14.8l3.9 3.9M18.7 5.3l-3.9 3.9M9.2 14.8l-3.9 3.9"/></svg>
-          Не нашли решение?
-        </h3>
-        <p class="muted">Опишите, что происходит — поддержка на связи и поможет разобраться.</p>
-        <div class="btn-group" style="margin-top:14px;">
-          <a href="https://lk.xama.life/support" class="btn btn-primary" target="_blank" rel="noopener">Написать в поддержку</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ВКЛАДКА: ВОПРОСЫ (FAQ) -->
+    <!-- РАЗДЕЛ: ВОПРОСЫ -->
     <!--                                                                    -->
-    <!--  ЧТОБЫ ДОБАВИТЬ ВОПРОС: скопируйте один блок <details ...> целиком  -->
-    <!--  и поменяйте текст вопроса, ответа и ссылку/подпись кнопки.        -->
-    <!--  Атрибут name="faq" оставляйте — он закрывает соседние вопросы.    -->
-    <!--  Ссылка живёт в href="..." — на кнопке её не видно.                -->
+    <!--  ДОБАВИТЬ ВОПРОС: скопируйте блок <details> целиком и поменяйте     -->
+    <!--  текст вопроса и ответа. Атрибут name="faq" оставляйте — он         -->
+    <!--  закрывает соседние вопросы. Поиск подхватит новый вопрос сам.     -->
+    <!--  Кнопка со ссылкой (необязательно):                                -->
+    <!--    <div class="btn-group"><a href="..." class="btn btn-primary"     -->
+    <!--    target="_blank" rel="noopener">Текст кнопки</a></div>            -->
     <section id="faq" class="content-section" data-label="Вопросы" data-icon="help" role="tabpanel" tabindex="0">
-      <p class="lead">Частые вопросы. Нажмите на вопрос, чтобы раскрыть ответ.</p>
 
-      <details class="faq-item" name="faq">
-        <summary>
-          Есть ли у вас свои приложения для Android и iOS?
-          <svg class="faq-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-        </summary>
-        <div class="faq-body">
-          <p>Для Windows у нас есть официальный клиент. Для Android и iOS мы настоятельно рекомендуем использовать приложение <strong>Happ</strong>. Мы могли бы чисто на вайбе накодить свои мобильные приложения, как это делают многие другие сервисы, но давайте будем честны — это не сравнится по качеству и стабильности с Happ, над которым постоянно трудится огромная команда разработчиков. Мы предпочитаем рекомендовать вам лучший инструмент из существующих.</p>
-          <p>Ссылки на Happ — во вкладке «Главное».</p>
-        </div>
-      </details>
+      <div class="faq-search">
+        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input type="search" id="faq-input" placeholder="Поиск по вопросам" aria-label="Поиск по вопросам" autocomplete="off">
+      </div>
 
-      <details class="faq-item" name="faq">
-        <summary>
-          Как оформить подписку?
-          <svg class="faq-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-        </summary>
-        <div class="faq-body">
-          <p>Двумя способами — как удобнее. В личном кабинете или прямо в Telegram-боте: выбираете подписку, оплачиваете и получаете ссылку для клиента.</p>
-          <div class="btn-group pair">
-            <a href="https://lk.xama.life" class="btn btn-primary" target="_blank" rel="noopener">Личный кабинет</a>
-            <a href="https://t.me/XAMA_life_bot" class="btn btn-outline" target="_blank" rel="noopener">Telegram-бот</a>
+      <div id="faq-list">
+        <details class="faq-item" name="faq">
+          <summary>
+            Есть ли у вас свои приложения для Android и iOS?
+            <svg class="faq-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+          </summary>
+          <div class="faq-body">
+            <p>Для Windows у нас есть официальное приложение. Для Android и iOS мы настоятельно рекомендуем использовать приложение <strong>Happ</strong>. Мы могли бы чисто на вайбе накодить свои мобильные приложения, как это делают многие другие сервисы, но давайте будем честны — это не сравнится по качеству и стабильности с Happ, над которым постоянно трудится огромная команда разработчиков. Мы предпочитаем рекомендовать вам лучший инструмент из существующих.</p>
+            <p>Ссылки на Happ — в разделе «Главное».</p>
           </div>
-        </div>
-      </details>
+        </details>
 
-      <details class="faq-item" name="faq">
-        <summary>
-          У меня нет Telegram — что делать?
-          <svg class="faq-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-        </summary>
-        <div class="faq-body">
-          <p>Telegram больше не обязателен. Откройте личный кабинет и войдите по электронной почте — все возможности будут доступны так же, как при входе через Telegram.</p>
-          <div class="btn-group">
-            <a href="https://lk.xama.life" class="btn btn-primary" target="_blank" rel="noopener">Войти по почте</a>
+        <details class="faq-item" name="faq">
+          <summary>
+            Как оформить подписку?
+            <svg class="faq-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+          </summary>
+          <div class="faq-body">
+            <p>В кабинете — как вам удобнее: в браузере или прямо в Telegram. Выбираете подписку, оплачиваете и получаете ссылку для приложения.</p>
+            <div class="btn-group pair">
+              <a href="https://lk.xama.life" class="btn btn-primary" target="_blank" rel="noopener">Кабинет в браузере</a>
+              <a href="https://t.me/XAMA_life_bot" class="btn btn-outline" target="_blank" rel="noopener">Кабинет в Telegram</a>
+            </div>
           </div>
-        </div>
-      </details>
+        </details>
 
-      <details class="faq-item" name="faq">
-        <summary>
-          Закончился трафик или не хватает устройств
-          <svg class="faq-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-        </summary>
-        <div class="faq-body">
-          <p>Менять подписку не нужно. К любой из них можно докупить нужное количество трафика или дополнительные устройства — прямо в личном кабинете.</p>
-          <div class="btn-group">
-            <a href="https://lk.xama.life" class="btn btn-primary" target="_blank" rel="noopener">Докупить в кабинете</a>
+        <details class="faq-item" name="faq">
+          <summary>
+            Чем отличается кабинет в браузере от кабинета в Telegram?
+            <svg class="faq-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+          </summary>
+          <div class="faq-body">
+            <p>Ничем — это один и тот же кабинет с одними и теми же возможностями, просто два входа. В браузере удобнее с компьютера, в Telegram — когда телефон под рукой. Данные и подписка общие: что сделали в одном, сразу видно в другом.</p>
           </div>
-        </div>
-      </details>
+        </details>
 
-      <details class="faq-item" name="faq">
-        <summary>
-          Как участвовать в реферальной программе?
-          <svg class="faq-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-        </summary>
-        <div class="faq-body">
-          <p>Получите личную реферальную ссылку в кабинете и делитесь ею. Там же можно отправить заявку на партнёрство, если хотите сотрудничать с нами на постоянной основе.</p>
-          <div class="btn-group">
-            <a href="https://lk.xama.life/referral" class="btn btn-primary" target="_blank" rel="noopener">Получить ссылку</a>
+        <details class="faq-item" name="faq">
+          <summary>
+            У меня нет Telegram — что делать?
+            <svg class="faq-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+          </summary>
+          <div class="faq-body">
+            <p>Telegram не обязателен. Откройте кабинет в браузере и войдите по электронной почте — все возможности будут доступны так же.</p>
+            <div class="btn-group">
+              <a href="https://lk.xama.life" class="btn btn-primary" target="_blank" rel="noopener">Войти по почте</a>
+            </div>
           </div>
-        </div>
-      </details>
+        </details>
 
-      <details class="faq-item" name="faq">
-        <summary>
-          Как связаться с техподдержкой?
-          <svg class="faq-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-        </summary>
-        <div class="faq-body">
-          <p>Через раздел поддержки в личном кабинете — опишите ситуацию, поможем разобраться.</p>
-          <div class="btn-group">
-            <a href="https://lk.xama.life/support" class="btn btn-primary" target="_blank" rel="noopener">Связаться с поддержкой</a>
+        <details class="faq-item" name="faq">
+          <summary>
+            Какой режим выбрать?
+            <svg class="faq-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+          </summary>
+          <div class="faq-body">
+            <p>Начните с «Умного» — он подходит почти всем. Если в мессенджерах не грузятся картинки и кружочки, попробуйте «Полный». Владельцам iPhone и iPad, у кого первые два работают нестабильно, стоит выбрать режим «Apple».</p>
           </div>
-        </div>
-      </details>
+        </details>
 
-      <details class="faq-item" name="faq">
-        <summary>
-          Хочу сообщить об ошибке
-          <svg class="faq-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-        </summary>
-        <div class="faq-body">
-          <p>Спасибо, что помогаете нам стать лучше. Напишите, что именно не работает — по возможности приложите скриншот.</p>
-          <div class="btn-group">
-            <a href="https://lk.xama.life/support" class="btn btn-primary" target="_blank" rel="noopener">Сообщить об ошибке</a>
+        <details class="faq-item" name="faq">
+          <summary>
+            Закончился трафик или не хватает устройств
+            <svg class="faq-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+          </summary>
+          <div class="faq-body">
+            <p>Менять подписку не нужно. К любой из них можно докупить трафик или дополнительные устройства — прямо в кабинете.</p>
+            <div class="btn-group">
+              <a href="https://lk.xama.life" class="btn btn-primary" target="_blank" rel="noopener">Докупить в кабинете</a>
+            </div>
           </div>
-        </div>
-      </details>
+        </details>
 
-      <details class="faq-item" name="faq">
-        <summary>
-          Хочу заказать сайт, бота или приложение
-          <svg class="faq-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-        </summary>
-        <div class="faq-body">
-          <p>Это уже не про сеть XAMA — разработкой занимается отдельная студия. Переходите к ней, там всё расскажут и посчитают.</p>
-          <div class="btn-group">
-            <a href="https://khakiev.ru/" class="btn btn-primary" target="_blank" rel="noopener">Перейти к разработчикам</a>
+        <details class="faq-item" name="faq">
+          <summary>
+            Как участвовать в реферальной программе?
+            <svg class="faq-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+          </summary>
+          <div class="faq-body">
+            <p>Получите личную реферальную ссылку в кабинете и делитесь ею. Там же можно отправить заявку на партнёрство, если хотите сотрудничать с нами на постоянной основе.</p>
+            <div class="btn-group">
+              <a href="https://lk.xama.life/referral" class="btn btn-primary" target="_blank" rel="noopener">Получить ссылку</a>
+            </div>
           </div>
-        </div>
-      </details>
+        </details>
+
+        <details class="faq-item" name="faq">
+          <summary>
+            Как связаться с техподдержкой?
+            <svg class="faq-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+          </summary>
+          <div class="faq-body">
+            <p>Через раздел поддержки в кабинете — опишите ситуацию, поможем разобраться.</p>
+            <div class="btn-group">
+              <a href="https://lk.xama.life/support" class="btn btn-primary" target="_blank" rel="noopener">Связаться с поддержкой</a>
+            </div>
+          </div>
+        </details>
+
+        <details class="faq-item" name="faq">
+          <summary>
+            Хочу сообщить об ошибке
+            <svg class="faq-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+          </summary>
+          <div class="faq-body">
+            <p>Спасибо, что помогаете нам стать лучше. Напишите, что именно не работает — по возможности приложите скриншот.</p>
+            <div class="btn-group">
+              <a href="https://lk.xama.life/support" class="btn btn-primary" target="_blank" rel="noopener">Сообщить об ошибке</a>
+            </div>
+          </div>
+        </details>
+
+        <details class="faq-item" name="faq">
+          <summary>
+            Хочу заказать сайт, бота или приложение
+            <svg class="faq-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+          </summary>
+          <div class="faq-body">
+            <p>Это уже не про сеть XAMA — разработкой занимается отдельная студия. Переходите к ней, там всё расскажут и посчитают.</p>
+            <div class="btn-group">
+              <a href="https://khakiev.ru/" class="btn btn-primary" target="_blank" rel="noopener">Перейти к разработчикам</a>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <div class="faq-empty" id="faq-empty">Ничего не нашлось — попробуйте другое слово<br>или напишите в поддержку</div>
     </section>
 
     <footer class="footer">
       <div class="footer-links">
-        <a href="https://lk.xama.life" target="_blank" rel="noopener">Личный кабинет</a>
-        <a href="https://t.me/XAMA_life_bot" target="_blank" rel="noopener">Telegram-бот</a>
+        <a href="https://lk.xama.life" target="_blank" rel="noopener">Кабинет</a>
+        <a href="https://t.me/XAMA_life_bot" target="_blank" rel="noopener">Telegram</a>
         <a href="https://lk.xama.life/support" target="_blank" rel="noopener">Поддержка</a>
         <a href="https://lk.xama.life/referral" target="_blank" rel="noopener">Партнёрам</a>
-        <a href="https://xama.life/client">Клиент</a>
+        <a href="https://xama.life/client">Приложение</a>
       </div>
       <div class="footer-mark">Команда XAMA</div>
     </footer>
@@ -1324,51 +957,54 @@
 
   <script>
     /* ==================================================================
-       НАБОР ИКОНОК ДЛЯ ВКЛАДОК.
+       ИКОНКИ РАЗДЕЛОВ.
        В data-icon у секции пишете имя отсюда.
-       Чтобы добавить свою иконку — впишите новую строку "имя": "<path .../>".
+       Своя иконка — добавьте строку "имя": "<path .../>".
        ================================================================== */
-    var TAB_ICONS = {
-      home:   '<path d="M3 11 12 3l9 8"/><path d="M5 10v10h5v-6h4v6h5V10"/>',
-      card:   '<rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19"/>',
-      bolt:   '<path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/>',
-      shield: '<path d="M12 3 5 6v5c0 4.5 3 7.6 7 9 4-1.4 7-4.5 7-9V6l-7-3z"/>',
-      alert:  '<path d="M10.3 4 2 18a2 2 0 0 0 1.7 3h16.6a2 2 0 0 0 1.7-3L13.7 4a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/>',
-      help:   '<circle cx="12" cy="12" r="9.5"/><path d="M9.2 9.3a2.8 2.8 0 0 1 5.4 1c0 1.9-2.6 2.3-2.6 3.7"/><path d="M12 17h.01"/>'
+    var SECTION_ICONS = {
+      home: '<path d="M3 11 12 3l9 8"/><path d="M5 10v10h5v-6h4v6h5V10"/>',
+      card: '<rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19"/>',
+      help: '<circle cx="12" cy="12" r="9.5"/><path d="M9.2 9.3a2.8 2.8 0 0 1 5.4 1c0 1.9-2.6 2.3-2.6 3.7"/><path d="M12 17h.01"/>',
+      bolt: '<path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/>',
+      shield: '<path d="M12 3 5 6v5c0 4.5 3 7.6 7 9 4-1.4 7-4.5 7-9V6l-7-3z"/>'
     };
 
+    /* ---------- НАВИГАЦИЯ ---------- */
     (function(){
-      var tabsNav = document.getElementById('tabs');
-      var panels  = Array.prototype.slice.call(document.querySelectorAll('.content-section'));
-      var buttons = [];
+      var nav       = document.getElementById('segmented');
+      var indicator = document.getElementById('seg-indicator');
+      var panels    = Array.prototype.slice.call(document.querySelectorAll('.content-section'));
+      var buttons   = [];
 
-      /* строим кнопки вкладок из секций */
       panels.forEach(function(panel){
         var id    = panel.id;
         var label = panel.getAttribute('data-label') || id;
-        var icon  = panel.getAttribute('data-icon') || '';
-        var svg   = TAB_ICONS[icon] || '';
+        var icon  = SECTION_ICONS[panel.getAttribute('data-icon')] || '';
 
         var btn = document.createElement('button');
-        btn.className = 'tab-btn';
+        btn.className = 'seg-btn';
         btn.type = 'button';
-        btn.id = 'tab-btn-' + id;
+        btn.id = 'seg-' + id;
         btn.setAttribute('role','tab');
         btn.setAttribute('aria-controls', id);
-        btn.setAttribute('aria-label', label);
         btn.innerHTML =
-          '<svg class="tab-ic" viewBox="0 0 24 24" aria-hidden="true">' + svg + '</svg>' +
-          '<span class="tab-label">' + label + '</span>';
+          '<svg class="seg-ic" viewBox="0 0 24 24" aria-hidden="true">' + icon + '</svg>' +
+          '<span>' + label + '</span>';
 
         panel.setAttribute('aria-labelledby', btn.id);
-        tabsNav.appendChild(btn);
+        nav.appendChild(btn);
         buttons.push(btn);
       });
 
+      function moveIndicator(i){
+        var pct = 100 / buttons.length;
+        indicator.style.width = 'calc(' + pct + '% - ' + (8 / buttons.length).toFixed(2) + 'px)';
+        indicator.style.transform = 'translateX(' + (i * 100) + '%)';
+      }
+
       function activate(id, focusBtn, updateHash){
-        var btn = document.getElementById('tab-btn-' + id);
-        var panel = document.getElementById(id);
-        if(!btn || !panel) return;
+        var idx = buttons.findIndex(function(b){ return b.getAttribute('aria-controls') === id; });
+        if(idx < 0) return;
 
         buttons.forEach(function(b){
           b.classList.remove('active');
@@ -1377,13 +1013,13 @@
         });
         panels.forEach(function(p){ p.classList.remove('active'); });
 
-        btn.classList.add('active');
-        btn.setAttribute('aria-selected','true');
-        btn.tabIndex = 0;
-        panel.classList.add('active');
+        buttons[idx].classList.add('active');
+        buttons[idx].setAttribute('aria-selected','true');
+        buttons[idx].tabIndex = 0;
+        document.getElementById(id).classList.add('active');
+        moveIndicator(idx);
 
-        btn.scrollIntoView({ behavior:'smooth', inline:'center', block:'nearest' });
-        if(focusBtn) btn.focus();
+        if(focusBtn) buttons[idx].focus();
         if(updateHash && history.replaceState) history.replaceState(null, '', '#' + id);
       }
 
@@ -1397,25 +1033,48 @@
           if(e.key === 'ArrowLeft')  next = buttons[(i - 1 + buttons.length) % buttons.length];
           if(e.key === 'Home')       next = buttons[0];
           if(e.key === 'End')        next = buttons[buttons.length - 1];
-          if(next){
-            e.preventDefault();
-            activate(next.getAttribute('aria-controls'), true, true);
-          }
+          if(next){ e.preventDefault(); activate(next.getAttribute('aria-controls'), true, true); }
         });
       });
 
       function fromHash(){
         var id = (location.hash || '').replace('#','');
-        if(id && document.getElementById(id) && document.getElementById('tab-btn-' + id)){
-          activate(id, false, false);
-        } else if(panels.length){
-          activate(panels[0].id, false, false);
-        }
+        if(id && document.getElementById(id) && document.getElementById('seg-' + id)) activate(id, false, false);
+        else if(panels.length) activate(panels[0].id, false, false);
       }
       fromHash();
       window.addEventListener('hashchange', fromHash);
+      window.addEventListener('resize', function(){
+        var i = buttons.findIndex(function(b){ return b.classList.contains('active'); });
+        if(i >= 0) moveIndicator(i);
+      });
     })();
 
+    /* ---------- ПОИСК ПО ВОПРОСАМ ---------- */
+    (function(){
+      var input = document.getElementById('faq-input');
+      var list  = document.getElementById('faq-list');
+      var empty = document.getElementById('faq-empty');
+      if(!input || !list) return;
+
+      var items = Array.prototype.slice.call(list.querySelectorAll('.faq-item'));
+
+      input.addEventListener('input', function(){
+        var q = input.value.trim().toLowerCase();
+        var shown = 0;
+
+        items.forEach(function(item){
+          var hit = !q || item.textContent.toLowerCase().indexOf(q) !== -1;
+          item.classList.toggle('hidden', !hit);
+          if(hit) shown++;
+          if(!hit) item.open = false;
+        });
+
+        empty.classList.toggle('show', shown === 0);
+      });
+    })();
+
+    /* ---------- ТЕМА ---------- */
     (function(){
       var root = document.documentElement;
       var toggle = document.getElementById('theme-toggle');
