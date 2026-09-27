@@ -1,1 +1,463 @@
-1
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>XAMA — обновление</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#FFFFFF;
+  --ink:#000000;
+  --muted:#6B6B6B;
+  --line:#E2E2E2;
+  --card:#F5F5F5;
+  --card-hover:#EDEDED;
+  --open-bg:#000000;
+  --open-ink:#FFFFFF;
+  --open-muted:#A8A8A8;
+  --open-line:#2A2A2A;
+  --thumb:#000000;
+  --thumb-ink:#FFFFFF;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#000000;
+    --ink:#FFFFFF;
+    --muted:#8C8C8C;
+    --line:#1F1F1F;
+    --card:#0F0F0F;
+    --card-hover:#171717;
+    --open-bg:#FFFFFF;
+    --open-ink:#000000;
+    --open-muted:#5E5E5E;
+    --open-line:#E0E0E0;
+    --thumb:#FFFFFF;
+    --thumb-ink:#000000;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#000000;
+  --ink:#FFFFFF;
+  --muted:#8C8C8C;
+  --line:#1F1F1F;
+  --card:#0F0F0F;
+  --card-hover:#171717;
+  --open-bg:#FFFFFF;
+  --open-ink:#000000;
+  --open-muted:#5E5E5E;
+  --open-line:#E0E0E0;
+  --thumb:#FFFFFF;
+  --thumb-ink:#000000;
+}
+
+*,*::before,*::after{box-sizing:inherit}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Manrope","Segoe UI",system-ui,-apple-system,Arial,sans-serif;
+  font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;
+}
+a{color:inherit}
+button{font:inherit;color:inherit}
+.wrap{max-width:52rem;margin:0 auto;padding:0 1.25rem}
+
+/* ---------- шапка ---------- */
+.bar{display:flex;align-items:center;gap:1rem;padding:1.4rem 0}
+.logo{display:block;margin-right:auto;line-height:0;border-radius:10px;transition:opacity .2s ease}
+.logo:hover{opacity:.8}
+.logo:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.lg-bg{fill:var(--ink)}
+.lg-fg{stroke:var(--bg)}
+.sep{width:1px;height:.9rem;background:var(--line)}
+.brand{font-size:.82rem;color:var(--muted);font-weight:500;letter-spacing:.12em}
+.date{font-size:.82rem;color:var(--muted);font-weight:500}
+
+/* ---------- герой ---------- */
+.hero{padding:3.5rem 0 2.5rem}
+.hero h1{
+  margin:0;font-weight:800;letter-spacing:-.055em;line-height:.88;
+  font-size:clamp(3.4rem,13vw,7.6rem);
+}
+.hero h1 span{display:block;color:var(--muted);letter-spacing:-.04em}
+.hero p{margin:1.6rem 0 0;color:var(--muted);font-size:1.05rem;max-width:34ch;font-weight:500}
+
+/* ---------- вкладки ---------- */
+.tabs{
+  position:relative;display:grid;grid-template-columns:1fr 1fr;
+  border:1px solid var(--line);border-radius:999px;padding:5px;margin:0 0 2rem;
+  background:var(--card);
+}
+.thumb{
+  position:absolute;top:5px;bottom:5px;left:5px;width:calc(50% - 5px);
+  border-radius:999px;background:var(--thumb);
+  transition:transform .45s cubic-bezier(.65,0,.35,1);
+}
+.tabs[data-active="ref"] .thumb{transform:translateX(100%)}
+.tab{
+  position:relative;z-index:1;border:0;background:none;cursor:pointer;
+  padding:.85rem .5rem;border-radius:999px;font-weight:700;font-size:.95rem;
+  color:var(--muted);transition:color .35s ease;
+}
+.tab[aria-selected="true"]{color:var(--thumb-ink)}
+.tab:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+
+.panel{display:none}
+.panel.on{display:block;animation:rise .5s cubic-bezier(.2,.7,.2,1)}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* ---------- аккордеон ---------- */
+.acc{display:flex;flex-direction:column;gap:.6rem}
+.card{
+  border-radius:1.4rem;background:var(--card);
+  transition:background .45s ease,color .45s ease;
+}
+.card:not(.open):hover{background:var(--card-hover)}
+.card.open{background:var(--open-bg);color:var(--open-ink)}
+.head{
+  width:100%;border:0;background:none;cursor:pointer;text-align:left;
+  display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:center;
+  padding:1.45rem 1.6rem;border-radius:1.4rem;
+}
+.head:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.t{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap;font-weight:800;font-size:1.25rem;letter-spacing:-.02em;line-height:1.2}
+.s{display:block;margin-top:.3rem;font-size:.95rem;font-weight:500;color:var(--muted);transition:color .45s ease}
+.card.open .s{color:var(--open-muted)}
+.tag{
+  font-size:.68rem;font-weight:800;letter-spacing:.08em;padding:.28rem .6rem;
+  border-radius:999px;border:1.5px solid currentColor;line-height:1;
+}
+.ic{
+  width:2.6rem;height:2.6rem;border-radius:50%;flex:none;position:relative;
+  border:1.5px solid currentColor;transition:transform .5s cubic-bezier(.65,0,.35,1);
+}
+.ic::before,.ic::after{
+  content:"";position:absolute;left:50%;top:50%;width:.9rem;height:1.5px;
+  background:currentColor;transform:translate(-50%,-50%);
+}
+.ic::after{transform:translate(-50%,-50%) rotate(90deg)}
+.card.open .ic{transform:rotate(135deg)}
+
+.body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .55s cubic-bezier(.65,0,.35,1)}
+.card.open .body{grid-template-rows:1fr}
+.inner{overflow:hidden}
+.content{
+  padding:0 1.6rem 1.7rem;opacity:0;transform:translateY(-6px);
+  transition:opacity .3s ease,transform .4s ease;
+}
+.card.open .content{opacity:1;transform:none;transition-delay:.18s}
+.content p{margin:0 0 .8rem;max-width:58ch}
+.content p:last-child{margin-bottom:0}
+.steps{list-style:none;margin:0 0 1rem;padding:0;border-top:1px solid var(--open-line)}
+.steps li{
+  display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:baseline;
+  padding:.8rem 0;border-bottom:1px solid var(--open-line);
+}
+.steps b{font-weight:800;font-size:.8rem;color:var(--open-muted);min-width:1.4rem}
+.addr{font-weight:700;border-bottom:1.5px solid currentColor;text-decoration:none;word-break:break-word}
+.q{font-weight:700}
+.fine{font-size:.9rem;color:var(--open-muted)}
+.jump{
+  border:0;background:none;padding:0;cursor:pointer;font-weight:700;
+  border-bottom:1.5px solid currentColor;
+}
+
+/* ---------- рефералка ---------- */
+.ref{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+.box{border-radius:1.4rem;padding:1.8rem 1.6rem;background:var(--card)}
+.box.inv{background:var(--open-bg);color:var(--open-ink)}
+.box h3{margin:0;font-size:1rem;font-weight:700;color:var(--muted)}
+.box.inv h3{color:var(--open-muted)}
+.big{
+  margin:.6rem 0 .3rem;font-weight:800;letter-spacing:-.06em;line-height:.9;
+  font-size:clamp(4rem,11vw,6.2rem);
+}
+.lead{margin:0 0 1.5rem;font-weight:700;font-size:1.1rem;letter-spacing:-.01em}
+.list{list-style:none;margin:0;padding:0}
+.list li{padding:.75rem 0;border-top:1px solid var(--line);font-size:.95rem}
+.box.inv .list li{border-top-color:var(--open-line)}
+
+/* ---------- финал ---------- */
+.end{margin:3.5rem 0 0;padding:2.5rem 0 3rem;border-top:1px solid var(--line)}
+.end h2{margin:0 0 1.5rem;font-size:clamp(1.6rem,4.5vw,2.3rem);font-weight:800;letter-spacing:-.04em;line-height:1.05}
+.btns{display:grid;grid-template-columns:repeat(6,1fr);gap:.6rem}
+.btns .btn{grid-column:span 2}
+.btns .btn.main{grid-column:span 3}
+.btn{
+  display:flex;align-items:center;justify-content:space-between;gap:.75rem;
+  text-decoration:none;font-weight:700;font-size:1rem;
+  padding:1.15rem 1.35rem;border-radius:1.1rem;
+  border:1.5px solid var(--ink);transition:background .25s ease,color .25s ease;
+}
+.btn:hover{background:var(--ink);color:var(--bg)}
+.btn.main{background:var(--ink);color:var(--bg)}
+.btn.main:hover{opacity:.85}
+.btn:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.btn .tag{font-size:.62rem}
+.help{margin:1.5rem 0 0;color:var(--muted);font-size:.9rem;max-width:52ch}
+
+@media (max-width:720px){
+  .hero{padding:2rem 0 2rem}
+  .ref{grid-template-columns:1fr}
+  .btns{grid-template-columns:1fr}
+  .btns .btn,.btns .btn.main{grid-column:auto}
+  .head{padding:1.2rem 1.25rem}
+  .content{padding:0 1.25rem 1.4rem}
+  .t{font-size:1.1rem}
+  .ic{width:2.2rem;height:2.2rem}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="bar">
+    <a class="logo" href="https://xama.life" aria-label="XAMA — xama.life">
+      <svg viewBox="0 0 512 512" width="36" height="36" aria-hidden="true">
+        <rect width="512" height="512" rx="112" class="lg-bg"/>
+        <g fill="none" class="lg-fg" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M106 106 L406 406 M406 106 L106 406" stroke-width="30"/>
+          <path d="M172 106 L256 190 L340 106" stroke-width="18"/>
+          <path d="M172 406 L256 322 L340 406" stroke-width="18"/>
+          <path d="M106 172 L190 256 L106 340" stroke-width="18"/>
+          <path d="M406 172 L322 256 L406 340" stroke-width="18"/>
+        </g>
+      </svg>
+    </a>
+    <span class="date">27.09.2026</span>
+    <span class="sep" aria-hidden="true"></span>
+    <span class="brand">UPDATE</span>
+  </div>
+
+  <header class="hero">
+    <h1>Обновление<span>XAMA</span></h1>
+    <p>Что появилось в сервисе и как зарабатывать вместе с нами.</p>
+  </header>
+
+  <div class="tabs" role="tablist" data-active="upd">
+    <span class="thumb" aria-hidden="true"></span>
+    <button class="tab" role="tab" id="t-upd" aria-controls="p-upd" aria-selected="true" data-tab="upd">Обновление</button>
+    <button class="tab" role="tab" id="t-ref" aria-controls="p-ref" aria-selected="false" data-tab="ref" tabindex="-1">Реферальная программа</button>
+  </div>
+
+  <!-- ОБНОВЛЕНИЕ -->
+  <section class="panel on" id="p-upd" role="tabpanel" aria-labelledby="t-upd">
+    <div class="acc">
+
+      <div class="card">
+        <button class="head" aria-expanded="false">
+          <span><span class="t">Быстрая покупка <span class="tag">НОВОЕ</span></span><span class="s">Подписка без регистрации — в пару шагов</span></span>
+          <span class="ic" aria-hidden="true"></span>
+        </button>
+        <div class="body"><div class="inner"><div class="content">
+          <p>Отдельная страница <a class="addr" href="https://lk.xama.life/buy/xama-fast">lk.xama.life/buy/xama-fast</a> — регистрироваться не нужно, аккаунт в кабинете создаётся автоматически.</p>
+          <ol class="steps">
+            <li><b>1</b><span>Выберите тариф и срок</span></li>
+            <li><b>2</b><span>Укажите email или @username в Telegram</span></li>
+            <li><b>3</b><span>Оплатите</span></li>
+          </ol>
+          <p>Указали email — на почту сразу придёт пароль для входа в личный кабинет.</p>
+          <p>Указали Telegram — просто зайдите в бота <a class="addr" href="https://t.me/xama_life_bot">@xama_life_bot</a>.</p>
+          <p class="fine">Письма нет — проверьте папку «Спам».</p>
+        </div></div></div>
+      </div>
+
+      <div class="card">
+        <button class="head" aria-expanded="false">
+          <span><span class="t">Статус серверов <span class="tag">НОВОЕ</span></span><span class="s">Работает ли сервер — видно в реальном времени</span></span>
+          <span class="ic" aria-hidden="true"></span>
+        </button>
+        <div class="body"><div class="inner"><div class="content">
+          <p>Страница <a class="addr" href="https://status.xama.life">status.xama.life</a> показывает состояние каждой локации.</p>
+          <ul class="steps">
+            <li><b>—</b><span>Доступность каждого сервера за последние 30 дней</span></li>
+            <li><b>—</b><span>Текущая задержка по каждой локации</span></li>
+            <li><b>—</b><span>Проверка раз в 5 минут — через настоящее подключение к серверу, как у вас</span></li>
+          </ul>
+          <p class="fine">Не работает VPN — загляните туда: сразу видно, проблема в сервере или на вашей стороне.</p>
+        </div></div></div>
+      </div>
+
+      <div class="card">
+        <button class="head" aria-expanded="false">
+          <span><span class="t">Подарок в пару кликов</span><span class="s">Подписка другу прямо со страницы быстрой покупки</span></span>
+          <span class="ic" aria-hidden="true"></span>
+        </button>
+        <div class="body"><div class="inner"><div class="content">
+          <p>Укажите контакты получателя — email или Telegram — и добавьте поздравление. Подписка активируется у него.</p>
+          <p class="fine">Заходить в кабинет для этого больше не нужно.</p>
+        </div></div></div>
+      </div>
+
+      <div class="card">
+        <button class="head" aria-expanded="false">
+          <span><span class="t">Автопокупка после пополнения</span><span class="s">Пополнили баланс — подписка оформится сама</span></span>
+          <span class="ic" aria-hidden="true"></span>
+        </button>
+        <div class="body"><div class="inner"><div class="content">
+          <p>Раньше, если на балансе не хватало денег, приходилось пополнять и снова нажимать <span class="q">«Купить»</span>.</p>
+          <p>Теперь выбранный тариф запоминается на 1 час. Пополнили баланс — подписка оформится автоматически.</p>
+          <p class="fine">С карты без вас ничего не списывается: пополняете и подтверждаете платёж в банке вы сами.</p>
+        </div></div></div>
+      </div>
+
+      <div class="card">
+        <button class="head" aria-expanded="false">
+          <span><span class="t">Новые уведомления</span><span class="s">Всегда в курсе, что с подпиской и трафиком</span></span>
+          <span class="ic" aria-hidden="true"></span>
+        </button>
+        <div class="body"><div class="inner"><div class="content">
+          <ul class="steps">
+            <li><b>—</b><span>Трафик заканчивается, закончился или сброшен</span></li>
+            <li><b>—</b><span>Первое подключение и напоминание, если вы ещё не подключались</span></li>
+            <li><b>—</b><span>Добавлено или удалено устройство</span></li>
+            <li><b>—</b><span>Подписка включена или выключена</span></li>
+          </ul>
+          <p class="fine">Приходят в Telegram, а если пользуетесь без Telegram — на email.</p>
+        </div></div></div>
+      </div>
+
+      <div class="card">
+        <button class="head" aria-expanded="false">
+          <span><span class="t">Подключение устройств</span><span class="s">Ключ больше не приходит открытой ссылкой в чат</span></span>
+          <span class="ic" aria-hidden="true"></span>
+        </button>
+        <div class="body"><div class="inner"><div class="content">
+          <p>Подключение — кнопкой <span class="q">«Подключить»</span> в кабинете или в боте. Там же инструкция под вашу платформу.</p>
+        </div></div></div>
+      </div>
+
+      <div class="card">
+        <button class="head" aria-expanded="false">
+          <span><span class="t">Быстрая покупка для партнёров <span class="tag">НОВОЕ</span></span><span class="s">Своя страница продаж с вашим заголовком и текстом</span></span>
+          <span class="ic" aria-hidden="true"></span>
+        </button>
+        <div class="body"><div class="inner"><div class="content">
+          <p>Страницы быстрой покупки теперь доступны партнёрам. У каждой — свой уникальный заголовок и свой текст.</p>
+          <ul class="steps">
+            <li><b>—</b><span>Настройка и редактирование — прямо в личном кабинете</span></li>
+            <li><b>—</b><span>Статистика покупок по вашей странице — там же</span></li>
+          </ul>
+          <p class="fine">Как стать партнёром — <button class="jump" data-go="ref">во вкладке «Реферальная программа»</button>.</p>
+        </div></div></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- РЕФЕРАЛЬНАЯ ПРОГРАММА -->
+  <section class="panel" id="p-ref" role="tabpanel" aria-labelledby="t-ref">
+    <div class="ref">
+
+      <div class="box inv">
+        <h3>Для всех</h3>
+        <p class="big">30%</p>
+        <p class="lead">с каждой оплаты друга — пожизненно</p>
+        <ul class="list">
+          <li>Начисления идут на реферальный баланс, без ограничения по числу оплат</li>
+          <li>Засчитываются, когда приглашённый пополняет баланс от 100 ₽</li>
+          <li>Реферальным балансом можно оплачивать свою подписку</li>
+          <li>Вывод: от 500 ₽, не чаще раза в 30 дней, по заявке в кабинете</li>
+          <li>Ссылка и QR-код — раздел «Рефералы» в кабинете или «Партнерка» в боте</li>
+        </ul>
+      </div>
+
+      <div class="box">
+        <h3>Партнёрам</h3>
+        <p class="big">Свой %</p>
+        <p class="lead">индивидуальные условия</p>
+        <ul class="list">
+          <li>Заявка: кабинет → «Рефералы» → «Стать партнёром»</li>
+          <li>Персональные ссылки под каждую площадку — все пришедшие становятся вашими рефералами</li>
+          <li>Своя страница быстрой покупки с вашим заголовком и текстом</li>
+          <li>Статистика по ссылкам и странице: регистрации, рефералы, покупки, доход</li>
+          <li>Особый пробный период для вашей аудитории</li>
+          <li>Вывод заработка — на тех же условиях</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- КНОПКИ -->
+  <footer class="end">
+    <h2>Попробуйте сами</h2>
+    <div class="btns">
+      <a class="btn main" href="https://lk.xama.life/buy/xama-fast">Быстрая покупка <span class="tag">НОВОЕ</span></a>
+      <a class="btn main" href="https://status.xama.life">Статус серверов <span class="tag">НОВОЕ</span></a>
+      <a class="btn" href="https://lk.xama.life">Личный кабинет</a>
+      <a class="btn" href="https://t.me/xama_life_bot">Telegram-бот</a>
+      <a class="btn" href="https://xama.life">Сетевой портал XAMA</a>
+    </div>
+    <p class="help">Что-то не работает — напишите в «Техподдержку» в боте или в раздел «Поддержка» в кабинете.</p>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  var tabsEl = document.querySelector(".tabs");
+  var tabs = Array.prototype.slice.call(document.querySelectorAll(".tab"));
+  var panels = { upd: document.getElementById("p-upd"), ref: document.getElementById("p-ref") };
+
+  function show(key, focus){
+    if (!panels[key]) key = "upd";
+    tabsEl.setAttribute("data-active", key);
+    tabs.forEach(function(t){
+      var on = t.getAttribute("data-tab") === key;
+      t.setAttribute("aria-selected", on ? "true" : "false");
+      t.tabIndex = on ? 0 : -1;
+      if (on && focus) t.focus();
+    });
+    Object.keys(panels).forEach(function(k){ panels[k].classList.toggle("on", k === key); });
+    try { history.replaceState(null, "", key === "ref" ? "#ref" : "#"); } catch(e) {}
+  }
+
+  tabs.forEach(function(t, i){
+    t.addEventListener("click", function(){ show(t.getAttribute("data-tab")); });
+    t.addEventListener("keydown", function(e){
+      if (e.key === "ArrowRight" || e.key === "ArrowLeft"){
+        e.preventDefault();
+        var n = tabs[(i + (e.key === "ArrowRight" ? 1 : -1) + tabs.length) % tabs.length];
+        show(n.getAttribute("data-tab"), true);
+      }
+    });
+  });
+
+  document.querySelectorAll(".jump").forEach(function(b){
+    b.addEventListener("click", function(e){
+      e.stopPropagation();
+      show(b.getAttribute("data-go"));
+      tabsEl.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  });
+
+  var cards = Array.prototype.slice.call(document.querySelectorAll(".card"));
+  cards.forEach(function(card){
+    var head = card.querySelector(".head");
+    head.addEventListener("click", function(){
+      var willOpen = !card.classList.contains("open");
+      cards.forEach(function(c){
+        c.classList.remove("open");
+        c.querySelector(".head").setAttribute("aria-expanded", "false");
+      });
+      if (willOpen){
+        card.classList.add("open");
+        head.setAttribute("aria-expanded", "true");
+      }
+    });
+  });
+
+  if (location.hash === "#ref") show("ref");
+})();
+</script>
+</body>
+</html>
