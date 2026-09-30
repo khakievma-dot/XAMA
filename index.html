@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="description" content="Сеть XAMA — подписки, приложения для всех устройств и поддержка 24/7.">
+<meta name="description" content="Сеть XAMA — подписки, приложения для всех устройств и поддержка.">
 <meta name="theme-color" content="#000000">
 <title>XAMA — Сетевой портал</title>
 
 <!-- Open Graph — превью для Telegram / WhatsApp / VK -->
 <meta property="og:title" content="Сеть XAMA — сетевой портал">
-<meta property="og:description" content="Подписки, приложения для всех устройств и поддержка 24/7">
+<meta property="og:description" content="Подписки, приложения для всех устройств и поддержка">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://xama.life/">
 <meta property="og:image" content="https://xama.life/og-image.png">
@@ -30,28 +30,27 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   /* ==================================================================
-     ЦВЕТА И БАЗОВЫЕ НАСТРОЙКИ
-     Меняете переменную здесь — меняется весь сайт.
+     ЦВЕТА И БАЗОВЫЕ НАСТРОЙКИ — меняете здесь, меняется весь сайт
      ================================================================== */
   :root{
     --bg: #000000;
     --surface: #0e0e0e;
-    --surface-2: #191919;
-    --border: #2a2a2a;
-    --border-strong: #454545;
+    --surface-2: #181818;
+    --border: #262626;
+    --border-strong: #434343;
     --ink: #f5f5f3;
     --ink-dim: #9a9a97;
-    --ink-faint: #656562;
+    --ink-faint: #636361;
     --white: #ffffff;
     --invert: #000000;
+    --glow: rgba(255,255,255,0.10);
     --bg-translucent: rgba(0,0,0,0.88);
     --radius: 16px;
     --radius-sm: 11px;
-    --topbar-h: 61px;
+    --topbar-h: 64px;
     --mono: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
     --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
-
   html[data-theme="light"]{
     --bg: #ffffff;
     --surface: #f5f5f4;
@@ -63,36 +62,25 @@
     --ink-faint: #8a8a87;
     --white: #000000;
     --invert: #ffffff;
+    --glow: rgba(0,0,0,0.06);
     --bg-translucent: rgba(255,255,255,0.88);
   }
 
   *{ box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
   html{ background:var(--bg); transition: background-color .2s ease; }
-
   body{
-    font-family: var(--sans);
-    background: var(--bg);
-    color: var(--ink);
-    margin:0;
-    line-height:1.55;
-    -webkit-font-smoothing: antialiased;
+    font-family: var(--sans); background: var(--bg); color: var(--ink);
+    margin:0; line-height:1.55; -webkit-font-smoothing: antialiased;
     padding-bottom: 48px;
   }
-
   a{ color:inherit; }
-
-  :focus-visible{
-    outline: 2px solid var(--white);
-    outline-offset: 2px;
-    border-radius: 8px;
-  }
-
+  :focus-visible{ outline:2px solid var(--white); outline-offset:2px; border-radius:8px; }
   @media (prefers-reduced-motion: reduce){
     *{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition:none !important; }
   }
 
-  .wrap{ max-width: 680px; margin: 0 auto; padding: 0 16px; }
-  @media (min-width: 900px){ .wrap{ max-width: 960px; padding: 0 28px; } }
+  .wrap{ max-width:680px; margin:0 auto; padding:0 16px; }
+  @media (min-width:900px){ .wrap{ max-width:960px; padding:0 28px; } }
 
   .ic{
     width:18px; height:18px; flex-shrink:0; display:block;
@@ -102,518 +90,441 @@
 
   /* ---------- ШАПКА ---------- */
   .topbar{
-    position: sticky; top:0; z-index:30;
-    background: var(--bg-translucent);
-    backdrop-filter: blur(16px) saturate(150%);
-    -webkit-backdrop-filter: blur(16px) saturate(150%);
-    border-bottom: 1px solid var(--border);
+    position:sticky; top:0; z-index:30;
+    background:var(--bg-translucent);
+    backdrop-filter:blur(16px) saturate(150%);
+    -webkit-backdrop-filter:blur(16px) saturate(150%);
+    border-bottom:1px solid var(--border);
   }
   .topbar-inner{
-    max-width: 680px; margin:0 auto;
-    padding: 13px 16px;
+    max-width:680px; margin:0 auto; padding:13px 16px;
     display:flex; align-items:center; justify-content:space-between; gap:12px;
-    min-height: 60px;
+    min-height:60px;
   }
-  @media (min-width: 900px){ .topbar-inner{ max-width: 960px; padding: 13px 28px; } }
-
-  .brand{ display:flex; align-items:center; gap:9px; }
+  @media (min-width:900px){ .topbar-inner{ max-width:960px; padding:13px 28px; } }
+  .brand{ display:flex; align-items:center; gap:9px; text-decoration:none; }
   .brand-icon{ width:26px; height:26px; flex-shrink:0; display:block; color:var(--ink); }
   .brand-mark{ font-weight:800; font-size:19px; letter-spacing:.09em; margin-right:-.09em; line-height:1; }
-  .brand-tag{
-    font-family: var(--mono); font-size:10px; color:var(--ink-faint);
-    letter-spacing:.06em; display:none;
-  }
-  @media (min-width:700px){ .brand-tag{ display:inline; } }
-
   .topbar-right{ display:flex; align-items:center; gap:8px; }
-
-  .status-pill{
-    display:none; align-items:center; gap:7px;
-    font-family:var(--mono); font-size:11px; color:var(--ink-dim);
-    border:1px solid var(--border); background:var(--surface);
-    padding:6px 11px 6px 9px; border-radius:999px; white-space:nowrap;
-  }
-  @media (min-width: 720px){ .status-pill{ display:flex; } }
-
   .topbar-cta{
     display:flex; align-items:center; gap:7px;
     font-size:13px; font-weight:600; text-decoration:none;
-    background:var(--white); color:var(--invert);
-    border:1px solid var(--white);
+    background:var(--white); color:var(--invert); border:1px solid var(--white);
     padding:8px 14px; border-radius:999px; white-space:nowrap;
-    transition: opacity .15s ease;
+    transition:opacity .15s ease;
   }
   .topbar-cta:active{ opacity:.75; }
   .topbar-cta .ic{ width:15px; height:15px; }
-  .topbar-cta span{ display:none; }
-  @media (min-width: 400px){ .topbar-cta span{ display:inline; } }
-
+  .topbar-cta.ghost{ background:transparent; color:var(--ink); border-color:var(--border-strong); }
+  .topbar-cta.ghost:hover{ border-color:var(--white); }
+  /* на узких экранах у Telegram остаётся только значок */
+  @media (max-width:389px){
+    .topbar-cta.ghost{ padding:8px 10px; }
+    .topbar-cta.ghost .cta-label{ display:none; }
+  }
   .theme-toggle{
     display:flex; align-items:center; justify-content:center;
     width:34px; height:34px; flex-shrink:0;
     border-radius:999px; border:1px solid var(--border);
-    background:var(--surface); color:var(--ink);
-    cursor:pointer; padding:0;
-    transition: border-color .15s ease;
+    background:var(--surface); color:var(--ink); cursor:pointer; padding:0;
+    transition:border-color .15s ease;
   }
-  .theme-toggle:hover{ border-color: var(--border-strong); }
+  .theme-toggle:hover{ border-color:var(--border-strong); }
   .theme-toggle svg{ width:16px; height:16px; display:block; }
   .theme-toggle .icon-sun{ display:none; }
   html[data-theme="light"] .theme-toggle .icon-moon{ display:none; }
   html[data-theme="light"] .theme-toggle .icon-sun{ display:block; }
 
-  .dot{ width:7px; height:7px; border-radius:50%; background:var(--white); position:relative; flex-shrink:0; }
-  .dot::after{
-    content:""; position:absolute; inset:-5px; border-radius:50%;
-    border:1px solid var(--white); opacity:.5;
-    animation: pulse 2.2s ease-out infinite;
+  /* ==================================================================
+     ВСТУПЛЕНИЕ — знак прорисовывается, затем уголки «дышат» к центру
+     ================================================================== */
+  .hero{
+    position:relative; overflow:hidden;
+    text-align:center;
+    padding:46px 0 34px;
+    margin:0 -16px;
   }
-  @keyframes pulse{ 0%{ transform:scale(.4); opacity:.6; } 100%{ transform:scale(1.9); opacity:0; } }
+  @media (min-width:900px){ .hero{ padding:72px 0 46px; margin:0; } }
 
-  /* ---------- ГЕРОЙ ---------- */
-  header.hero{ padding: 34px 0 22px; }
-  @media (min-width: 900px){ header.hero{ padding: 58px 0 30px; text-align:center; } }
+  /* огромный контур знака на фоне, еле вращается */
+  .hero-ghost{
+    position:absolute; left:50%; top:50%;
+    width:640px; height:640px;
+    margin:-320px 0 0 -320px;
+    color:var(--border);
+    pointer-events:none;
+    animation:ghost-spin 140s linear infinite;
+    -webkit-mask-image:radial-gradient(circle, #000 12%, transparent 46%);
+            mask-image:radial-gradient(circle, #000 12%, transparent 46%);
+  }
+  @media (min-width:900px){ .hero-ghost{ width:900px; height:900px; margin:-450px 0 0 -450px; } }
+  @keyframes ghost-spin{ to{ transform:rotate(360deg); } }
 
-  h1.hero-title{
-    font-size: clamp(33px, 8.6vw, 54px);
-    font-weight:800; letter-spacing:-.035em; line-height:1.05;
-    margin:0 0 10px;
-  }
-  h1.hero-title .caps{ letter-spacing:.02em; }
-  .hero-sub{
-    font-size: 15.5px; color: var(--ink-dim);
-    margin:0 0 22px; max-width: 46ch;
-  }
-  @media (min-width: 900px){
-    .hero-sub{ font-size:17px; margin-left:auto; margin-right:auto; }
-  }
-  .hero-cta{ display:flex; flex-direction:column; gap:9px; }
-  @media (min-width: 440px){ .hero-cta{ flex-direction:row; } }
-  @media (min-width: 900px){ .hero-cta{ justify-content:center; max-width:560px; margin:0 auto; } }
-
-  /* ---------- СЕГМЕНТИРОВАННАЯ НАВИГАЦИЯ ---------- */
-  .nav-holder{
-    position: sticky; top: var(--topbar-h); z-index: 20;
-    padding: 12px 0 16px;
-    background: linear-gradient(var(--bg) 66%, transparent);
-  }
-  @media (min-width: 900px){ .nav-holder{ display:flex; justify-content:center; } }
-
-  .segmented{
-    position:relative;
-    display:flex;
-    gap:2px;
-    background: var(--surface);
-    border:1px solid var(--border);
-    border-radius: 999px;
-    padding:4px;
-    width:100%;
-  }
-  @media (min-width: 900px){ .segmented{ width:auto; min-width:430px; } }
-
-  .seg-indicator{
-    position:absolute;
-    top:4px; bottom:4px; left:4px;
-    border-radius:999px;
-    background: var(--white);
-    transition: transform .28s cubic-bezier(.4,.1,.2,1), width .28s cubic-bezier(.4,.1,.2,1);
+  /* мягкое свечение за знаком */
+  .hero-glow{
+    position:absolute; left:50%; top:118px;
+    width:300px; height:300px; margin-left:-150px;
+    border-radius:50%;
+    background:radial-gradient(circle, var(--glow), transparent 68%);
     pointer-events:none;
   }
+  @media (min-width:900px){ .hero-glow{ top:150px; width:420px; height:420px; margin-left:-210px; } }
 
-  .seg-btn{
+  .hero-mark{
     position:relative;
-    z-index:1;
-    flex:1 1 0;
-    display:flex; align-items:center; justify-content:center; gap:7px;
-    padding: 10px 6px;
-    font-family: var(--mono);
-    font-size: 12.5px; font-weight:600; letter-spacing:.01em;
-    background:transparent; border:0; border-radius:999px;
-    color: var(--ink-dim);
-    cursor:pointer; white-space:nowrap;
-    transition: color .2s ease;
+    width:112px; height:112px; margin:0 auto 26px;
+    color:var(--ink); display:block; overflow:visible;
   }
-  .seg-btn:hover{ color: var(--ink); }
-  .seg-btn.active{ color: var(--invert); }
+  @media (min-width:900px){ .hero-mark{ width:150px; height:150px; margin-bottom:32px; } }
+
+  .hero-mark .cross{
+    stroke-dasharray:900; stroke-dashoffset:900;
+    animation:draw 1s cubic-bezier(.6,.05,.3,1) .15s forwards;
+  }
+  .hero-mark .chev{
+    stroke-dasharray:320; stroke-dashoffset:320;
+    animation:draw .7s cubic-bezier(.6,.05,.3,1) forwards;
+  }
+  .hero-mark .c1{ animation-delay:.85s; }
+  .hero-mark .c2{ animation-delay:.95s; }
+  .hero-mark .c3{ animation-delay:1.05s; }
+  .hero-mark .c4{ animation-delay:1.15s; }
+  @keyframes draw{ to{ stroke-dashoffset:0; } }
+
+  /* после прорисовки уголки стягиваются к центру и обратно */
+  .hero-mark .breathe{ animation:breathe 3.6s ease-in-out 2s infinite; }
+  .hero-mark .b1{ --dx:0px;   --dy:24px;  }
+  .hero-mark .b2{ --dx:0px;   --dy:-24px; }
+  .hero-mark .b3{ --dx:24px;  --dy:0px;   }
+  .hero-mark .b4{ --dx:-24px; --dy:0px;   }
+  @keyframes breathe{
+    0%,100%{ transform:translate(0,0); }
+    50%{ transform:translate(var(--dx), var(--dy)); }
+  }
+
+  .hero-word{
+    position:relative;
+    font-size:clamp(40px, 12vw, 66px);
+    font-weight:800; line-height:1;
+    letter-spacing:.16em; margin:0 -.16em 12px 0;
+    opacity:0;
+    animation:word-in 1.1s cubic-bezier(.2,.7,.2,1) 1.2s forwards;
+  }
+  @keyframes word-in{
+    from{ opacity:0; letter-spacing:.42em; margin-right:-.42em; }
+    to{ opacity:1; letter-spacing:.16em; margin-right:-.16em; }
+  }
+  .hero-sub{
+    position:relative;
+    font-size:16px; color:var(--ink-dim);
+    margin:0 auto; max-width:30ch;
+    opacity:0; animation:fade .8s ease 1.7s forwards;
+  }
+  @media (min-width:900px){ .hero-sub{ font-size:18px; } }
+  @keyframes fade{ to{ opacity:1; } }
+
+  /* ---------- ДВА ВХОДА В КАБИНЕТ ---------- */
+  .entries{ display:grid; gap:10px; grid-template-columns:1fr; margin-top:6px; }
+  @media (min-width:560px){ .entries{ grid-template-columns:1fr 1fr; } }
+  .entry{
+    display:flex; flex-direction:column; gap:10px;
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--radius); padding:18px;
+    text-decoration:none;
+    transition:border-color .15s ease, background-color .15s ease;
+  }
+  .entry:hover{ border-color:var(--border-strong); background:var(--surface-2); }
+  .entry.primary{ border-color:var(--border-strong); }
+  .entry-head{ display:flex; align-items:center; gap:10px; }
+  .entry-head .ic{ width:20px; height:20px; }
+  .entry-title{ font-size:16px; font-weight:700; margin:0; }
+  .entry-go{ margin-left:auto; width:18px; height:18px; color:var(--ink-faint); }
+  .entry p{ font-size:14px; color:var(--ink-dim); margin:0; }
+  .chips{ display:flex; flex-wrap:wrap; gap:6px; }
+  .chip{
+    font-size:12px; color:var(--ink-dim);
+    border:1px solid var(--border-strong); border-radius:999px;
+    padding:3px 10px;
+  }
+  .entries-note{ font-size:13.5px; color:var(--ink-dim); margin:12px 2px 0; }
+  .entries-note strong{ color:var(--ink); font-weight:600; }
+
+  /* ---------- НАВИГАЦИЯ ПО РАЗДЕЛАМ ---------- */
+  .nav-holder{
+    position:sticky; top:var(--topbar-h); z-index:20;
+    padding:14px 0 16px; margin-top:26px;
+    background:linear-gradient(var(--bg) 66%, transparent);
+  }
+  @media (min-width:900px){ .nav-holder{ display:flex; justify-content:center; } }
+  .segmented{
+    position:relative; display:flex; gap:2px;
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:999px; padding:4px; width:100%;
+  }
+  @media (min-width:900px){ .segmented{ width:auto; min-width:430px; } }
+  .seg-indicator{
+    position:absolute; top:4px; bottom:4px; left:4px;
+    border-radius:999px; background:var(--white);
+    transition:transform .28s cubic-bezier(.4,.1,.2,1), width .28s cubic-bezier(.4,.1,.2,1);
+    pointer-events:none;
+  }
+  .seg-btn{
+    position:relative; z-index:1; flex:1 1 0;
+    display:flex; align-items:center; justify-content:center; gap:7px;
+    padding:10px 6px;
+    font-family:var(--mono); font-size:12.5px; font-weight:600; letter-spacing:.01em;
+    background:transparent; border:0; border-radius:999px;
+    color:var(--ink-dim); cursor:pointer; white-space:nowrap;
+    transition:color .2s ease;
+  }
+  .seg-btn:hover{ color:var(--ink); }
+  .seg-btn.active{ color:var(--invert); }
   .seg-btn .seg-ic{
     width:16px; height:16px; flex-shrink:0; display:block;
-    fill:none; stroke:currentColor; stroke-width:2;
-    stroke-linecap:round; stroke-linejoin:round;
+    fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round;
   }
-  @media (min-width: 900px){ .seg-btn{ padding:11px 22px; font-size:13.5px; } }
+  @media (min-width:900px){ .seg-btn{ padding:11px 22px; font-size:13.5px; } }
 
-  /* ---------- ОБЩИЕ ЭЛЕМЕНТЫ ---------- */
+  /* ---------- ОБЩЕЕ ---------- */
   .content-section{ display:none; }
-  .content-section.active{ display:block; animation: fadeIn .26s ease; }
-  @keyframes fadeIn{ from{opacity:0; transform:translateY(5px);} to{opacity:1; transform:translateY(0);} }
+  .content-section.active{ display:block; }
 
-  .eyebrow{
-    font-family: var(--mono); font-size:11px; color:var(--ink-faint);
-    letter-spacing:.09em; text-transform:uppercase;
-    margin: 36px 0 10px;
-  }
-  .eyebrow:first-child{ margin-top: 2px; }
+  h2.section-title{ font-size:21px; font-weight:700; letter-spacing:-.015em; margin:34px 0 6px; }
+  .content-section > h2.section-title:first-child{ margin-top:8px; }
+  @media (min-width:900px){ h2.section-title{ font-size:25px; } }
+  .section-lead{ font-size:15px; color:var(--ink-dim); margin:0 0 16px; max-width:62ch; }
 
   p{ margin:0 0 12px; font-size:15px; color:var(--ink); }
-  p.muted{ color: var(--ink-dim); }
-  p.lead{ font-size:15.5px; color:var(--ink-dim); max-width:64ch; }
   p:last-child{ margin-bottom:0; }
 
-  h2.section-title{
-    font-size:20px; font-weight:700; letter-spacing:-.015em;
-    margin: 2px 0 14px;
-  }
-  @media (min-width: 900px){ h2.section-title{ font-size:24px; } }
-
-  h3.card-title{
-    font-size:15.5px; font-weight:700; margin:0 0 4px;
-    display:flex; align-items:center; gap:9px;
-  }
-
   .card{
-    background: var(--surface);
-    border:1px solid var(--border);
-    border-radius: var(--radius);
-    padding:18px;
-    margin-bottom:12px;
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--radius); padding:18px; margin-bottom:12px;
   }
-  @media (min-width: 900px){ .card{ padding:24px; } }
-
-  .badge{
-    font-family: var(--mono); font-size:10.5px; font-weight:600;
-    color: var(--ink-dim); text-transform:uppercase; letter-spacing:.05em;
-    display:block; margin:16px 0 9px;
-  }
-  .card .badge:first-of-type{ margin-top:0; }
+  @media (min-width:900px){ .card{ padding:24px; } }
+  h3.card-title{ font-size:15.5px; font-weight:700; margin:0 0 4px; display:flex; align-items:center; gap:9px; }
+  .muted{ color:var(--ink-dim); }
 
   /* ---------- КНОПКИ ---------- */
-  .btn-group{ display:flex; flex-direction:column; gap:9px; margin-bottom:2px; }
-  @media (min-width: 480px){ .btn-group.pair{ flex-direction:row; } }
-
+  .btn-group{ display:flex; flex-direction:column; gap:9px; }
+  @media (min-width:480px){ .btn-group.pair{ flex-direction:row; } }
   .btn{
     display:flex; align-items:center; justify-content:center; gap:9px;
-    padding:14px 20px; border-radius: var(--radius-sm);
+    padding:14px 20px; border-radius:var(--radius-sm);
     text-decoration:none; font-weight:600; font-size:14.5px;
     border:1px solid transparent; flex:1;
-    transition: opacity .15s ease, background-color .15s ease, border-color .15s ease;
+    transition:opacity .15s ease, background-color .15s ease, border-color .15s ease;
   }
   .btn:active{ opacity:.75; }
-  .btn-icon{ width:19px; height:19px; flex-shrink:0; display:block; }
-
-  .btn-primary{ background: var(--white); color: var(--invert); }
+  .btn .ic{ width:17px; height:17px; }
+  .btn-primary{ background:var(--white); color:var(--invert); }
   .btn-primary:hover{ background:#e6e6e6; }
   html[data-theme="light"] .btn-primary:hover{ background:#262626; }
+  .btn-outline{ background:transparent; color:var(--ink); border-color:var(--border-strong); }
+  .btn-outline:hover{ border-color:var(--white); background:var(--surface-2); }
 
-  .btn-outline{ background:transparent; color: var(--ink); border-color: var(--border-strong); }
-  .btn-outline:hover{ border-color: var(--white); background: var(--surface-2); }
-
-  .btn-ghost{ background: var(--surface-2); color: var(--ink-dim); border-color: var(--border); }
-  .btn-ghost:hover{ color: var(--ink); border-color: var(--border-strong); }
-
-  /* ---------- ШАГИ ---------- */
-  .steps{ display:grid; gap:9px; }
-  @media (min-width: 620px){ .steps{ grid-template-columns: repeat(3, 1fr); } }
-  .step{
-    background: var(--surface); border:1px solid var(--border);
-    border-radius: var(--radius); padding:16px 17px;
+  /* ---------- ПОДКЛЮЧЕНИЕ: ВЫБОР ПЛАТФОРМЫ ---------- */
+  .plat{
+    display:flex; gap:2px;
+    background:var(--bg); border:1px solid var(--border);
+    border-radius:999px; padding:3px; margin-bottom:6px;
   }
-  .step-num{
-    display:block; font-family: var(--mono); font-size:11px; font-weight:600;
-    color: var(--ink-faint); letter-spacing:.09em; margin-bottom:6px;
+  .plat button{
+    flex:1 1 0; border:0; border-radius:999px;
+    padding:9px 4px; background:transparent;
+    font-family:var(--sans); font-size:13.5px; font-weight:600;
+    color:var(--ink-dim); cursor:pointer; white-space:nowrap;
+    transition:background-color .2s ease, color .2s ease;
   }
-  .step p{ font-size:14.5px; margin:0; color: var(--ink); }
-  .step p span{ color: var(--ink-dim); }
+  .plat button:hover{ color:var(--ink); }
+  .plat button.on{ background:var(--white); color:var(--invert); }
+  .plat-hint{ font-size:12.5px; color:var(--ink-faint); margin:0 0 16px 4px; min-height:1em; }
 
-  /* ---------- КАРТОЧКИ-ССЫЛКИ ---------- */
-  .link-grid{ display:grid; gap:9px; grid-template-columns:1fr; }
-  @media (min-width: 560px){ .link-grid{ grid-template-columns:1fr 1fr; } }
-
-  .link-card{
-    display:flex; align-items:center; gap:14px;
-    text-decoration:none;
-    background: var(--surface); border:1px solid var(--border);
-    border-radius: var(--radius); padding:16px 17px;
-    transition: border-color .15s ease, background-color .15s ease, transform .12s ease;
+  .plat-panel{ display:none; }
+  .plat-panel.on{ display:block; }
+  .plat-note{
+    display:flex; gap:11px; align-items:flex-start;
+    border:1px solid var(--border-strong); border-radius:var(--radius-sm);
+    padding:12px 14px; margin-bottom:12px; background:var(--surface-2);
   }
-  .link-card:hover{ border-color: var(--border-strong); background: var(--surface-2); }
-  .link-card:active{ transform: scale(.99); }
-  .link-card .ic{ width:21px; height:21px; color: var(--ink); }
-  .link-card-text{ min-width:0; }
-  .link-card-title{ display:block; font-size:14.5px; font-weight:700; color:var(--ink); line-height:1.3; }
-  .link-card-sub{ display:block; font-size:12.5px; color:var(--ink-dim); line-height:1.35; margin-top:2px; }
-  .link-card .chev{ margin-left:auto; width:16px; height:16px; color:var(--ink-faint); flex-shrink:0; }
+  .plat-note .ic{ width:17px; height:17px; margin-top:2px; }
+  .plat-note p{ font-size:13.5px; color:var(--ink-dim); margin:0; }
+  .plat-note strong{ color:var(--ink); }
+  .app-sub{ font-size:12.5px; color:var(--ink-faint); margin:10px 2px 0; }
+
+  .steps{ list-style:none; margin:20px 0 0; padding:0; counter-reset:step; display:grid; gap:0; }
+  .steps li{
+    counter-increment:step;
+    position:relative;
+    padding:0 0 16px 40px;
+    font-size:14.5px; color:var(--ink-dim);
+  }
+  .steps li:last-child{ padding-bottom:0; }
+  .steps li::before{
+    content:counter(step);
+    position:absolute; left:0; top:-1px;
+    width:26px; height:26px; border-radius:50%;
+    border:1px solid var(--border-strong);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono); font-size:12px; font-weight:600; color:var(--ink);
+  }
+  .steps li::after{
+    content:""; position:absolute; left:12.5px; top:28px; bottom:2px;
+    width:1px; background:var(--border);
+  }
+  .steps li:last-child::after{ display:none; }
+  .steps li strong{ color:var(--ink); font-weight:600; }
 
   /* ---------- АВТО-ВЫБОР ---------- */
   .auto-card{
-    background: var(--surface-2);
-    border:1px solid var(--border-strong);
-    border-radius: var(--radius);
-    padding:20px 18px;
+    background:var(--surface-2); border:1px solid var(--border-strong);
+    border-radius:var(--radius); padding:20px 18px;
   }
-  @media (min-width: 900px){ .auto-card{ padding:26px; } }
-  .auto-head{ display:flex; align-items:center; gap:11px; margin-bottom:10px; }
+  @media (min-width:900px){ .auto-card{ padding:26px; } }
+  .auto-head{ display:flex; align-items:center; gap:12px; margin-bottom:10px; }
   .auto-badge{
-    width:38px; height:38px; flex-shrink:0;
+    width:40px; height:40px; flex-shrink:0;
     display:flex; align-items:center; justify-content:center;
-    border-radius:11px; background: var(--white); color: var(--invert);
+    border-radius:12px; background:var(--white); color:var(--invert);
   }
-  .auto-badge .ic{ width:19px; height:19px; }
+  .auto-badge .ic{ width:20px; height:20px; }
   .auto-name{ font-size:18px; font-weight:800; letter-spacing:-.01em; margin:0; }
-  .auto-sub{ font-family: var(--mono); font-size:11px; color: var(--ink-faint); letter-spacing:.05em; }
-  .auto-card > p{ font-size:14.5px; color: var(--ink-dim); margin:0 0 16px; }
-
+  .auto-sub{ font-size:13px; color:var(--ink-faint); }
+  .auto-card > p{ font-size:14.5px; color:var(--ink-dim); margin:0 0 16px; }
   .auto-points{ display:grid; gap:8px; }
-  @media (min-width: 560px){ .auto-points{ grid-template-columns:1fr 1fr; } }
+  @media (min-width:560px){ .auto-points{ grid-template-columns:1fr 1fr; } }
   .auto-point{
     display:flex; gap:11px; align-items:flex-start;
-    background: var(--surface); border:1px solid var(--border);
-    border-radius: var(--radius-sm); padding:13px 14px;
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--radius-sm); padding:13px 14px;
   }
-  .auto-point .ic{ width:17px; height:17px; color: var(--ink); margin-top:2px; }
-  .auto-point b{ display:block; font-size:14px; color: var(--ink); margin-bottom:1px; }
-  .auto-point span{ display:block; font-size:12.5px; color: var(--ink-dim); line-height:1.4; }
+  .auto-point .ic{ width:17px; height:17px; margin-top:2px; }
+  .auto-point b{ display:block; font-size:14px; color:var(--ink); margin-bottom:1px; font-weight:600; }
+  .auto-point span{ display:block; font-size:12.5px; color:var(--ink-dim); line-height:1.4; }
 
-  /* ---------- ТЕХНИЧЕСКИЕ ПОДРОБНОСТИ ---------- */
-  .tech{
-    margin-top:10px;
-    border:1px dashed var(--border-strong);
-    border-radius: var(--radius);
-    overflow:hidden;
+  /* раскрывающиеся блоки: техничка и вопросы */
+  .fold-plus{
+    margin-left:auto; flex-shrink:0; width:18px; height:18px; color:var(--ink-faint);
+    transition:transform .22s ease, color .22s ease;
+    fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round;
   }
-  .tech summary{
-    list-style:none; cursor:pointer;
-    display:flex; align-items:center; gap:10px;
-    padding:14px 17px;
-    font-family: var(--mono); font-size:12.5px; font-weight:600;
-    color: var(--ink-dim); letter-spacing:.02em;
-    transition: color .15s ease;
-  }
-  .tech summary::-webkit-details-marker{ display:none; }
-  .tech summary:hover{ color: var(--ink); }
-  .tech summary .ic{ width:16px; height:16px; }
-  .tech summary .faq-plus{ width:16px; height:16px; }
-  .tech[open] summary{ color: var(--ink); }
-  .tech[open] .faq-plus{ transform: rotate(45deg); color: var(--ink); }
+  details[open] > summary .fold-plus{ transform:rotate(45deg); color:var(--ink); }
 
-  .tech-body{ padding: 2px 17px 17px; }
-  .tech-row{
-    display:grid; gap:3px;
-    padding:12px 0;
-    border-top:1px solid var(--border);
+  /* короткие ссылки внизу главной */
+  .quick{ display:flex; flex-wrap:wrap; gap:8px; margin-top:26px; }
+  .quick a{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:14px; font-weight:600; text-decoration:none; color:var(--ink);
+    border:1px solid var(--border); border-radius:999px; padding:10px 16px;
+    transition:border-color .15s ease;
   }
-  .tech-row:first-child{ border-top:0; }
-  @media (min-width: 640px){ .tech-row{ grid-template-columns: 190px 1fr; gap:18px; } }
-  .tech-key{
-    font-family: var(--mono); font-size:11px; font-weight:600;
-    color: var(--ink-faint); letter-spacing:.06em; text-transform:uppercase;
-    padding-top:2px;
-  }
-  .tech-val{ font-size:13.5px; color: var(--ink-dim); line-height:1.55; }
-  .tech-val strong{ color: var(--ink); font-weight:600; }
-  .tech-val code{
-    font-family: var(--mono); font-size:12px;
-    background: var(--surface-2); border:1px solid var(--border);
-    padding:1px 5px; border-radius:5px; color: var(--ink);
-    white-space:nowrap;
-  }
+  .quick a:hover{ border-color:var(--border-strong); }
+  .quick .ic{ width:16px; height:16px; }
 
-  /* ---------- ПЛИТКИ ---------- */
-  .feature-grid{ display:grid; gap:9px; grid-template-columns:1fr 1fr; }
-  @media (min-width: 900px){ .feature-grid{ grid-template-columns: repeat(4, 1fr); } }
-  .feature{
-    background: var(--surface); border:1px solid var(--border);
-    border-radius: var(--radius); padding:17px 16px;
-  }
-  .feature .ic{ width:20px; height:20px; color:var(--ink); margin-bottom:11px; }
-  .feature-title{ display:block; font-size:14.5px; font-weight:700; color:var(--ink); margin-bottom:3px; }
-  .feature p{ font-size:13px; color:var(--ink-dim); margin:0; line-height:1.45; }
+  /* ---------- ТАРИФЫ И КАЛЬКУЛЯТОР ---------- */
+  .calc{ background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:20px 18px; }
+  @media (min-width:900px){ .calc{ padding:26px; display:grid; grid-template-columns:1.2fr 1fr; gap:34px; align-items:center; } }
+  .calc-row{ display:grid; grid-template-columns:1fr auto; align-items:center; gap:4px 12px; margin-bottom:16px; }
+  .calc-row label{ font-size:14px; color:var(--ink-dim); }
+  .calc-row output{ font-family:var(--mono); font-size:14px; font-weight:600; color:var(--ink); }
+  .calc-row input{ grid-column:1 / -1; width:100%; margin:0; accent-color:var(--white); height:22px; cursor:pointer; }
+  .calc-result{ border-top:1px solid var(--border); padding-top:16px; }
+  @media (min-width:900px){ .calc-result{ border-top:0; border-left:1px solid var(--border); padding:0 0 0 30px; } }
+  .calc-gb{ font-family:var(--mono); font-size:40px; font-weight:700; letter-spacing:-.03em; line-height:1; }
+  .calc-gb small{ font-size:15px; font-weight:500; color:var(--ink-dim); letter-spacing:0; margin-left:6px; }
+  .calc-pick{ font-size:15px; color:var(--ink); margin:12px 0 6px; font-weight:600; }
+  .calc-note{ font-size:13px; color:var(--ink-faint); margin:0; }
 
-  /* ---------- ТАРИФЫ ---------- */
-  .plans{ display:grid; gap:10px; grid-template-columns:1fr; }
-  @media (min-width: 560px){ .plans{ grid-template-columns:1fr 1fr; } }
-  @media (min-width: 900px){ .plans{ grid-template-columns: repeat(4, 1fr); gap:12px; } }
-
+  .plans{ display:grid; gap:10px; grid-template-columns:1fr; margin-top:12px; }
+  @media (min-width:600px){ .plans{ grid-template-columns:repeat(3,1fr); } }
   .plan{
-    background: var(--surface); border:1px solid var(--border);
-    border-radius: var(--radius); padding:20px 18px;
-    display:flex; flex-direction:column; gap:16px;
-    transition: border-color .15s ease, transform .12s ease;
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--radius); padding:20px 18px;
+    display:flex; flex-direction:column; gap:14px;
+    transition:border-color .2s ease, background-color .2s ease;
   }
-  .plan:hover{ border-color: var(--border-strong); }
-  .plan-name{ font-size:16px; font-weight:700; margin:0; letter-spacing:-.01em; }
+  .plan.fit{ border-color:var(--white); background:var(--surface-2); }
+  .plan-top{ display:flex; align-items:center; gap:8px; }
+  .plan-name{ font-size:16px; font-weight:700; margin:0; }
+  .plan-tag{
+    margin-left:auto; font-size:11px; font-weight:700;
+    color:var(--invert); background:var(--white);
+    padding:3px 8px; border-radius:6px; display:none;
+  }
+  .plan.fit .plan-tag{ display:inline-block; }
   .plan-figures{ display:flex; gap:28px; }
-  @media (min-width: 900px){ .plan-figures{ flex-direction:column; gap:14px; } }
-  .plan-fig{ display:flex; flex-direction:column; gap:2px; }
-  .plan-num{
-    font-family: var(--mono); font-size:29px; font-weight:700;
-    line-height:1; letter-spacing:-.02em; color: var(--ink);
-  }
-  .plan-unit{ font-family: var(--mono); font-size:10.5px; color: var(--ink-faint); letter-spacing:.05em; }
-  .plan-note{ font-size:13.5px; color: var(--ink-dim); margin:0; line-height:1.45; }
-
-  /* ---------- ЗАМЕТКА ---------- */
-  .notice{
-    border:1px solid var(--border-strong); border-radius: var(--radius);
-    padding:22px 17px 17px; margin:26px 0 14px;
-    position:relative; background: var(--surface);
-  }
-  .notice-label{
-    position:absolute; top:-11px; left:15px;
-    background: var(--bg); padding:0 8px;
-    display:flex; align-items:center; gap:6px;
-    font-family: var(--mono); font-size:11px; font-weight:700;
-    letter-spacing:.04em; color: var(--ink);
-  }
-  .notice-label .ic{ width:13px; height:13px; }
-  .notice p{ font-size:14px; color: var(--ink-dim); }
-  .notice p strong{ color: var(--ink); }
-  .notice .card-title{ margin-bottom:8px; }
+  .plan-fig{ display:flex; flex-direction:column; gap:3px; }
+  .plan-num{ font-family:var(--mono); font-size:29px; font-weight:700; line-height:1; letter-spacing:-.02em; }
+  .plan-unit{ font-size:12.5px; color:var(--ink-faint); }
+  .plan-note{ font-size:13.5px; color:var(--ink-dim); margin:0; }
 
   /* ---------- ВОПРОСЫ ---------- */
-  .faq-search{
-    position:relative;
-    margin-bottom: 14px;
-  }
+  .faq-search{ position:relative; margin:8px 0 14px; }
   .faq-search .ic{
     position:absolute; left:15px; top:50%; transform:translateY(-50%);
-    width:17px; height:17px; color: var(--ink-faint); pointer-events:none;
+    width:17px; height:17px; color:var(--ink-faint); pointer-events:none;
   }
   .faq-search input{
-    width:100%;
-    font-family: var(--sans); font-size:15px;
-    color: var(--ink);
-    background: var(--surface);
-    border:1px solid var(--border);
-    border-radius: 999px;
-    padding: 13px 18px 13px 42px;
-    outline:none;
-    transition: border-color .15s ease;
+    width:100%; font-family:var(--sans); font-size:15px; color:var(--ink);
+    background:var(--surface); border:1px solid var(--border); border-radius:999px;
+    padding:13px 18px 13px 42px; outline:none; transition:border-color .15s ease;
   }
-  .faq-search input::placeholder{ color: var(--ink-faint); }
-  .faq-search input:focus{ border-color: var(--border-strong); }
+  .faq-search input::placeholder{ color:var(--ink-faint); }
+  .faq-search input:focus{ border-color:var(--border-strong); }
 
   .faq-item{
-    background: var(--surface); border:1px solid var(--border);
-    border-radius: var(--radius); margin-bottom:10px; overflow:hidden;
-    transition: border-color .15s ease;
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--radius); margin-bottom:10px; overflow:hidden;
+    transition:border-color .15s ease;
+    scroll-margin-top:150px;
   }
-  .faq-item:hover{ border-color: var(--border-strong); }
+  .faq-item:hover{ border-color:var(--border-strong); }
+  .faq-item.flash{ border-color:var(--white); }
   .faq-item summary{
-    list-style:none; cursor:pointer;
-    padding:17px 18px;
-    font-weight:700; font-size:15px; color: var(--ink);
+    list-style:none; cursor:pointer; padding:17px 18px;
+    font-weight:700; font-size:15px; color:var(--ink);
     display:flex; align-items:center; gap:12px;
   }
   .faq-item summary::-webkit-details-marker{ display:none; }
-  .faq-plus{
-    margin-left:auto; flex-shrink:0; width:18px; height:18px;
-    color: var(--ink-faint);
-    transition: transform .22s ease, color .22s ease;
-    fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round;
+  .faq-body{ padding:0 18px 18px; }
+  .faq-body p{ font-size:14.5px; color:var(--ink-dim); margin:0 0 14px; }
+  .faq-body p strong{ color:var(--ink); }
+  .faq-body .btn-group{ margin-bottom:14px; }
+  .faq-link{
+    display:inline-flex; align-items:center; gap:7px;
+    font-family:var(--sans); font-size:13px; font-weight:600; color:var(--ink-faint);
+    background:transparent; border:0; padding:4px 0; cursor:pointer;
+    transition:color .15s ease;
   }
-  .faq-item[open] .faq-plus{ transform: rotate(45deg); color: var(--ink); }
-  .faq-body{ padding: 0 18px 18px; }
-  .faq-body p{ font-size:14.5px; color: var(--ink-dim); margin:0 0 14px; }
-  .faq-body p strong{ color: var(--ink); }
-  .faq-body p:last-child{ margin-bottom:0; }
+  .faq-link:hover{ color:var(--ink); }
+  .faq-link .ic{ width:15px; height:15px; }
   .faq-item.hidden{ display:none; }
-
-  .faq-empty{
-    display:none;
-    text-align:center; padding: 26px 10px;
-    font-family: var(--mono); font-size:13px; color: var(--ink-faint);
-  }
+  .faq-empty{ display:none; text-align:center; padding:26px 10px; font-size:14px; color:var(--ink-faint); }
   .faq-empty.show{ display:block; }
 
   /* ---------- ПОДВАЛ ---------- */
   .footer{
-    margin-top:48px; padding-top:22px;
-    border-top:1px solid var(--border);
-    display:flex; flex-direction:column; align-items:center; gap:15px;
+    margin-top:52px; padding-top:22px; border-top:1px solid var(--border);
+    display:flex; flex-direction:column; align-items:center; gap:14px;
   }
-  .footer-links{ display:flex; flex-wrap:wrap; justify-content:center; gap:9px 20px; }
-  .footer-links a{
-    font-family: var(--mono); font-size:12px; color: var(--ink-dim);
-    text-decoration:none; transition: color .15s ease;
+  .footer-links{ display:flex; flex-wrap:wrap; justify-content:center; gap:9px 22px; }
+  .footer-links a{ font-size:13px; color:var(--ink-dim); text-decoration:none; transition:color .15s ease; }
+  .footer-links a:hover{ color:var(--ink); }
+  .footer-help{
+    width:100%; display:flex; flex-direction:column; align-items:center; gap:14px;
+    text-align:center; padding-bottom:22px; border-bottom:1px solid var(--border);
   }
-  .footer-links a:hover{ color: var(--ink); }
-  .footer-mark{ font-family: var(--mono); font-size:11px; color: var(--ink-faint); letter-spacing:.05em; }
-
-  /* ---------- ОБНОВЛЕНИЕ ---------- */
-  .release-chip{
-    display:inline-flex; align-items:center; gap:10px;
-    text-decoration:none; font-family:var(--mono); font-size:11.5px;
-    color:var(--ink-dim); background:var(--surface);
-    border:1px solid var(--border); border-radius:999px;
-    padding:4px 12px 4px 4px; margin-bottom:18px;
-    transition: border-color .15s ease, color .15s ease;
-  }
-  .release-chip:hover{ border-color:var(--border-strong); color:var(--ink); }
-  .release-chip .chip-new{
-    background:var(--white); color:var(--invert); font-weight:700;
-    letter-spacing:.08em; border-radius:999px; padding:3px 9px;
-  }
-  .release-chip .ic{ width:14px; height:14px; transition: transform .2s ease; }
-  .release-chip:hover .ic{ transform: translateX(3px); }
-
-  .release{
-    position:relative; overflow:hidden; isolation:isolate;
-    background:var(--white); color:var(--invert);
-    border-radius:var(--radius); padding:22px 20px 20px; margin:2px 0 0;
-  }
-  @media (min-width: 900px){ .release{ padding:30px 30px 28px; } }
-  .release-mark{
-    position:absolute; right:-54px; top:-54px; width:260px; height:260px;
-    color:var(--invert); opacity:.06; z-index:-1; pointer-events:none;
-  }
-  @media (min-width: 900px){ .release-mark{ width:340px; height:340px; right:-60px; top:-80px; } }
-  .release-top{
-    display:flex; align-items:center; gap:10px; flex-wrap:wrap;
-    font-family:var(--mono); font-size:11px; font-weight:600; letter-spacing:.09em;
-    margin-bottom:12px;
-  }
-  .release-top .r-new{
-    background:var(--invert); color:var(--white);
-    border-radius:999px; padding:3px 9px;
-  }
-  .release-top .r-date{ opacity:.55; }
-  .release h2{
-    font-size:clamp(23px, 5.4vw, 30px); font-weight:800; letter-spacing:-.03em;
-    line-height:1.1; margin:0 0 6px; max-width:22ch;
-  }
-  .release > p{ font-size:14.5px; margin:0 0 18px; opacity:.62; color:inherit; max-width:52ch; }
-  .release-grid{ display:grid; gap:0 22px; grid-template-columns:1fr; margin-bottom:20px; }
-  @media (min-width: 560px){ .release-grid{ grid-template-columns:1fr 1fr; } }
-  .release-item{
-    display:flex; gap:12px; align-items:flex-start; padding:13px 0;
-    border-top:1px solid color-mix(in srgb, var(--invert) 14%, transparent);
-  }
-  .release-item .ic{ width:18px; height:18px; margin-top:2px; }
-  .release-item b{ display:block; font-size:14.5px; font-weight:700; line-height:1.3; }
-  .release-item span{ display:block; font-size:12.5px; opacity:.6; line-height:1.4; margin-top:2px; }
-  .release-actions{ display:flex; flex-direction:column; gap:9px; }
-  @media (min-width: 480px){ .release-actions{ flex-direction:row; } }
-  .btn-invert{ background:var(--invert); color:var(--white); }
-  .btn-invert:hover{ opacity:.86; }
-  .btn-invert-outline{ background:transparent; color:var(--invert); border-color: color-mix(in srgb, var(--invert) 30%, transparent); }
-  .btn-invert-outline:hover{ border-color: var(--invert); }
-  .release .btn .ic{ width:16px; height:16px; }
-
-  .new-tag{
-    display:inline-block; font-family:var(--mono); font-size:9.5px; font-weight:700;
-    letter-spacing:.07em; color:var(--ink); border:1px solid var(--border-strong);
-    border-radius:999px; padding:1px 6px; margin-left:7px; vertical-align:2px;
-  }
-  a.status-pill{ text-decoration:none; transition: border-color .15s ease, color .15s ease; }
-  a.status-pill:hover{ border-color:var(--border-strong); color:var(--ink); }
-  .link-card .dot{ margin-left:auto; margin-right:4px; }
+  .footer-help p{ font-size:16px; font-weight:600; color:var(--ink); margin:0; }
+  .footer-help .btn{ flex:0 0 auto; padding:12px 22px; }
+  .footer-mark{ display:flex; align-items:center; gap:8px; font-size:12.5px; color:var(--ink-faint); }
+  .footer-mark svg{ width:14px; height:14px; }
 </style>
 </head>
 <body>
 
   <div class="topbar">
     <div class="topbar-inner">
-      <div class="brand">
+      <a class="brand" href="#main" aria-label="XAMA — на главную">
         <svg class="brand-icon" viewBox="0 0 512 512" aria-hidden="true">
           <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
             <path d="M106 106 L406 406 M406 106 L106 406" stroke-width="30"/>
@@ -624,16 +535,15 @@
           </g>
         </svg>
         <span class="brand-mark">XAMA</span>
-        <span class="brand-tag">// сетевой портал</span>
-      </div>
+      </a>
       <div class="topbar-right">
-        <a class="status-pill" href="https://status.xama.life" target="_blank" rel="noopener">
-          <span class="dot" aria-hidden="true"></span>
-          <span>статус серверов</span>
-        </a>
         <a class="topbar-cta" href="https://lk.xama.life" target="_blank" rel="noopener">
           <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c.9-3.6 3.9-5.5 7.5-5.5s6.6 1.9 7.5 5.5"/></svg>
-          <span>Кабинет</span>
+          Кабинет
+        </a>
+        <a class="topbar-cta ghost" href="https://t.me/XAMA_life_bot" target="_blank" rel="noopener" aria-label="Кабинет в Telegram">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.6 3.4 2.9 10.5c-.8.3-.7 1.4.1 1.6l4.7 1.4 1.8 5.2c.3.7 1.2.8 1.6.2l2.4-2.5 4.6 3.4c.6.4 1.4.1 1.6-.6l3-14.4c.1-.8-.6-1.5-1.4-1.2z"/><path d="M7.7 13.5 19.6 6.2"/></svg>
+          <span class="cta-label">Telegram</span>
         </a>
         <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Переключить светлую и тёмную тему">
           <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
@@ -645,215 +555,137 @@
 
   <div class="wrap">
 
+    <!-- ================= ВСТУПЛЕНИЕ ================= -->
     <header class="hero">
-      <a class="release-chip" href="https://xama.life/update/">
-        <span class="chip-new">НОВОЕ</span>
-        <span>Обновление от 27.09.2026</span>
-        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
-      <h1 class="hero-title">Сеть <span class="caps">XAMA</span></h1>
-      <p class="hero-sub">Быстрый интернет на всех ваших устройствах. Подписка, трафик и устройства — в кабинете, а поддержка на связи круглосуточно.</p>
-      <div class="hero-cta">
-        <a href="https://lk.xama.life" class="btn btn-primary" target="_blank" rel="noopener">Кабинет в браузере</a>
-        <a href="https://t.me/XAMA_life_bot" class="btn btn-outline" target="_blank" rel="noopener">Кабинет в Telegram</a>
-      </div>
+      <svg class="hero-ghost" viewBox="0 0 512 512" aria-hidden="true">
+        <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+          <path d="M106 106 L406 406 M406 106 L106 406"/>
+          <path d="M172 106 L256 190 L340 106"/>
+          <path d="M172 406 L256 322 L340 406"/>
+          <path d="M106 172 L190 256 L106 340"/>
+          <path d="M406 172 L322 256 L406 340"/>
+        </g>
+      </svg>
+      <div class="hero-glow" aria-hidden="true"></div>
+
+      <svg class="hero-mark" viewBox="0 0 512 512" aria-hidden="true">
+        <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+          <path class="cross" d="M106 106 L406 406 M406 106 L106 406" stroke-width="30"/>
+          <g class="breathe b1"><path class="chev c1" d="M172 106 L256 190 L340 106" stroke-width="18"/></g>
+          <g class="breathe b2"><path class="chev c2" d="M172 406 L256 322 L340 406" stroke-width="18"/></g>
+          <g class="breathe b3"><path class="chev c3" d="M106 172 L190 256 L106 340" stroke-width="18"/></g>
+          <g class="breathe b4"><path class="chev c4" d="M406 172 L322 256 L406 340" stroke-width="18"/></g>
+        </g>
+      </svg>
+
+      <h1 class="hero-word">XAMA</h1>
+      <p class="hero-sub">Быстрый интернет на всех ваших устройствах</p>
     </header>
 
-    <!-- ================================================================== -->
-    <!--  НАВИГАЦИЯ СОБИРАЕТСЯ АВТОМАТИЧЕСКИ из секций ниже.                -->
-    <!--  Здесь править ничего не нужно.                                    -->
-    <!-- ================================================================== -->
+    <!-- ================= ДВА ВХОДА В КАБИНЕТ ================= -->
+    <div class="entries">
+      <a class="entry primary" href="https://lk.xama.life" target="_blank" rel="noopener">
+        <div class="entry-head">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5a15 15 0 0 1 4 9.5 15 15 0 0 1-4 9.5 15 15 0 0 1-4-9.5 15 15 0 0 1 4-9.5z"/></svg>
+          <h2 class="entry-title">Кабинет в браузере</h2>
+          <svg class="ic entry-go" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+        </div>
+        <p>Быстрый вход через привычный аккаунт или регистрация по почте.</p>
+        <div class="chips"><span class="chip">Google</span><span class="chip">VK</span><span class="chip">Яндекс</span><span class="chip">Почта</span></div>
+      </a>
+
+      <a class="entry" href="https://t.me/XAMA_life_bot" target="_blank" rel="noopener">
+        <div class="entry-head">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.6 3.4 2.9 10.5c-.8.3-.7 1.4.1 1.6l4.7 1.4 1.8 5.2c.3.7 1.2.8 1.6.2l2.4-2.5 4.6 3.4c.6.4 1.4.1 1.6-.6l3-14.4c.1-.8-.6-1.5-1.4-1.2z"/><path d="M7.7 13.5 19.6 6.2"/></svg>
+          <h2 class="entry-title">Кабинет в Telegram</h2>
+          <svg class="ic entry-go" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+        </div>
+        <p>Регистрация в одно касание через бота — кабинет открывается прямо в чате.</p>
+        <div class="chips"><span class="chip">Без пароля</span><span class="chip">Мини-приложение</span></div>
+      </a>
+    </div>
+    <p class="entries-note">Это один и тот же кабинет с общей подпиской. В разделе <strong>«Профиль»</strong> можно привязать сразу несколько способов входа — чтобы не потерять доступ, если один из них станет недоступен.</p>
+
+
+    <!-- ================= НАВИГАЦИЯ — собирается сама из секций ниже ================= -->
     <div class="nav-holder">
       <nav class="segmented" id="segmented" role="tablist" aria-label="Разделы">
         <span class="seg-indicator" id="seg-indicator" aria-hidden="true"></span>
       </nav>
     </div>
 
-
-    <!-- ================================================================== -->
-    <!--  РАЗДЕЛЫ САЙТА                                                      -->
-    <!--                                                                    -->
-    <!--  ДОБАВИТЬ РАЗДЕЛ: скопируйте блок <section class="content-section"> -->
-    <!--  целиком и поменяйте:                                              -->
-    <!--    • id="..."          — короткое имя латиницей, уникальное         -->
-    <!--    • data-label="..."  — название на кнопке                        -->
-    <!--    • data-icon="..."   — иконка из списка SECTION_ICONS внизу файла -->
-    <!--  Кнопка появится сама. Порядок кнопок = порядок секций.            -->
-    <!-- ================================================================== -->
+    <!-- ==================================================================
+         РАЗДЕЛЫ. Добавить раздел: скопируйте <section class="content-section">
+         и поменяйте id, data-label и data-icon (иконки — в SECTION_ICONS внизу).
+         ================================================================== -->
 
     <!-- РАЗДЕЛ: ГЛАВНОЕ -->
     <section id="main" class="content-section" data-label="Главное" data-icon="home" role="tabpanel" tabindex="0">
 
-      <article class="release" aria-labelledby="release-title">
-        <svg class="release-mark" viewBox="0 0 512 512" aria-hidden="true">
-          <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M106 106 L406 406 M406 106 L106 406" stroke-width="30"/>
-            <path d="M172 106 L256 190 L340 106" stroke-width="18"/>
-            <path d="M172 406 L256 322 L340 406" stroke-width="18"/>
-            <path d="M106 172 L190 256 L106 340" stroke-width="18"/>
-            <path d="M406 172 L322 256 L406 340" stroke-width="18"/>
-          </g>
-        </svg>
-        <div class="release-top">
-          <span class="r-new">ОБНОВЛЕНИЕ</span>
-          <span class="r-date">27.09.2026</span>
-        </div>
-        <h2 id="release-title">Быстрая покупка, статус серверов и не только</h2>
-        <p>Главное из последнего обновления — коротко. Подробности на отдельной странице.</p>
-
-        <div class="release-grid">
-          <div class="release-item">
-            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></svg>
-            <div><b>Быстрая покупка</b><span>Подписка без регистрации — за пару шагов</span></div>
-          </div>
-          <div class="release-item">
-            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg>
-            <div><b>Статус серверов</b><span>Доступность каждой локации в реальном времени</span></div>
-          </div>
-          <div class="release-item">
-            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 4v6h-6M2 20v-6h6"/><path d="M19.5 9A8.5 8.5 0 0 0 5.4 5.8L2 10m20 4-3.4 4.2A8.5 8.5 0 0 1 4.5 15"/></svg>
-            <div><b>Автопокупка после пополнения</b><span>Пополнили баланс — подписка оформится сама</span></div>
-          </div>
-          <div class="release-item">
-            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 20.5v-1.8a3.6 3.6 0 0 0-3.6-3.6H6.1a3.6 3.6 0 0 0-3.6 3.6v1.8"/><circle cx="9" cy="7.4" r="3.6"/><path d="M21.5 20.5v-1.8a3.6 3.6 0 0 0-2.7-3.5M16 3.9a3.6 3.6 0 0 1 0 7"/></svg>
-            <div><b>Страницы для партнёров</b><span>Своя быстрая покупка с вашим заголовком и текстом</span></div>
-          </div>
-        </div>
-
-        <div class="release-actions">
-          <a href="https://xama.life/update/" class="btn btn-invert">Смотреть обновление <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-          <a href="https://lk.xama.life/buy/xama-fast" class="btn btn-invert-outline" target="_blank" rel="noopener">Быстрая покупка</a>
-          <a href="https://status.xama.life" class="btn btn-invert-outline" target="_blank" rel="noopener">Статус серверов</a>
-        </div>
-      </article>
-
-      <p class="eyebrow">С чего начать</p>
-      <div class="steps">
-        <div class="step">
-          <span class="step-num">ШАГ 01</span>
-          <p>Оформите подписку <span>в кабинете — в браузере или в Telegram</span></p>
-        </div>
-        <div class="step">
-          <span class="step-num">ШАГ 02</span>
-          <p>Скачайте приложение <span>для своего устройства</span></p>
-        </div>
-        <div class="step">
-          <span class="step-num">ШАГ 03</span>
-          <p>Добавьте подписку <span>и включите «Авто-выбор»</span></p>
-        </div>
-      </div>
-
-      <p class="eyebrow">Всё по одному клику</p>
-      <h2 class="section-title">Куда идти</h2>
-      <div class="link-grid">
-        <a class="link-card" href="https://lk.xama.life" target="_blank" rel="noopener">
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c.9-3.6 3.9-5.5 7.5-5.5s6.6 1.9 7.5 5.5"/></svg>
-          <span class="link-card-text">
-            <span class="link-card-title">Кабинет в браузере</span>
-            <span class="link-card-sub">Вход по Telegram или почте</span>
-          </span>
-          <svg class="ic chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
-        </a>
-
-        <a class="link-card" href="https://t.me/XAMA_life_bot" target="_blank" rel="noopener">
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.6 3.4 2.9 10.5c-.8.3-.7 1.4.1 1.6l4.7 1.4 1.8 5.2c.3.7 1.2.8 1.6.2l2.4-2.5 4.6 3.4c.6.4 1.4.1 1.6-.6l3-14.4c.1-.8-.6-1.5-1.4-1.2z"/><path d="M7.7 13.5 19.6 6.2"/></svg>
-          <span class="link-card-text">
-            <span class="link-card-title">Кабинет в Telegram</span>
-            <span class="link-card-sub">Тот же кабинет, прямо в чате</span>
-          </span>
-          <svg class="ic chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
-        </a>
-
-        <a class="link-card" href="https://lk.xama.life/buy/xama-fast" target="_blank" rel="noopener">
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></svg>
-          <span class="link-card-text">
-            <span class="link-card-title">Быстрая покупка<span class="new-tag">НОВОЕ</span></span>
-            <span class="link-card-sub">Подписка без регистрации</span>
-          </span>
-          <svg class="ic chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
-        </a>
-
-        <a class="link-card" href="https://status.xama.life" target="_blank" rel="noopener">
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg>
-          <span class="link-card-text">
-            <span class="link-card-title">Статус серверов<span class="new-tag">НОВОЕ</span></span>
-            <span class="link-card-sub">Доступность в реальном времени</span>
-          </span>
-          <span class="dot" aria-hidden="true"></span>
-        </a>
-
-        <a class="link-card" href="https://lk.xama.life/support" target="_blank" rel="noopener">
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><circle cx="12" cy="12" r="4"/><path d="m5.3 5.3 3.9 3.9M14.8 14.8l3.9 3.9M18.7 5.3l-3.9 3.9M9.2 14.8l-3.9 3.9"/></svg>
-          <span class="link-card-text">
-            <span class="link-card-title">Поддержка</span>
-            <span class="link-card-sub">Поможем с подключением</span>
-          </span>
-          <svg class="ic chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
-        </a>
-
-        <a class="link-card" href="https://lk.xama.life/referral" target="_blank" rel="noopener">
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 20.5v-1.8a3.6 3.6 0 0 0-3.6-3.6H6.1a3.6 3.6 0 0 0-3.6 3.6v1.8"/><circle cx="9" cy="7.4" r="3.6"/><path d="M21.5 20.5v-1.8a3.6 3.6 0 0 0-2.7-3.5M16 3.9a3.6 3.6 0 0 1 0 7"/></svg>
-          <span class="link-card-text">
-            <span class="link-card-title">Партнёрам</span>
-            <span class="link-card-sub">Реферальная ссылка и заявки</span>
-          </span>
-          <svg class="ic chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
-        </a>
-      </div>
-
-      <p class="eyebrow">Приложения</p>
-      <h2 class="section-title">Скачать</h2>
-      <p class="muted">Подписка работает в приложении Happ — оно доступно на всех платформах.</p>
+      <h2 class="section-title">Подключение</h2>
+      <p class="section-lead">Выберите устройство — покажем приложение и шаги. В кабинете есть такая же инструкция.</p>
 
       <div class="card">
-        <h3 class="card-title">
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2.5"/><path d="M12 18h.01"/></svg>
-          Телефон и планшет
-        </h3>
+        <div class="plat" id="plat" role="tablist" aria-label="Устройство">
+          <button type="button" data-plat="ios">iPhone</button>
+          <button type="button" data-plat="android">Android</button>
+          <button type="button" data-plat="pc">Windows</button>
+          <button type="button" data-plat="tv">ТВ</button>
+        </div>
+        <p class="plat-hint" id="plat-hint"></p>
 
-        <span class="badge">iPhone и iPad</span>
-        <div class="btn-group pair">
-          <a href="https://apps.apple.com/ru/app/happ-lite/id6799917773" class="btn btn-primary" target="_blank" rel="noopener">Happ · iOS (Россия)</a>
-          <a href="https://apps.apple.com/us/app/happ-proxy-utility/id6504287215" class="btn btn-outline" target="_blank" rel="noopener">Happ · iOS (Global)</a>
+        <!-- iPhone -->
+        <div class="plat-panel" data-plat="ios">
+          <div class="plat-note">
+            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M12 8v5M12 16.5h.01"/></svg>
+            <p>Happ удалён из российского App Store. С российским аккаунтом ставьте <strong>Incy</strong>, Happ доступен только в App Store других стран.</p>
+          </div>
+          <div class="btn-group pair">
+            <a href="https://apps.apple.com/us/app/incy/id6756943388" class="btn btn-primary" target="_blank" rel="noopener">Incy · российский App Store</a>
+            <a href="https://apps.apple.com/us/app/happ-proxy-utility/id6504287215" class="btn btn-outline" target="_blank" rel="noopener">Happ · другие страны</a>
+          </div>
         </div>
 
-        <span class="badge">Android</span>
-        <div class="btn-group">
-          <a href="https://play.google.com/store/apps/details?id=com.happproxy" class="btn btn-primary" target="_blank" rel="noopener">Happ · Android</a>
+        <!-- Android -->
+        <div class="plat-panel" data-plat="android">
+          <div class="btn-group pair">
+            <a href="https://play.google.com/store/apps/details?id=com.happproxy" class="btn btn-primary" target="_blank" rel="noopener">Happ · Google Play</a>
+            <a href="https://play.google.com/store/apps/details?id=llc.itdev.incy" class="btn btn-outline" target="_blank" rel="noopener">Incy · Google Play</a>
+          </div>
         </div>
+
+        <!-- Windows -->
+        <div class="plat-panel" data-plat="pc">
+          <div class="btn-group pair">
+            <a href="https://github.com/Happ-proxy/happ-desktop/releases/latest/download/setup-Happ.x64.exe" class="btn btn-primary" target="_blank" rel="noopener">
+              <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
+              Happ для Windows
+            </a>
+            <a href="https://github.com/INCY-DEV/incy-platforms/releases/download/desktop-v3.8.8/incy-windows-setup.exe" class="btn btn-outline" target="_blank" rel="noopener">
+              <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
+              Incy для Windows
+            </a>
+          </div>
+        </div>
+
+        <!-- ТВ -->
+        <div class="plat-panel" data-plat="tv">
+          <div class="btn-group">
+            <a href="https://play.google.com/store/apps/details?id=com.happproxy" class="btn btn-primary" target="_blank" rel="noopener">Happ · Android TV</a>
+          </div>
+          <p class="app-sub">Установите из Google Play прямо на телевизоре.</p>
+        </div>
+
+        <ol class="steps">
+          <li>Откройте кабинет и на главной нажмите <strong>«Подключить устройство»</strong>.</li>
+          <li>Выберите приложение и своё устройство, установите приложение по кнопке, если ещё не стоит.</li>
+          <li>Нажмите <strong>«Добавить подписку»</strong> — приложение откроется, и подписка добавится сама.</li>
+          <li>Выберите <strong>«Авто-выбор»</strong> и подключитесь. Готово.</li>
+        </ol>
       </div>
 
-      <div class="card">
-        <h3 class="card-title">
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2.5"/><path d="M8 21h8M12 17v4"/></svg>
-          Компьютер и ТВ
-        </h3>
-
-        <span class="badge">Официальное приложение XAMA</span>
-        <div class="btn-group">
-          <a href="https://xama.life/client" class="btn btn-primary">
-            <svg class="btn-icon" viewBox="0 0 512 512" aria-hidden="true">
-              <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M106 106 L406 406 M406 106 L106 406" stroke-width="38"/>
-                <path d="M172 106 L256 190 L340 106" stroke-width="24"/>
-                <path d="M172 406 L256 322 L340 406" stroke-width="24"/>
-                <path d="M106 172 L190 256 L106 340" stroke-width="24"/>
-                <path d="M406 172 L322 256 L406 340" stroke-width="24"/>
-              </g>
-            </svg>
-            XAMA Client · Windows
-          </a>
-        </div>
-
-        <span class="badge">Другие варианты</span>
-        <div class="btn-group pair">
-          <a href="https://github.com/Happ-proxy/happ-desktop/releases/latest/download/setup-Happ.x64.exe" class="btn btn-ghost" target="_blank" rel="noopener">Happ · Windows</a>
-          <a href="https://play.google.com/store/apps/details?id=com.happproxy" class="btn btn-ghost" target="_blank" rel="noopener">Happ · Android TV</a>
-        </div>
-      </div>
-
-      <p class="eyebrow">В приложении</p>
-      <h2 class="section-title">Один режим на всё</h2>
+      <h2 class="section-title">Авто-выбор</h2>
+      <p class="section-lead">Единственный режим, который нужен. Включили один раз — дальше он всё решает сам.</p>
 
       <div class="auto-card">
         <div class="auto-head">
@@ -862,15 +694,15 @@
           </span>
           <div>
             <h3 class="auto-name">Авто-выбор</h3>
-            <span class="auto-sub">включили один раз — и забыли</span>
+            <span class="auto-sub">сам подбирает маршрут и сервер</span>
           </div>
         </div>
-        <p>Режим сам решает, как лучше: российские сервисы работают напрямую от вашего провайдера, а всё остальное идёт через самый быстрый на данный момент сервер сети. Ничего переключать не нужно.</p>
+        <p>Российские сервисы работают напрямую от вашего провайдера, а всё остальное идёт через самый быстрый на данный момент сервер сети.</p>
 
         <div class="auto-points">
           <div class="auto-point">
             <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11 12 3l9 8"/><path d="M5 10v10h5v-6h4v6h5V10"/></svg>
-            <div><b>Российские сервисы напрямую</b><span>Банки, Госуслуги, маркетплейсы и доставка открываются как обычно.</span></div>
+            <div><b>Российское — напрямую</b><span>Банки, Госуслуги и маркетплейсы открываются как обычно и не тратят трафик подписки.</span></div>
           </div>
           <div class="auto-point">
             <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></svg>
@@ -887,122 +719,72 @@
         </div>
       </div>
 
-      <details class="tech">
-        <summary>
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 7-5 5 5 5M16 7l5 5-5 5"/></svg>
-          Как это устроено — для любопытных
-          <svg class="faq-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-        </summary>
-        <div class="tech-body">
-          <div class="tech-row">
-            <span class="tech-key">Напрямую</span>
-            <span class="tech-val">Все домены <code>.ru</code>, <code>.su</code>, <code>.рф</code> и несколько сотен российских сервисов на других доменах — банки, госсайты, маркетплейсы, операторы связи, ВК, Яндекс, 2ГИС. Плюс локальная сеть: роутер и принтер остаются доступны.</span>
-          </div>
-          <div class="tech-row">
-            <span class="tech-key">YouTube</span>
-            <span class="tech-val">Отдельный маршрут через каскадные узлы — выделен под видео, чтобы не делить канал с остальным трафиком.</span>
-          </div>
-          <div class="tech-row">
-            <span class="tech-key">Остальное</span>
-            <span class="tech-val">Через балансировщик по наименьшей задержке: трафик распределяется между <strong>тремя самыми быстрыми</strong> узлами, ориентиры — 120, 250 и 500 мс. Узлы с откликом дольше 2 секунд не используются.</span>
-          </div>
-          <div class="tech-row">
-            <span class="tech-key">Проверка узлов</span>
-            <span class="tech-val">Каждые <strong>10 секунд</strong>, таймаут 2 секунды, по два замера на узел.</span>
-          </div>
-          <div class="tech-row">
-            <span class="tech-key">DNS</span>
-            <span class="tech-val">Cloudflare <code>1.1.1.1</code> и <code>1.0.0.1</code>, только IPv4.</span>
-          </div>
-          <div class="tech-row">
-            <span class="tech-key">Отключено</span>
-            <span class="tech-val"><strong>IPv6</strong>, <strong>торренты</strong> и <strong>QUIC</strong> (UDP 443). Без QUIC приложения сами переходят на обычный TCP — так соединение ровнее.</span>
-          </div>
-          <div class="tech-row">
-            <span class="tech-key">Реклама</span>
-            <span class="tech-val">Не пропускаются основные рекламные сети и системы аналитики: DoubleClick, Google Analytics, Criteo, Taboola, AppsFlyer, Mixpanel и другие.</span>
-          </div>
-        </div>
-      </details>
 
-      <p class="eyebrow">Почему XAMA</p>
-      <div class="feature-grid">
-        <div class="feature">
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></svg>
-          <span class="feature-title">Скорость</span>
-          <p>Серверы с запасом мощности — хватает на 4K и звонки.</p>
-        </div>
-        <div class="feature">
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 6v5c0 4.5 3 7.6 7 9 4-1.4 7-4.5 7-9V6l-7-3z"/><path d="m9 12 2 2 4-4"/></svg>
-          <span class="feature-title">Стабильность</span>
-          <p>Мониторинг 24/7 и переключение на другой сервер при сбое.</p>
-        </div>
-        <div class="feature">
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="14" height="11" rx="2"/><rect x="16" y="9" width="6" height="11" rx="1.6"/><path d="M7 19h5"/></svg>
-          <span class="feature-title">Все устройства</span>
-          <p>Телефон, компьютер, планшет и телевизор.</p>
-        </div>
-        <div class="feature">
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a2.5 2.5 0 0 1-2.5 2.5H8L3.5 21V5.5A2.5 2.5 0 0 1 6 3h12.5A2.5 2.5 0 0 1 21 5.5z"/></svg>
-          <span class="feature-title">Поддержка</span>
-          <p>Отвечаем в кабинете и помогаем с настройкой.</p>
-        </div>
-      </div>
-
-      <div class="notice">
-        <span class="notice-label">
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 4v6h-6M2 20v-6h6"/><path d="M19.5 9A8.5 8.5 0 0 0 5.4 5.8L2 10m20 4-3.4 4.2A8.5 8.5 0 0 1 4.5 15"/></svg>
-          ЕСЛИ ЧТО-ТО НЕ РАБОТАЕТ
-        </span>
-        <p style="margin-bottom:10px;">Сначала загляните на <strong>статус серверов</strong> — там видно, работает ли сервер прямо сейчас. Если всё в порядке, обновите подписку в приложении — кнопкой с двумя круговыми стрелками. Так подтянется свежий список серверов, и в большинстве случаев этого достаточно.</p>
-        <p>Не помогло — проверьте в кабинете остаток трафика и количество подключённых устройств, а затем напишите нам.</p>
-        <div class="btn-group pair" style="margin-top:15px;">
-          <a href="https://status.xama.life" class="btn btn-primary" target="_blank" rel="noopener">Статус серверов</a>
-          <a href="https://lk.xama.life" class="btn btn-outline" target="_blank" rel="noopener">Проверить в кабинете</a>
-          <a href="https://lk.xama.life/support" class="btn btn-outline" target="_blank" rel="noopener">Написать в поддержку</a>
-        </div>
-      </div>
     </section>
 
     <!-- РАЗДЕЛ: ТАРИФЫ -->
     <section id="plans" class="content-section" data-label="Тарифы" data-icon="card" role="tabpanel" tabindex="0">
-      <p class="lead">Четыре подписки — от одного устройства до целой компании. Трафик и устройства можно докупить к любой из них прямо в кабинете.</p>
 
-      <div class="plans" style="margin-top:18px;">
-        <article class="plan">
-          <h3 class="plan-name">Стандартный</h3>
+      <h2 class="section-title">Сколько вам нужно</h2>
+      <p class="section-lead">Прикиньте, сколько в среднем за день у всей семьи уходит на зарубежные сервисы. Российские сайты и приложения трафик подписки не тратят.</p>
+
+      <div class="calc">
+        <div>
+          <div class="calc-row">
+            <label for="c-video">Видео — YouTube, стриминги</label>
+            <output id="c-video-out">2 ч</output>
+            <input type="range" id="c-video" min="0" max="12" step="1" value="2" data-gb="1.5">
+          </div>
+          <div class="calc-row">
+            <label for="c-social">Соцсети и мессенджеры</label>
+            <output id="c-social-out">2 ч</output>
+            <input type="range" id="c-social" min="0" max="12" step="1" value="2" data-gb="0.5">
+          </div>
+          <div class="calc-row">
+            <label for="c-calls">Видеозвонки</label>
+            <output id="c-calls-out">0 ч</output>
+            <input type="range" id="c-calls" min="0" max="8" step="1" value="0" data-gb="0.5">
+          </div>
+          <div class="calc-row" style="margin-bottom:0">
+            <label for="c-dev">Устройств</label>
+            <output id="c-dev-out">1</output>
+            <input type="range" id="c-dev" min="1" max="8" step="1" value="1">
+          </div>
+        </div>
+        <div class="calc-result">
+          <div class="calc-gb" id="c-gb">≈ 120<small>ГБ в месяц</small></div>
+          <p class="calc-pick" id="c-pick"></p>
+          <p class="calc-note" id="c-note">Оценка для видео в HD-качестве. Если не хватит — трафик можно докупить в кабинете.</p>
+        </div>
+      </div>
+
+      <!-- ТАРИФЫ: data-gb — трафик в ГБ, data-dev — устройств. Калькулятор читает их отсюда. -->
+      <div class="plans" id="plan-list">
+        <article class="plan" data-gb="100" data-dev="1">
+          <div class="plan-top"><h3 class="plan-name">Стандартный</h3><span class="plan-tag">Вам подходит</span></div>
           <div class="plan-figures">
-            <div class="plan-fig"><span class="plan-num">100</span><span class="plan-unit">ГБ ТРАФИКА</span></div>
-            <div class="plan-fig"><span class="plan-num">1</span><span class="plan-unit">УСТРОЙСТВО</span></div>
+            <div class="plan-fig"><span class="plan-num">100</span><span class="plan-unit">ГБ трафика</span></div>
+            <div class="plan-fig"><span class="plan-num">1</span><span class="plan-unit">устройство</span></div>
           </div>
           <p class="plan-note">Для одного телефона или ноутбука.</p>
         </article>
 
-        <article class="plan">
-          <h3 class="plan-name">Личный</h3>
+        <article class="plan" data-gb="300" data-dev="2">
+          <div class="plan-top"><h3 class="plan-name">Личный</h3><span class="plan-tag">Вам подходит</span></div>
           <div class="plan-figures">
-            <div class="plan-fig"><span class="plan-num">300</span><span class="plan-unit">ГБ ТРАФИКА</span></div>
-            <div class="plan-fig"><span class="plan-num">2</span><span class="plan-unit">УСТРОЙСТВА</span></div>
+            <div class="plan-fig"><span class="plan-num">300</span><span class="plan-unit">ГБ трафика</span></div>
+            <div class="plan-fig"><span class="plan-num">2</span><span class="plan-unit">устройства</span></div>
           </div>
-          <p class="plan-note">Телефон плюс компьютер — запас на каждый день.</p>
+          <p class="plan-note">Телефон и компьютер с запасом на каждый день.</p>
         </article>
 
-        <article class="plan">
-          <h3 class="plan-name">Семейный</h3>
+        <article class="plan" data-gb="1000" data-dev="8">
+          <div class="plan-top"><h3 class="plan-name">Семейный</h3><span class="plan-tag">Вам подходит</span></div>
           <div class="plan-figures">
-            <div class="plan-fig"><span class="plan-num">1000</span><span class="plan-unit">ГБ ТРАФИКА</span></div>
-            <div class="plan-fig"><span class="plan-num">8</span><span class="plan-unit">УСТРОЙСТВ</span></div>
+            <div class="plan-fig"><span class="plan-num">1000</span><span class="plan-unit">ГБ трафика</span></div>
+            <div class="plan-fig"><span class="plan-num">8</span><span class="plan-unit">устройств</span></div>
           </div>
-          <p class="plan-note">Хватит на всю семью и домашнюю технику.</p>
-        </article>
-
-        <article class="plan">
-          <h3 class="plan-name">Бизнес</h3>
-          <div class="plan-figures">
-            <div class="plan-fig"><span class="plan-num">∞</span><span class="plan-unit">БЕЗЛИМИТ</span></div>
-            <div class="plan-fig"><span class="plan-num">50</span><span class="plan-unit">УСТРОЙСТВ</span></div>
-          </div>
-          <p class="plan-note">Для команды и офиса — без ограничений по трафику.</p>
+          <p class="plan-note">На всю семью и домашнюю технику.</p>
         </article>
       </div>
 
@@ -1011,33 +793,20 @@
           <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
           Докупить трафик и устройства
         </h3>
-        <p class="muted">Закончился трафик или нужно подключить ещё одно устройство? Менять подписку не нужно — добавьте недостающее к текущей.</p>
-        <div class="btn-group pair" style="margin-top:15px;">
+        <p class="muted" style="font-size:14.5px;">Менять подписку не нужно — добавьте недостающее к текущей в кабинете.</p>
+        <div class="btn-group pair" style="margin-top:14px;">
           <a href="https://lk.xama.life" class="btn btn-primary" target="_blank" rel="noopener">Кабинет в браузере</a>
           <a href="https://t.me/XAMA_life_bot" class="btn btn-outline" target="_blank" rel="noopener">Кабинет в Telegram</a>
         </div>
       </div>
-
-      <div class="card">
-        <h3 class="card-title">
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 20.5v-1.8a3.6 3.6 0 0 0-3.6-3.6H6.1a3.6 3.6 0 0 0-3.6 3.6v1.8"/><circle cx="9" cy="7.4" r="3.6"/><path d="M21.5 20.5v-1.8a3.6 3.6 0 0 0-2.7-3.5M16 3.9a3.6 3.6 0 0 1 0 7"/></svg>
-          Приводите друзей
-        </h3>
-        <p class="muted">Получите личную реферальную ссылку — или отправьте заявку на партнёрство, если хотите работать с нами вдолгую.</p>
-        <div class="btn-group" style="margin-top:15px;">
-          <a href="https://lk.xama.life/referral" class="btn btn-outline" target="_blank" rel="noopener">Реферальная программа и партнёрство</a>
-        </div>
-      </div>
     </section>
 
-    <!-- РАЗДЕЛ: ВОПРОСЫ -->
-    <!--                                                                    -->
-    <!--  ДОБАВИТЬ ВОПРОС: скопируйте блок <details> целиком и поменяйте     -->
-    <!--  текст вопроса и ответа. Атрибут name="faq" оставляйте — он         -->
-    <!--  закрывает соседние вопросы. Поиск подхватит новый вопрос сам.     -->
-    <!--  Кнопка со ссылкой (необязательно):                                -->
-    <!--    <div class="btn-group"><a href="..." class="btn btn-primary"     -->
-    <!--    target="_blank" rel="noopener">Текст кнопки</a></div>            -->
+    <!-- РАЗДЕЛ: ВОПРОСЫ
+         Добавить вопрос: скопируйте блок <details> целиком и поменяйте:
+           • id="q-..."   — короткое имя латиницей; по нему работает ссылка xama.life/#q-...
+           • текст вопроса и ответа
+         Кнопка «Скопировать ссылку» и поиск подхватят новый вопрос сами.
+         name="faq" оставляйте — он закрывает соседние вопросы. -->
     <section id="faq" class="content-section" data-label="Вопросы" data-icon="help" role="tabpanel" tabindex="0">
 
       <div class="faq-search">
@@ -1046,293 +815,331 @@
       </div>
 
       <div id="faq-list">
-        <details class="faq-item" name="faq">
-          <summary>
-            Есть ли у вас свои приложения для Android и iOS?
-            <svg class="faq-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-          </summary>
+        <details class="faq-item" name="faq" id="q-apps">
+          <summary>Есть ли у вас свои приложения для Android и iOS?<svg class="fold-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
           <div class="faq-body">
-            <p>Для Windows у нас есть официальное приложение. Для Android и iOS мы настоятельно рекомендуем использовать приложение <strong>Happ</strong>. Мы могли бы чисто на вайбе накодить свои мобильные приложения, как это делают многие другие сервисы, но давайте будем честны — это не сравнится по качеству и стабильности с Happ, над которым постоянно трудится огромная команда разработчиков. Мы предпочитаем рекомендовать вам лучший инструмент из существующих.</p>
-            <p>Ссылки на Happ — в разделе «Главное».</p>
+            <p>Для Android и iOS мы настоятельно рекомендуем использовать приложение <strong>Happ</strong>. Мы могли бы чисто на вайбе накодить свои мобильные приложения, как это делают многие другие сервисы, но давайте будем честны — это не сравнится по качеству и стабильности с Happ, над которым постоянно трудится огромная команда разработчиков. Мы предпочитаем рекомендовать вам лучший инструмент из существующих.</p>
+            <p>Если у вас iPhone с российским аккаунтом App Store, ставьте <strong>Incy</strong> — Happ оттуда удалён. Happ на iPhone доступен только в App Store других стран.</p>
+            <p>Ссылки на оба приложения — в разделе «Главное».</p>
           </div>
         </details>
 
-        <details class="faq-item" name="faq">
-          <summary>
-            Как оформить подписку?
-            <svg class="faq-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-          </summary>
+        <details class="faq-item" name="faq" id="q-connect">
+          <summary>Как подключить устройство?<svg class="fold-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
           <div class="faq-body">
-            <p>В кабинете — как вам удобнее: в браузере или прямо в Telegram. Выбираете подписку, оплачиваете и получаете ссылку для приложения.</p>
-            <p>Не хотите регистрироваться — есть <strong>быстрая покупка</strong>: выбираете тариф, указываете почту или Telegram и оплачиваете. Аккаунт создастся сам.</p>
-            <div class="btn-group" style="margin-bottom:9px;">
-              <a href="https://lk.xama.life/buy/xama-fast" class="btn btn-primary" target="_blank" rel="noopener">Быстрая покупка</a>
-            </div>
+            <p>В кабинете на главной нажмите «Подключить устройство», выберите приложение и платформу, затем «Добавить подписку» — приложение откроется и добавит её само. Останется выбрать «Авто-выбор» и подключиться. Ссылки на приложения — в разделе «Главное».</p>
+          </div>
+        </details>
+
+        <details class="faq-item" name="faq" id="q-buy">
+          <summary>Как оформить подписку?<svg class="fold-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+          <div class="faq-body">
+            <p>В кабинете — в браузере или в Telegram, как вам удобнее. Выбираете тариф, оплачиваете, и подписка сразу готова к подключению.</p>
             <div class="btn-group pair">
-              <a href="https://lk.xama.life" class="btn btn-outline" target="_blank" rel="noopener">Кабинет в браузере</a>
+              <a href="https://lk.xama.life" class="btn btn-primary" target="_blank" rel="noopener">Кабинет в браузере</a>
               <a href="https://t.me/XAMA_life_bot" class="btn btn-outline" target="_blank" rel="noopener">Кабинет в Telegram</a>
             </div>
           </div>
         </details>
 
-        <details class="faq-item" name="faq">
-          <summary>
-            Как понять, работают ли серверы?
-            <svg class="faq-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-          </summary>
+        <details class="faq-item" name="faq" id="q-login">
+          <summary>Как войти в кабинет?<svg class="fold-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
           <div class="faq-body">
-            <p>Откройте страницу статуса — там доступность каждой локации за 30 дней, текущая задержка и время последней проверки. Серверы проверяются раз в 5 минут.</p>
-            <div class="btn-group">
-              <a href="https://status.xama.life" class="btn btn-primary" target="_blank" rel="noopener">Статус серверов</a>
-            </div>
+            <p>В браузере — через Google, VK или Яндекс в один клик, либо зарегистрируйтесь по почте. В Telegram — просто запустите бота: регистрация происходит автоматически, а кабинет открывается прямо в чате.</p>
+            <p>Это один и тот же кабинет. В разделе «Профиль» можно привязать несколько способов входа сразу — тогда доступ сохранится, даже если один из них станет недоступен.</p>
           </div>
         </details>
 
-        <details class="faq-item" name="faq">
-          <summary>
-            Чем отличается кабинет в браузере от кабинета в Telegram?
-            <svg class="faq-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-          </summary>
+        <details class="faq-item" name="faq" id="q-no-telegram">
+          <summary>У меня нет Telegram — что делать?<svg class="fold-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
           <div class="faq-body">
-            <p>Ничем — это один и тот же кабинет с одними и теми же возможностями, просто два входа. В браузере удобнее с компьютера, в Telegram — когда телефон под рукой. Данные и подписка общие: что сделали в одном, сразу видно в другом.</p>
+            <p>Telegram не обязателен. Откройте кабинет в браузере и войдите через Google, VK, Яндекс или по почте — все возможности будут доступны так же.</p>
+            <div class="btn-group"><a href="https://lk.xama.life" class="btn btn-primary" target="_blank" rel="noopener">Открыть кабинет</a></div>
           </div>
         </details>
 
-        <details class="faq-item" name="faq">
-          <summary>
-            У меня нет Telegram — что делать?
-            <svg class="faq-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-          </summary>
-          <div class="faq-body">
-            <p>Telegram не обязателен. Откройте кабинет в браузере и войдите по электронной почте — все возможности будут доступны так же.</p>
-            <div class="btn-group">
-              <a href="https://lk.xama.life" class="btn btn-primary" target="_blank" rel="noopener">Войти по почте</a>
-            </div>
-          </div>
-        </details>
-
-        <details class="faq-item" name="faq">
-          <summary>
-            Нужно ли выбирать сервер вручную?
-            <svg class="faq-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-          </summary>
+        <details class="faq-item" name="faq" id="q-server">
+          <summary>Нужно ли выбирать сервер вручную?<svg class="fold-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
           <div class="faq-body">
             <p>Нет — включите «Авто-выбор», он сам подберёт самый быстрый сервер и переключится, если тот перестанет отвечать.</p>
             <p>Выбрать страну вручную стоит, если вы часто работаете с нейросетями: при автоматической смене сервера такие сервисы иногда просят заново подтвердить вход.</p>
           </div>
         </details>
 
-        <details class="faq-item" name="faq">
-          <summary>
-            Почему не качаются торренты?
-            <svg class="faq-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-          </summary>
+        <details class="faq-item" name="faq" id="q-ru-traffic">
+          <summary>Тратят ли российские сайты трафик подписки?<svg class="fold-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+          <div class="faq-body">
+            <p>Нет. В режиме «Авто-выбор» российские сайты и приложения — банки, Госуслуги, маркетплейсы, ВК, Яндекс — работают напрямую от вашего провайдера и в расход подписки не попадают.</p>
+          </div>
+        </details>
+
+        <details class="faq-item" name="faq" id="q-torrents">
+          <summary>Почему не качаются торренты?<svg class="fold-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
           <div class="faq-body">
             <p>Торрент-трафик в сети XAMA отключён — так серверы остаются быстрыми для всех. Для загрузки торрентов выключите приложение на время скачивания.</p>
           </div>
         </details>
 
-        <details class="faq-item" name="faq">
-          <summary>
-            Закончился трафик или не хватает устройств
-            <svg class="faq-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-          </summary>
+        <details class="faq-item" name="faq" id="q-more">
+          <summary>Закончился трафик или не хватает устройств<svg class="fold-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
           <div class="faq-body">
             <p>Менять подписку не нужно. К любой из них можно докупить трафик или дополнительные устройства — прямо в кабинете.</p>
-            <div class="btn-group">
-              <a href="https://lk.xama.life" class="btn btn-primary" target="_blank" rel="noopener">Докупить в кабинете</a>
-            </div>
+            <div class="btn-group"><a href="https://lk.xama.life" class="btn btn-primary" target="_blank" rel="noopener">Докупить в кабинете</a></div>
           </div>
         </details>
 
-        <details class="faq-item" name="faq">
-          <summary>
-            Как участвовать в реферальной программе?
-            <svg class="faq-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-          </summary>
+        <details class="faq-item" name="faq" id="q-referral">
+          <summary>Как участвовать в реферальной программе?<svg class="fold-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
           <div class="faq-body">
             <p>Получите личную реферальную ссылку в кабинете и делитесь ею. Там же можно отправить заявку на партнёрство, если хотите сотрудничать с нами на постоянной основе.</p>
-            <div class="btn-group">
-              <a href="https://lk.xama.life/referral" class="btn btn-primary" target="_blank" rel="noopener">Получить ссылку</a>
-            </div>
+            <div class="btn-group"><a href="https://lk.xama.life/referral" class="btn btn-primary" target="_blank" rel="noopener">Получить ссылку</a></div>
           </div>
         </details>
 
-        <details class="faq-item" name="faq">
-          <summary>
-            Как связаться с техподдержкой?
-            <svg class="faq-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-          </summary>
+        <details class="faq-item" name="faq" id="q-support">
+          <summary>Как связаться с поддержкой?<svg class="fold-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
           <div class="faq-body">
             <p>Через раздел поддержки в кабинете — опишите ситуацию, поможем разобраться.</p>
-            <div class="btn-group">
-              <a href="https://lk.xama.life/support" class="btn btn-primary" target="_blank" rel="noopener">Связаться с поддержкой</a>
-            </div>
+            <div class="btn-group"><a href="https://lk.xama.life/support" class="btn btn-primary" target="_blank" rel="noopener">Написать в поддержку</a></div>
           </div>
         </details>
 
-        <details class="faq-item" name="faq">
-          <summary>
-            Хочу сообщить об ошибке
-            <svg class="faq-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-          </summary>
+        <details class="faq-item" name="faq" id="q-bug">
+          <summary>Хочу сообщить об ошибке<svg class="fold-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
           <div class="faq-body">
             <p>Спасибо, что помогаете нам стать лучше. Напишите, что именно не работает — по возможности приложите скриншот.</p>
-            <div class="btn-group">
-              <a href="https://lk.xama.life/support" class="btn btn-primary" target="_blank" rel="noopener">Сообщить об ошибке</a>
-            </div>
+            <div class="btn-group"><a href="https://lk.xama.life/support" class="btn btn-primary" target="_blank" rel="noopener">Сообщить об ошибке</a></div>
           </div>
         </details>
 
-        <details class="faq-item" name="faq">
-          <summary>
-            Хочу заказать сайт, бота или приложение
-            <svg class="faq-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-          </summary>
+        <details class="faq-item" name="faq" id="q-dev">
+          <summary>Хочу заказать сайт, бота или приложение<svg class="fold-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
           <div class="faq-body">
             <p>Это уже не про сеть XAMA — разработкой занимается отдельная студия. Переходите к ней, там всё расскажут и посчитают.</p>
-            <div class="btn-group">
-              <a href="https://khakiev.ru/" class="btn btn-primary" target="_blank" rel="noopener">Перейти к разработчикам</a>
-            </div>
+            <div class="btn-group"><a href="https://khakiev.ru/" class="btn btn-primary" target="_blank" rel="noopener">Перейти к разработчикам</a></div>
           </div>
         </details>
       </div>
 
-      <div class="faq-empty" id="faq-empty">Ничего не нашлось — попробуйте другое слово<br>или напишите в поддержку</div>
+      <div class="faq-empty" id="faq-empty">Ничего не нашлось. Попробуйте другое слово или напишите в поддержку.</div>
     </section>
 
     <footer class="footer">
+      <div class="footer-help">
+        <p>Не нашли ответ? Напишите в поддержку — разберёмся вместе.</p>
+        <a href="https://lk.xama.life/support" class="btn btn-outline" target="_blank" rel="noopener">Написать в поддержку</a>
+      </div>
       <div class="footer-links">
-        <a href="https://xama.life/update/">Обновление</a>
-        <a href="https://lk.xama.life/buy/xama-fast" target="_blank" rel="noopener">Быстрая покупка</a>
-        <a href="https://status.xama.life" target="_blank" rel="noopener">Статус</a>
         <a href="https://lk.xama.life" target="_blank" rel="noopener">Кабинет</a>
         <a href="https://t.me/XAMA_life_bot" target="_blank" rel="noopener">Telegram</a>
-        <a href="https://lk.xama.life/support" target="_blank" rel="noopener">Поддержка</a>
         <a href="https://lk.xama.life/referral" target="_blank" rel="noopener">Партнёрам</a>
-        <a href="https://xama.life/client">Приложение</a>
+        <a href="https://khakiev.ru/" target="_blank" rel="noopener">Разработка сайтов и ботов</a>
       </div>
-      <div class="footer-mark">Команда XAMA</div>
+      <div class="footer-mark">
+        <svg viewBox="0 0 512 512" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M106 106 L406 406 M406 106 L106 406" stroke-width="34"/><path d="M172 106 L256 190 L340 106" stroke-width="22"/><path d="M172 406 L256 322 L340 406" stroke-width="22"/><path d="M106 172 L190 256 L106 340" stroke-width="22"/><path d="M406 172 L322 256 L406 340" stroke-width="22"/></g></svg>
+        © 2026 XAMA
+      </div>
     </footer>
   </div>
 
   <script>
-    /* ==================================================================
-       ИКОНКИ РАЗДЕЛОВ.
-       В data-icon у секции пишете имя отсюда.
-       Своя иконка — добавьте строку "имя": "<path .../>".
-       ================================================================== */
+    /* ИКОНКИ РАЗДЕЛОВ — в data-icon у секции пишете имя отсюда */
     var SECTION_ICONS = {
       home: '<path d="M3 11 12 3l9 8"/><path d="M5 10v10h5v-6h4v6h5V10"/>',
       card: '<rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19"/>',
-      help: '<circle cx="12" cy="12" r="9.5"/><path d="M9.2 9.3a2.8 2.8 0 0 1 5.4 1c0 1.9-2.6 2.3-2.6 3.7"/><path d="M12 17h.01"/>',
-      bolt: '<path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/>',
-      shield: '<path d="M12 3 5 6v5c0 4.5 3 7.6 7 9 4-1.4 7-4.5 7-9V6l-7-3z"/>'
+      help: '<circle cx="12" cy="12" r="9.5"/><path d="M9.2 9.3a2.8 2.8 0 0 1 5.4 1c0 1.9-2.6 2.3-2.6 3.7"/><path d="M12 17h.01"/>'
     };
 
-    /* ---------- НАВИГАЦИЯ ---------- */
-    (function(){
-      var nav       = document.getElementById('segmented');
+    /* ---------- РАЗДЕЛЫ ---------- */
+    var Sections = (function(){
+      var nav = document.getElementById('segmented');
       var indicator = document.getElementById('seg-indicator');
-      var panels    = Array.prototype.slice.call(document.querySelectorAll('.content-section'));
-      var buttons   = [];
+      var panels = Array.prototype.slice.call(document.querySelectorAll('.content-section'));
+      var buttons = [];
 
       panels.forEach(function(panel){
-        var id    = panel.id;
-        var label = panel.getAttribute('data-label') || id;
-        var icon  = SECTION_ICONS[panel.getAttribute('data-icon')] || '';
-
         var btn = document.createElement('button');
-        btn.className = 'seg-btn';
-        btn.type = 'button';
-        btn.id = 'seg-' + id;
+        btn.className = 'seg-btn'; btn.type = 'button';
+        btn.id = 'seg-' + panel.id;
         btn.setAttribute('role','tab');
-        btn.setAttribute('aria-controls', id);
-        btn.innerHTML =
-          '<svg class="seg-ic" viewBox="0 0 24 24" aria-hidden="true">' + icon + '</svg>' +
-          '<span>' + label + '</span>';
-
+        btn.setAttribute('aria-controls', panel.id);
+        btn.innerHTML = '<svg class="seg-ic" viewBox="0 0 24 24" aria-hidden="true">' +
+          (SECTION_ICONS[panel.getAttribute('data-icon')] || '') + '</svg><span>' +
+          (panel.getAttribute('data-label') || panel.id) + '</span>';
         panel.setAttribute('aria-labelledby', btn.id);
-        nav.appendChild(btn);
-        buttons.push(btn);
+        nav.appendChild(btn); buttons.push(btn);
       });
 
       function moveIndicator(i){
-        var pct = 100 / buttons.length;
-        indicator.style.width = 'calc(' + pct + '% - ' + (8 / buttons.length).toFixed(2) + 'px)';
+        indicator.style.width = 'calc(' + (100 / buttons.length) + '% - ' + (8 / buttons.length).toFixed(2) + 'px)';
         indicator.style.transform = 'translateX(' + (i * 100) + '%)';
       }
 
-      function activate(id, focusBtn, updateHash){
+      function activate(id, opts){
+        opts = opts || {};
         var idx = buttons.findIndex(function(b){ return b.getAttribute('aria-controls') === id; });
         if(idx < 0) return;
-
-        buttons.forEach(function(b){
-          b.classList.remove('active');
-          b.setAttribute('aria-selected','false');
-          b.tabIndex = -1;
-        });
+        buttons.forEach(function(b){ b.classList.remove('active'); b.setAttribute('aria-selected','false'); b.tabIndex = -1; });
         panels.forEach(function(p){ p.classList.remove('active'); });
-
-        buttons[idx].classList.add('active');
-        buttons[idx].setAttribute('aria-selected','true');
-        buttons[idx].tabIndex = 0;
+        buttons[idx].classList.add('active'); buttons[idx].setAttribute('aria-selected','true'); buttons[idx].tabIndex = 0;
         document.getElementById(id).classList.add('active');
         moveIndicator(idx);
-
-        if(focusBtn) buttons[idx].focus();
-        if(updateHash && history.replaceState) history.replaceState(null, '', '#' + id);
+        if(opts.focus) buttons[idx].focus();
+        if(opts.hash && history.replaceState) history.replaceState(null, '', '#' + id);
       }
 
       buttons.forEach(function(btn, i){
-        btn.addEventListener('click', function(){
-          activate(btn.getAttribute('aria-controls'), false, true);
-        });
+        btn.addEventListener('click', function(){ activate(btn.getAttribute('aria-controls'), {hash:true}); });
         btn.addEventListener('keydown', function(e){
-          var next = null;
-          if(e.key === 'ArrowRight') next = buttons[(i + 1) % buttons.length];
-          if(e.key === 'ArrowLeft')  next = buttons[(i - 1 + buttons.length) % buttons.length];
-          if(e.key === 'Home')       next = buttons[0];
-          if(e.key === 'End')        next = buttons[buttons.length - 1];
-          if(next){ e.preventDefault(); activate(next.getAttribute('aria-controls'), true, true); }
+          var n = null;
+          if(e.key === 'ArrowRight') n = buttons[(i + 1) % buttons.length];
+          if(e.key === 'ArrowLeft')  n = buttons[(i - 1 + buttons.length) % buttons.length];
+          if(n){ e.preventDefault(); activate(n.getAttribute('aria-controls'), {focus:true, hash:true}); }
         });
       });
 
-      function fromHash(){
-        var id = (location.hash || '').replace('#','');
-        if(id && document.getElementById(id) && document.getElementById('seg-' + id)) activate(id, false, false);
-        else if(panels.length) activate(panels[0].id, false, false);
-      }
-      fromHash();
-      window.addEventListener('hashchange', fromHash);
       window.addEventListener('resize', function(){
         var i = buttons.findIndex(function(b){ return b.classList.contains('active'); });
         if(i >= 0) moveIndicator(i);
       });
+
+      return { activate: activate, first: panels.length ? panels[0].id : null };
     })();
 
-    /* ---------- ПОИСК ПО ВОПРОСАМ ---------- */
+    /* ---------- ВОПРОСЫ: ссылки, поиск ---------- */
     (function(){
-      var input = document.getElementById('faq-input');
-      var list  = document.getElementById('faq-list');
-      var empty = document.getElementById('faq-empty');
-      if(!input || !list) return;
-
+      var list = document.getElementById('faq-list');
       var items = Array.prototype.slice.call(list.querySelectorAll('.faq-item'));
 
-      input.addEventListener('input', function(){
-        var q = input.value.trim().toLowerCase();
-        var shown = 0;
+      /* кнопка «Скопировать ссылку» в каждом ответе */
+      items.forEach(function(item){
+        if(!item.id) return;
+        var btn = document.createElement('button');
+        btn.type = 'button'; btn.className = 'faq-link';
+        var label = 'Скопировать ссылку на ответ';
+        btn.innerHTML = '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3.3-3.3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0L5 13.3a4 4 0 0 0 5.7 5.7l1-1"/></svg><span>' + label + '</span>';
+        btn.addEventListener('click', function(){
+          var url = location.origin + location.pathname + '#' + item.id;
+          var done = function(){
+            btn.querySelector('span').textContent = 'Ссылка скопирована';
+            setTimeout(function(){ btn.querySelector('span').textContent = label; }, 1800);
+          };
+          if(navigator.clipboard && navigator.clipboard.writeText){
+            navigator.clipboard.writeText(url).then(done, function(){ prompt('Скопируйте ссылку:', url); });
+          } else { prompt('Скопируйте ссылку:', url); }
+        });
+        item.querySelector('.faq-body').appendChild(btn);
+      });
 
+      /* поиск */
+      var input = document.getElementById('faq-input');
+      var empty = document.getElementById('faq-empty');
+      input.addEventListener('input', function(){
+        var q = input.value.trim().toLowerCase(), shown = 0;
         items.forEach(function(item){
           var hit = !q || item.textContent.toLowerCase().indexOf(q) !== -1;
           item.classList.toggle('hidden', !hit);
-          if(hit) shown++;
-          if(!hit) item.open = false;
+          if(hit) shown++; else item.open = false;
         });
-
         empty.classList.toggle('show', shown === 0);
       });
+
+      /* открыть вопрос по ссылке вида #q-torrents */
+      window.openQuestion = function(id){
+        var item = document.getElementById(id);
+        if(!item || !item.classList.contains('faq-item')) return false;
+        Sections.activate('faq');
+        item.open = true;
+        item.classList.add('flash');
+        setTimeout(function(){ item.classList.remove('flash'); }, 1600);
+        setTimeout(function(){ item.scrollIntoView({behavior:'smooth', block:'start'}); }, 60);
+        return true;
+      };
+    })();
+
+    /* ---------- ПЕРЕХОД ПО ССЫЛКЕ (#plans, #faq, #q-...) ---------- */
+    (function(){
+      function route(){
+        var id = decodeURIComponent((location.hash || '').slice(1));
+        if(id && id.indexOf('q-') === 0 && window.openQuestion(id)) return;
+        if(id && document.getElementById('seg-' + id)) Sections.activate(id);
+        else if(Sections.first) Sections.activate(Sections.first);
+      }
+      route();
+      window.addEventListener('hashchange', route);
+    })();
+
+    /* ---------- ПЛАТФОРМА: выбираем ту, с которой зашли ---------- */
+    (function(){
+      var ua = navigator.userAgent || '';
+      var isIPad = navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1;
+      var detected = null;
+      if(/iPhone|iPad|iPod/.test(ua) || isIPad) detected = 'ios';
+      else if(/Android/.test(ua)) detected = /TV|AFT|BRAVIA|SmartTV|GoogleTV/i.test(ua) ? 'tv' : 'android';
+      else if(/Windows/.test(ua)) detected = 'pc';
+      else if(/SMART-TV|SmartTV|Tizen|WebOS/i.test(ua)) detected = 'tv';
+
+      var names = { ios:'iPhone', android:'Android', pc:'Windows', tv:'телевизор' };
+      var buttons = Array.prototype.slice.call(document.querySelectorAll('#plat button'));
+      var panels = Array.prototype.slice.call(document.querySelectorAll('.plat-panel'));
+      var hint = document.getElementById('plat-hint');
+
+      function pick(p, auto){
+        buttons.forEach(function(b){ var on = b.dataset.plat === p; b.classList.toggle('on', on); b.setAttribute('aria-selected', on); });
+        panels.forEach(function(el){ el.classList.toggle('on', el.dataset.plat === p); });
+        hint.textContent = auto ? 'Похоже, у вас ' + names[p] + ' — выбрали за вас. Другие устройства рядом.' : '';
+      }
+      buttons.forEach(function(b){ b.addEventListener('click', function(){ pick(b.dataset.plat, false); }); });
+      pick(detected || (navigator.maxTouchPoints > 0 ? 'ios' : 'pc'), !!detected);
+    })();
+
+    /* ---------- КАЛЬКУЛЯТОР ТРАФИКА ---------- */
+    (function(){
+      var ids = ['c-video','c-social','c-calls'];
+      var dev = document.getElementById('c-dev');
+      var plans = Array.prototype.slice.call(document.querySelectorAll('#plan-list .plan'));
+      var gbEl = document.getElementById('c-gb');
+      var pick = document.getElementById('c-pick');
+
+      function plural(n, one, few, many){
+        var m10 = n % 10, m100 = n % 100;
+        if(m10 === 1 && m100 !== 11) return one;
+        if(m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return few;
+        return many;
+      }
+
+      function calc(){
+        var perDay = 0;
+        ids.forEach(function(id){
+          var el = document.getElementById(id);
+          perDay += (+el.value) * parseFloat(el.dataset.gb);
+          document.getElementById(id + '-out').textContent = el.value + ' ч';
+        });
+        var d = +dev.value;
+        document.getElementById('c-dev-out').textContent = d;
+        var gb = Math.round(perDay * 30);
+        gbEl.innerHTML = '≈ ' + gb + '<small>ГБ в месяц</small>';
+
+        var fit = null;
+        plans.forEach(function(p){
+          p.classList.remove('fit');
+          if(!fit && gb <= +p.dataset.gb && d <= +p.dataset.dev) fit = p;
+        });
+        if(fit){
+          fit.classList.add('fit');
+          pick.textContent = 'Подойдёт «' + fit.querySelector('.plan-name').textContent + '»';
+        } else {
+          var last = plans[plans.length - 1];
+          if(d > +last.dataset.dev){
+            pick.textContent = 'Больше ' + last.dataset.dev + ' ' + plural(+last.dataset.dev,'устройства','устройств','устройств') + ' — напишите в поддержку, подберём вариант';
+          } else {
+            last.classList.add('fit');
+            pick.textContent = '«' + last.querySelector('.plan-name').textContent + '» плюс докупка трафика в кабинете';
+          }
+        }
+      }
+      ids.concat(['c-dev']).forEach(function(id){ document.getElementById(id).addEventListener('input', calc); });
+      calc();
     })();
 
     /* ---------- ТЕМА ---------- */
@@ -1340,14 +1147,11 @@
       var root = document.documentElement;
       var toggle = document.getElementById('theme-toggle');
       var meta = document.querySelector('meta[name="theme-color"]');
-      function syncMeta(){
-        if(meta) meta.setAttribute('content', root.getAttribute('data-theme') === 'light' ? '#ffffff' : '#000000');
-      }
+      function syncMeta(){ if(meta) meta.setAttribute('content', root.getAttribute('data-theme') === 'light' ? '#ffffff' : '#000000'); }
       syncMeta();
       toggle.addEventListener('click', function(){
         var isLight = root.getAttribute('data-theme') === 'light';
-        if(isLight){ root.removeAttribute('data-theme'); }
-        else { root.setAttribute('data-theme','light'); }
+        if(isLight) root.removeAttribute('data-theme'); else root.setAttribute('data-theme','light');
         try{ localStorage.setItem('xama-theme', isLight ? 'dark' : 'light'); }catch(e){}
         syncMeta();
       });
