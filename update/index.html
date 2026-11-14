@@ -3,663 +3,166 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="description" content="Обновление сети XAMA от 27.09.2026: быстрая покупка, статус серверов, автопокупка и страницы для партнёров.">
+<meta name="description" content="Обновление кабинета XAMA от 14.11.2026: покупка подписки, выбор устройств, учёт трафика и улучшения управления подпиской.">
 <meta name="theme-color" content="#000000">
-<title>XAMA — Обновление 27.09.2026</title>
-
-<meta property="og:title" content="Обновление XAMA — 27.09.2026">
-<meta property="og:description" content="Быстрая покупка, статус серверов, автопокупка и страницы для партнёров">
+<title>XAMA — Обновление 14.11.2026</title>
+<meta property="og:title" content="Обновление XAMA — 14.11.2026">
+<meta property="og:description" content="Покупка подписки, выбор устройств, учёт трафика и улучшения кабинета">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://xama.life/update/">
 <meta property="og:image" content="https://xama.life/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://xama.life/og-image.png">
-
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='112' fill='%23000'/%3E%3Cg fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M106 106L406 406M406 106L106 406' stroke-width='30'/%3E%3Cpath d='M172 106L256 190L340 106' stroke-width='18'/%3E%3Cpath d='M172 406L256 322L340 406' stroke-width='18'/%3E%3Cpath d='M106 172L190 256L106 340' stroke-width='18'/%3E%3Cpath d='M406 172L322 256L406 340' stroke-width='18'/%3E%3C/g%3E%3C/svg%3E">
-<script>
-  (function(){
-    try{
-      var saved = localStorage.getItem('xama-theme');
-      if(saved === 'light') document.documentElement.setAttribute('data-theme','light');
-    }catch(e){}
-  })();
-</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  /* ==================================================================
-     ЦВЕТА — те же, что на сетевом портале
-     ================================================================== */
-  :root{
-    --bg: #000000;
-    --surface: #0e0e0e;
-    --surface-2: #191919;
-    --border: #2a2a2a;
-    --border-strong: #454545;
-    --ink: #f5f5f3;
-    --ink-dim: #9a9a97;
-    --ink-faint: #656562;
-    --white: #ffffff;
-    --invert: #000000;
-    --bg-translucent: rgba(0,0,0,0.88);
-    --radius: 16px;
-    --radius-sm: 11px;
-    --topbar-h: 61px;
-    --mono: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
-    --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  }
-  html[data-theme="light"]{
-    --bg: #ffffff;
-    --surface: #f5f5f4;
-    --surface-2: #ebebe9;
-    --border: #dcdcda;
-    --border-strong: #b6b6b3;
-    --ink: #0a0a0a;
-    --ink-dim: #5c5c5a;
-    --ink-faint: #8a8a87;
-    --white: #000000;
-    --invert: #ffffff;
-    --bg-translucent: rgba(255,255,255,0.88);
-  }
+:root{--bg:#000;--surface:#0e0e0e;--surface-2:#191919;--border:#2a2a2a;--border-strong:#454545;--ink:#f5f5f3;--ink-dim:#9a9a97;--ink-faint:#656562;--white:#fff;--invert:#000;--bg-translucent:rgba(0,0,0,.88);--radius:16px;--radius-sm:11px;--mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;--sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
 
-  *{ box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
-  html{ background:var(--bg); transition: background-color .2s ease; }
-  body{
-    font-family: var(--sans); background: var(--bg); color: var(--ink);
-    margin:0; line-height:1.55; -webkit-font-smoothing: antialiased;
-    padding-bottom: calc(48px + env(safe-area-inset-bottom, 0px));
-  }
-  a{ color:inherit; }
-  button{ font:inherit; color:inherit; }
-  :focus-visible{ outline: 2px solid var(--white); outline-offset: 2px; border-radius: 8px; }
-  @media (prefers-reduced-motion: reduce){
-    *{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition:none !important; }
-  }
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html{background:var(--bg);transition:background-color .2s}body{font-family:var(--sans);background:var(--bg);color:var(--ink);margin:0;line-height:1.55;-webkit-font-smoothing:antialiased;padding-bottom:calc(48px + env(safe-area-inset-bottom,0px))}a{color:inherit}button{font:inherit;color:inherit}:focus-visible{outline:2px solid var(--white);outline-offset:2px;border-radius:8px}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;animation-iteration-count:1!important;transition:none!important}}
+.wrap{max-width:680px;margin:0 auto;padding:0 16px}@media(min-width:900px){.wrap{max-width:960px;padding:0 28px}}
+.ic{width:18px;height:18px;flex-shrink:0;display:block;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.topbar{position:sticky;top:0;z-index:30;padding-top:env(safe-area-inset-top,0px);background:var(--bg-translucent);backdrop-filter:blur(16px) saturate(150%);-webkit-backdrop-filter:blur(16px) saturate(150%);border-bottom:1px solid var(--border)}
+.topbar-inner{max-width:680px;margin:0 auto;padding:13px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:60px}@media(min-width:900px){.topbar-inner{max-width:960px;padding:13px 28px}}
+.brand{display:flex;align-items:center;gap:9px;text-decoration:none}.brand-icon{width:26px;height:26px;flex-shrink:0;display:block;color:var(--ink)}.brand-mark{font-weight:800;font-size:19px;letter-spacing:.09em;line-height:1}
+.topbar-right{display:flex;align-items:center;gap:12px}.release-meta{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:11px;color:var(--ink-faint);letter-spacing:.06em}.release-meta .sep{width:1px;height:12px;background:var(--border-strong)}
+header.hero{padding:34px 0 22px}@media(min-width:900px){header.hero{padding:58px 0 30px;text-align:center}}.hero-kicker{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.09em;color:var(--ink-dim);margin-bottom:14px}.hero-kicker .pill{background:var(--white);color:var(--invert);border-radius:999px;padding:3px 9px;letter-spacing:.08em}
+h1.hero-title{font-size:clamp(33px,8.6vw,54px);font-weight:800;letter-spacing:-.035em;line-height:1.05;margin:0 0 10px}.hero-title .caps{letter-spacing:.02em}.hero-sub{font-size:15.5px;color:var(--ink-dim);margin:0;max-width:48ch}@media(min-width:900px){.hero-sub{font-size:17px;margin-left:auto;margin-right:auto}}
+}
 
-  .wrap{ max-width: 680px; margin: 0 auto; padding: 0 16px; }
-  @media (min-width: 900px){ .wrap{ max-width: 960px; padding: 0 28px; } }
 
-  .ic{
-    width:18px; height:18px; flex-shrink:0; display:block;
-    fill:none; stroke:currentColor; stroke-width:2;
-    stroke-linecap:round; stroke-linejoin:round;
-  }
 
-  /* ---------- ШАПКА ---------- */
-  .topbar{
-    position: sticky; top:0; z-index:30;
-    padding-top: env(safe-area-inset-top, 0px);
-    background: var(--bg-translucent);
-    backdrop-filter: blur(16px) saturate(150%);
-    -webkit-backdrop-filter: blur(16px) saturate(150%);
-    border-bottom: 1px solid var(--border);
-  }
-  .topbar-inner{
-    max-width: 680px; margin:0 auto; padding: 13px 16px;
-    display:flex; align-items:center; justify-content:space-between; gap:12px;
-    min-height: 60px;
-  }
-  @media (min-width: 900px){ .topbar-inner{ max-width: 960px; padding: 13px 28px; } }
+.content-section{display:block}
+.eyebrow{font-family:var(--mono);font-size:11px;color:var(--ink-faint);letter-spacing:.09em;text-transform:uppercase;margin:2px 0 10px}
+.upd{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:10px;overflow:hidden;transition:border-color .2s,background-color .2s}.upd:hover{border-color:var(--border-strong)}.upd.open{border-color:var(--border);background:var(--surface)}
+.upd-head{width:100%;border:0;background:none;text-align:left;display:flex;align-items:center;gap:14px;padding:17px 18px;border-radius:var(--radius)}
+.upd-icon{width:40px;height:40px;flex-shrink:0;border-radius:11px;display:flex;align-items:center;justify-content:center;background:var(--surface-2);border:1px solid var(--border);color:var(--ink)}.upd-icon{background:var(--surface-2);color:var(--ink);border-color:var(--border)}
+.upd-text{min-width:0;flex:1}.upd-title{display:block;font-size:15.5px;font-weight:700;line-height:1.3}.upd-sub{display:block;font-size:13px;color:var(--ink-dim);line-height:1.4;margin-top:2px}
 
-  .brand{ display:flex; align-items:center; gap:9px; text-decoration:none; transition: opacity .15s ease; }
-  .brand:hover{ opacity:.75; }
-  .brand-icon{ width:26px; height:26px; flex-shrink:0; display:block; color:var(--ink); }
-  .brand-mark{ font-weight:800; font-size:19px; letter-spacing:.09em; margin-right:-.09em; line-height:1; }
+.upd-body{display:block}.upd-inner{overflow:hidden}.upd-content{padding:2px 18px 18px 72px;opacity:1;transform:none}@media(max-width:520px){.upd-content{padding-left:18px}}
+.upd-content p{margin:0 0 12px;font-size:14.5px;color:var(--ink-dim);max-width:62ch}.upd-content p strong{color:var(--ink);font-weight:600}.upd-content p:last-child{margin-bottom:0}.upd-content a.inline{text-decoration:none;border-bottom:1px solid var(--border-strong);color:var(--ink)}.note{font-family:var(--mono);font-size:12px!important;color:var(--ink-faint)!important}
+.rows{margin:0 0 12px}.row{display:flex;gap:11px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--border);font-size:14px;color:var(--ink)}.row:first-child{border-top:0;padding-top:0}.row .ic{width:15px;height:15px;margin-top:3px;color:var(--ink-faint)}
+.end{margin-top:44px}.end h2{font-size:20px;font-weight:700;letter-spacing:-.015em;margin:2px 0 14px}@media(min-width:900px){.end h2{font-size:24px}}.btn-group{display:grid;gap:9px;grid-template-columns:1fr}@media(min-width:560px){.btn-group{grid-template-columns:repeat(6,1fr)}.btn-group .btn{grid-column:span 2}.btn-group .btn-primary{grid-column:span 3}}
+.btn{display:flex;align-items:center;justify-content:center;gap:9px;padding:14px 20px;border-radius:var(--radius-sm);text-decoration:none;font-weight:600;font-size:14.5px;border:1px solid transparent;transition:opacity .15s,background-color .15s,border-color .15s}.btn:active{opacity:.75}.btn .ic{width:17px;height:17px}.btn-primary{background:var(--white);color:var(--invert)}.btn-primary:hover{background:#e6e6e6}.btn-outline{background:transparent;color:var(--ink);border-color:var(--border-strong)}.btn-outline:hover{border-color:var(--white);background:var(--surface-2)}
+.footer{margin-top:48px;padding-top:22px;border-top:1px solid var(--border);display:flex;flex-direction:column;align-items:center;gap:15px}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:9px 20px}.footer-links a{font-family:var(--mono);font-size:12px;color:var(--ink-dim);text-decoration:none}.footer-links a:hover{color:var(--ink)}.footer-mark{font-family:var(--mono);font-size:11px;color:var(--ink-faint);letter-spacing:.05em}
 
-  .topbar-right{ display:flex; align-items:center; gap:12px; }
-  .release-meta{
-    display:flex; align-items:center; gap:10px;
-    font-family:var(--mono); font-size:11px; color:var(--ink-faint); letter-spacing:.06em;
-  }
-  .release-meta .sep{ width:1px; height:12px; background:var(--border-strong); }
+/* Дополнительная полировка страницы обновления */
+.hero{position:relative}
+.hero:after{content:"";display:block;width:54px;height:3px;background:var(--white);margin-top:22px;border-radius:99px;opacity:.85}
+@media(min-width:900px){.hero:after{margin-left:auto;margin-right:auto}}
+.eyebrow{margin-bottom:14px}
+.upd{box-shadow:0 8px 28px rgba(0,0,0,.10)}
+.upd-head{cursor:default;padding:19px 20px}
+.upd-icon{width:42px;height:42px}
+.upd-title{font-size:15.8px;letter-spacing:-.015em}
+.upd-sub{font-size:13.2px}
+.upd-content{padding-top:0;padding-bottom:20px}
+.upd-content p{line-height:1.65}
+.upd-content .rows{margin-top:2px}
+.end{padding:22px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface)}
+.end h2{margin-bottom:16px}
+.footer{margin-top:34px}
+@media(min-width:760px){#upd{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start}.eyebrow{grid-column:1/-1}.upd{margin:0;height:100%}.upd-content{padding-right:20px}}
 
-  .theme-toggle{
-    display:flex; align-items:center; justify-content:center;
-    width:34px; height:34px; flex-shrink:0;
-    border-radius:999px; border:1px solid var(--border);
-    background:var(--surface); color:var(--ink); cursor:pointer; padding:0;
-    transition: border-color .15s ease;
-  }
-  .theme-toggle:hover{ border-color: var(--border-strong); }
-  .theme-toggle svg{ width:16px; height:16px; display:block; }
-  .theme-toggle .icon-sun{ display:none; }
-  html[data-theme="light"] .theme-toggle .icon-moon{ display:none; }
-  html[data-theme="light"] .theme-toggle .icon-sun{ display:block; }
 
-  /* ---------- ГЕРОЙ ---------- */
-  header.hero{ padding: 34px 0 22px; }
-  @media (min-width: 900px){ header.hero{ padding: 58px 0 30px; text-align:center; } }
-  .hero-kicker{
-    display:inline-flex; align-items:center; gap:8px;
-    font-family:var(--mono); font-size:11px; font-weight:600; letter-spacing:.09em;
-    color:var(--ink-dim); margin-bottom:14px;
-  }
-  .hero-kicker .pill{
-    background:var(--white); color:var(--invert); border-radius:999px; padding:3px 9px; letter-spacing:.08em;
-  }
-  h1.hero-title{
-    font-size: clamp(33px, 8.6vw, 54px);
-    font-weight:800; letter-spacing:-.035em; line-height:1.05; margin:0 0 10px;
-  }
-  h1.hero-title .caps{ letter-spacing:.02em; }
-  .hero-sub{ font-size: 15.5px; color: var(--ink-dim); margin:0; max-width: 46ch; }
-  @media (min-width: 900px){ .hero-sub{ font-size:17px; margin-left:auto; margin-right:auto; } }
+/* XAMA signature motion */
+.brand-logo{width:30px;height:30px;object-fit:cover;border-radius:8px}
+.hero-logo-wrap{position:relative;width:132px;height:132px;margin:0 auto 24px;display:grid;place-items:center;isolation:isolate}
+.hero-logo{position:relative;z-index:2;width:100%;height:100%;object-fit:cover;border-radius:30px;box-shadow:0 0 0 1px rgba(255,255,255,.12),0 16px 55px rgba(255,255,255,.08);animation:logoFloat 5s ease-in-out infinite,logoGlow 4s ease-in-out infinite alternate}
+.hero-logo-halo{position:absolute;inset:-13px;border:1px solid rgba(255,255,255,.13);border-radius:38px;transform:rotate(45deg);animation:haloTurn 24s linear infinite}
+.hero-logo-halo:before,.hero-logo-halo:after{content:"";position:absolute;inset:10px;border:1px solid rgba(255,255,255,.08);border-radius:30px}
+.hero-logo-halo:after{inset:-10px;border-color:rgba(255,255,255,.045);border-radius:46px}
+@keyframes logoFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes logoGlow{from{filter:brightness(.94)}to{filter:brightness(1.08)}}
+@keyframes haloTurn{to{transform:rotate(405deg)}}
+.hero{padding-top:26px}
+.hero-kicker{margin-bottom:14px}
+@media(min-width:900px){.hero-logo-wrap{width:148px;height:148px;margin-bottom:28px}}
+@media(prefers-reduced-motion:reduce){.hero-logo,.hero-logo-halo{animation:none!important}}
 
-  /* ---------- ВКЛАДКИ ---------- */
-  .nav-holder{
-    position: sticky; top: calc(var(--topbar-h) + env(safe-area-inset-top, 0px)); z-index: 20;
-    padding: 12px 0 16px;
-    background: linear-gradient(var(--bg) 66%, transparent);
-  }
-  @media (min-width: 900px){ .nav-holder{ display:flex; justify-content:center; } }
-  .segmented{
-    position:relative; display:flex;
-    background: var(--surface); border:1px solid var(--border);
-    border-radius: 999px; padding:4px; width:100%;
-  }
-  @media (min-width: 900px){ .segmented{ width:auto; min-width:480px; } }
-  .seg-indicator{
-    position:absolute; top:4px; bottom:4px; left:4px; width:calc(50% - 4px);
-    border-radius:999px; background: var(--white);
-    transition: transform .28s cubic-bezier(.4,.1,.2,1);
-    pointer-events:none;
-  }
-  .segmented[data-active="ref"] .seg-indicator{ transform: translateX(100%); }
-  .seg-btn{
-    position:relative; z-index:1; flex:1 1 0;
-    display:flex; align-items:center; justify-content:center; gap:7px;
-    padding: 10px 6px; font-family: var(--mono);
-    font-size: 12.5px; font-weight:600; letter-spacing:.01em;
-    background:transparent; border:0; border-radius:999px;
-    color: var(--ink-dim); cursor:pointer; white-space:nowrap;
-    transition: color .2s ease;
-  }
-  .seg-btn:hover{ color: var(--ink); }
-  .seg-btn[aria-selected="true"]{ color: var(--invert); }
-  .seg-btn .ic{ width:16px; height:16px; }
-  @media (min-width: 900px){ .seg-btn{ padding:11px 22px; font-size:13.5px; } }
-  @media (max-width: 420px){ .seg-btn .ic{ display:none; } .seg-btn{ font-size:12px; } }
-
-  .content-section{ display:none; }
-  .content-section.active{ display:block; animation: fadeIn .26s ease; }
-  @keyframes fadeIn{ from{opacity:0; transform:translateY(5px);} to{opacity:1; transform:translateY(0);} }
-
-  .eyebrow{
-    font-family: var(--mono); font-size:11px; color:var(--ink-faint);
-    letter-spacing:.09em; text-transform:uppercase; margin: 2px 0 10px;
-  }
-
-  /* ---------- КАРТОЧКИ ОБНОВЛЕНИЯ ---------- */
-  .upd{
-    background: var(--surface); border:1px solid var(--border);
-    border-radius: var(--radius); margin-bottom:10px; overflow:hidden;
-    transition: border-color .2s ease, background-color .2s ease;
-  }
-  .upd:hover{ border-color: var(--border-strong); }
-  .upd.open{ border-color: var(--border-strong); background: var(--surface-2); }
-
-  .upd-head{
-    width:100%; border:0; background:none; cursor:pointer; text-align:left;
-    display:flex; align-items:center; gap:14px; padding:17px 18px;
-    border-radius: var(--radius);
-  }
-  .upd-icon{
-    width:40px; height:40px; flex-shrink:0; border-radius:11px;
-    display:flex; align-items:center; justify-content:center;
-    background: var(--surface-2); border:1px solid var(--border); color: var(--ink);
-    transition: background-color .25s ease, color .25s ease, border-color .25s ease;
-  }
-  .upd.open .upd-icon{ background: var(--white); color: var(--invert); border-color: var(--white); }
-  .upd-text{ min-width:0; flex:1; }
-  .upd-title{ display:block; font-size:15.5px; font-weight:700; color:var(--ink); line-height:1.3; }
-  .upd-sub{ display:block; font-size:13px; color:var(--ink-dim); line-height:1.4; margin-top:2px; }
-  .new-tag{
-    display:inline-block; font-family:var(--mono); font-size:9.5px; font-weight:700;
-    letter-spacing:.07em; color:var(--ink); border:1px solid var(--border-strong);
-    border-radius:999px; padding:1px 6px; margin-left:8px; vertical-align:2px;
-  }
-  .plus{
-    width:18px; height:18px; flex-shrink:0; color: var(--ink-faint);
-    fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round;
-    transition: transform .3s cubic-bezier(.4,.1,.2,1), color .2s ease;
-  }
-  .upd.open .plus{ transform: rotate(45deg); color: var(--ink); }
-
-  .upd-body{ display:grid; grid-template-rows:0fr; transition: grid-template-rows .38s cubic-bezier(.4,.1,.2,1); }
-  .upd.open .upd-body{ grid-template-rows:1fr; }
-  .upd-inner{ overflow:hidden; }
-  .upd-content{
-    padding: 2px 18px 18px 72px;
-    opacity:0; transform: translateY(-4px);
-    transition: opacity .2s ease, transform .3s ease;
-  }
-  .upd.open .upd-content{ opacity:1; transform:none; transition-delay:.1s; }
-  @media (max-width: 520px){ .upd-content{ padding-left:18px; } }
-  .upd-content p{ margin:0 0 12px; font-size:14.5px; color:var(--ink-dim); max-width:62ch; }
-  .upd-content p strong{ color:var(--ink); font-weight:600; }
-  .upd-content p:last-child{ margin-bottom:0; }
-  .upd-content code{
-    font-family: var(--mono); font-size:12.5px;
-    background: var(--bg); border:1px solid var(--border);
-    padding:1px 6px; border-radius:6px; color: var(--ink); word-break:break-all;
-  }
-  .upd-content a.inline{ text-decoration:none; border-bottom:1px solid var(--border-strong); color:var(--ink); }
-  .upd-content a.inline:hover{ border-color: var(--ink); }
-
-  .mini-steps{ display:grid; gap:8px; margin:0 0 14px; }
-  @media (min-width: 620px){ .mini-steps{ grid-template-columns: repeat(3, 1fr); } }
-  .mini-step{ background: var(--bg); border:1px solid var(--border); border-radius: var(--radius-sm); padding:12px 14px; }
-  .mini-step span{ display:block; font-family:var(--mono); font-size:10.5px; font-weight:600; color:var(--ink-faint); letter-spacing:.09em; margin-bottom:4px; }
-  .mini-step b{ font-size:14px; font-weight:600; color:var(--ink); }
-
-  .rows{ margin:0 0 12px; }
-  .row{
-    display:flex; gap:11px; align-items:flex-start;
-    padding:10px 0; border-top:1px solid var(--border);
-    font-size:14px; color:var(--ink);
-  }
-  .row:first-child{ border-top:0; padding-top:0; }
-  .row .ic{ width:15px; height:15px; margin-top:3px; color:var(--ink-faint); }
-  .note{ font-family:var(--mono); font-size:12px !important; color:var(--ink-faint) !important; }
-
-  /* ---------- РЕФЕРАЛЬНАЯ ПРОГРАММА ---------- */
-  .ref-grid{ display:grid; gap:12px; grid-template-columns:1fr; }
-  @media (min-width: 760px){ .ref-grid{ grid-template-columns:1fr 1fr; } }
-  .ref-card{
-    position:relative; overflow:hidden; isolation:isolate;
-    background: var(--surface); border:1px solid var(--border);
-    border-radius: var(--radius); padding:22px 20px;
-  }
-  @media (min-width: 900px){ .ref-card{ padding:28px 26px; } }
-  .ref-card.inv{ background: var(--white); color: var(--invert); border-color: var(--white); }
-  .ref-mark{
-    position:absolute; right:-50px; top:-50px; width:230px; height:230px;
-    opacity:.06; z-index:-1; pointer-events:none;
-  }
-  .ref-label{ font-family:var(--mono); font-size:11px; font-weight:600; letter-spacing:.09em; text-transform:uppercase; opacity:.55; }
-  .ref-num{
-    display:block; font-family:var(--mono); font-weight:700; letter-spacing:-.04em;
-    font-size: clamp(56px, 13vw, 78px); line-height:1; margin:14px 0 6px;
-  }
-  .ref-lead{ font-size:16px; font-weight:700; letter-spacing:-.01em; margin:0 0 18px; }
-  .ref-list{ list-style:none; margin:0; padding:0; }
-  .ref-list li{
-    display:flex; gap:11px; align-items:flex-start;
-    padding:11px 0; font-size:14px; line-height:1.45;
-    border-top:1px solid var(--border);
-  }
-  .ref-card.inv .ref-list li{ border-top-color: color-mix(in srgb, var(--invert) 14%, transparent); }
-  .ref-list .ic{ width:15px; height:15px; margin-top:3px; opacity:.55; }
-
-  /* ---------- КНОПКИ ---------- */
-  .end{ margin-top:44px; }
-  .end h2{ font-size:20px; font-weight:700; letter-spacing:-.015em; margin: 2px 0 14px; }
-  @media (min-width: 900px){ .end h2{ font-size:24px; } }
-  .btn-group{ display:grid; gap:9px; grid-template-columns:1fr; }
-  @media (min-width: 560px){
-    .btn-group{ grid-template-columns: repeat(6, 1fr); }
-    .btn-group .btn{ grid-column: span 2; }
-    .btn-group .btn-primary{ grid-column: span 3; }
-  }
-  .btn{
-    display:flex; align-items:center; justify-content:center; gap:9px;
-    padding:14px 20px; border-radius: var(--radius-sm);
-    text-decoration:none; font-weight:600; font-size:14.5px;
-    border:1px solid transparent;
-    transition: opacity .15s ease, background-color .15s ease, border-color .15s ease;
-  }
-  .btn:active{ opacity:.75; }
-  .btn .ic{ width:17px; height:17px; }
-  .btn-primary{ background: var(--white); color: var(--invert); }
-  .btn-primary:hover{ background:#e6e6e6; }
-  html[data-theme="light"] .btn-primary:hover{ background:#262626; }
-  .btn-primary .new-tag{ color: var(--invert); border-color: currentColor; opacity:.7; margin-left:2px; }
-  .btn-outline{ background:transparent; color: var(--ink); border-color: var(--border-strong); }
-  .btn-outline:hover{ border-color: var(--white); background: var(--surface-2); }
-
-  /* ---------- ПОДВАЛ ---------- */
-  .footer{
-    margin-top:48px; padding-top:22px; border-top:1px solid var(--border);
-    display:flex; flex-direction:column; align-items:center; gap:15px;
-  }
-  .footer-links{ display:flex; flex-wrap:wrap; justify-content:center; gap:9px 20px; }
-  .footer-links a{
-    font-family: var(--mono); font-size:12px; color: var(--ink-dim);
-    text-decoration:none; transition: color .15s ease;
-  }
-  .footer-links a:hover{ color: var(--ink); }
-  .footer-mark{ font-family: var(--mono); font-size:11px; color: var(--ink-faint); letter-spacing:.05em; }
 </style>
 </head>
 <body>
+<div class="topbar"><div class="topbar-inner">
+<a class="brand" href="https://xama.life" aria-label="XAMA — сетевой портал">
+<img class="brand-icon brand-logo" src="data:image/webp;base64,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" alt="">
+<span class="brand-mark">XAMA</span></a>
+<div class="topbar-right"><div class="release-meta"><span>14.11.2026</span><span class="sep"></span><span>UPDATE</span></div></div>
+</div></div>
 
-  <div class="topbar">
-    <div class="topbar-inner">
-      <a class="brand" href="https://xama.life" aria-label="XAMA — сетевой портал">
-        <svg class="brand-icon" viewBox="0 0 512 512" aria-hidden="true">
-          <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M106 106 L406 406 M406 106 L106 406" stroke-width="30"/>
-            <path d="M172 106 L256 190 L340 106" stroke-width="18"/>
-            <path d="M172 406 L256 322 L340 406" stroke-width="18"/>
-            <path d="M106 172 L190 256 L106 340" stroke-width="18"/>
-            <path d="M406 172 L322 256 L406 340" stroke-width="18"/>
-          </g>
-        </svg>
-        <span class="brand-mark">XAMA</span>
-      </a>
-      <div class="topbar-right">
-        <div class="release-meta">
-          <span>27.09.2026</span>
-          <span class="sep" aria-hidden="true"></span>
-          <span>UPDATE</span>
-        </div>
-        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Переключить светлую и тёмную тему">
-          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66 4.93 19.07M19.07 4.93 17.66 6.34"/></svg>
-        </button>
-      </div>
-    </div>
-  </div>
+<div class="wrap">
+<header class="hero">
+<div class="hero-logo-wrap" aria-hidden="true">
+  <span class="hero-logo-halo"></span>
+  <img class="hero-logo" src="data:image/webp;base64,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" alt="">
+</div>
+<div class="hero-kicker"><span class="pill">14.11.2026</span><span>ОБНОВЛЕНИЕ КАБИНЕТА</span></div>
+<h1 class="hero-title">Обновление <span class="caps">XAMA</span></h1>
+<p class="hero-sub">Покупка подписки стала проще. Также улучшили учёт трафика и работу с тарифами.</p>
+</header>
 
-  <div class="wrap">
+<section id="upd" class="content-section">
+<p class="eyebrow">Что изменилось</p>
 
-    <header class="hero">
-      <div class="hero-kicker"><span class="pill">НОВОЕ</span><span>ОБНОВЛЕНИЕ СЕТИ</span></div>
-      <h1 class="hero-title">Обновление <span class="caps">XAMA</span></h1>
-      <p class="hero-sub">Что появилось в сети за последнее время — и как зарабатывать вместе с нами.</p>
-    </header>
+<div class="upd"><button class="upd-head" type="button" aria-expanded="true">
+<span class="upd-icon"><svg class="ic" viewBox="0 0 24 24"><path d="M3 5h18v14H3zM8 9h8M8 13h5"/></svg></span>
+<span class="upd-text"><span class="upd-title">Покупка подписки — всё в одном месте</span><span class="upd-sub">Тариф и устройства — в одном заказе</span></span></button>
+<div class="upd-body"><div class="upd-inner"><div class="upd-content">
+<p>Теперь <strong>количество устройств</strong> можно выбрать сразу при покупке подписки.</p>
+<p>В списке видно, сколько устройств включено и сколько можно добавить.</p>
+</div></div></div></div>
 
-    <div class="nav-holder">
-      <div class="segmented" id="segmented" role="tablist" aria-label="Разделы" data-active="upd">
-        <span class="seg-indicator" aria-hidden="true"></span>
-        <button class="seg-btn" type="button" role="tab" id="seg-upd" aria-controls="upd" aria-selected="true">
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></svg>
-          <span>Обновление</span>
-        </button>
-        <button class="seg-btn" type="button" role="tab" id="seg-ref" aria-controls="ref" aria-selected="false" tabindex="-1">
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 20.5v-1.8a3.6 3.6 0 0 0-3.6-3.6H6.1a3.6 3.6 0 0 0-3.6 3.6v1.8"/><circle cx="9" cy="7.4" r="3.6"/><path d="M21.5 20.5v-1.8a3.6 3.6 0 0 0-2.7-3.5M16 3.9a3.6 3.6 0 0 1 0 7"/></svg>
-          <span>Реферальная программа</span>
-        </button>
-      </div>
-    </div>
+<div class="upd"><button class="upd-head" type="button" aria-expanded="true">
+<span class="upd-icon"><svg class="ic" viewBox="0 0 24 24"><path d="M12 2v20M17 7H9.5a3.5 3.5 0 0 0 0 7H14a3.5 3.5 0 0 1 0 7H6"/></svg></span>
+<span class="upd-text"><span class="upd-title">Полная стоимость до оплаты</span><span class="upd-sub">Стоимость сразу видна до оплаты</span></span></button>
+<div class="upd-body"><div class="upd-inner"><div class="upd-content">
+<p>Кабинет сразу показывает <strong>полную стоимость</strong> с учётом срока и количества устройств.</p>
+<p>Меняете параметры — сумма автоматически пересчитывается.</p>
+<p>Доработали оплату с баланса и продолжение заказа после пополнения.</p>
+</div></div></div></div>
 
-    <!-- ============================ ОБНОВЛЕНИЕ ============================ -->
-    <section id="upd" class="content-section active" role="tabpanel" aria-labelledby="seg-upd" tabindex="0">
-      <p class="eyebrow">Что изменилось</p>
+<div class="upd"><button class="upd-head" type="button" aria-expanded="true">
+<span class="upd-icon"><svg class="ic" viewBox="0 0 24 24"><path d="M4 19V5m0 14h16M7 15l4-4 3 2 5-7"/></svg></span>
+<span class="upd-text"><span class="upd-title">Более точный учёт трафика</span><span class="upd-sub">Остаток трафика отображается точнее</span></span></button>
+<div class="upd-body"><div class="upd-inner"><div class="upd-content">
+<p>Улучшили учёт <strong>основного и дополнительного трафика</strong> после продления подписки и покупки гигабайтов.</p>
+<p>Исправили некорректное отображение дополнительного трафика.</p>
+<p class="note">При временной недоступности панели показывается последний подтверждённый остаток.</p>
+</div></div></div></div>
 
-      <div class="upd">
-        <button class="upd-head" type="button" aria-expanded="false">
-          <span class="upd-icon"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></svg></span>
-          <span class="upd-text">
-            <span class="upd-title">Быстрая покупка<span class="new-tag">НОВОЕ</span></span>
-            <span class="upd-sub">Подписка без регистрации — за пару шагов</span>
-          </span>
-          <svg class="plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-        </button>
-        <div class="upd-body"><div class="upd-inner"><div class="upd-content">
-          <p>Отдельная страница <a class="inline" href="https://lk.xama.life/buy/xama-fast" target="_blank" rel="noopener">lk.xama.life/buy/xama-fast</a>. Регистрироваться не нужно — аккаунт в кабинете создаётся автоматически.</p>
-          <div class="mini-steps">
-            <div class="mini-step"><span>ШАГ 01</span><b>Выберите тариф и срок</b></div>
-            <div class="mini-step"><span>ШАГ 02</span><b>Укажите почту или Telegram</b></div>
-            <div class="mini-step"><span>ШАГ 03</span><b>Оплатите</b></div>
-          </div>
-          <p><strong>Указали почту</strong> — на неё сразу придёт пароль для входа в кабинет.</p>
-          <p><strong>Указали Telegram</strong> — просто зайдите в бота <a class="inline" href="https://t.me/XAMA_life_bot" target="_blank" rel="noopener">@xama_life_bot</a>.</p>
-          <p class="note">Письма нет — проверьте папку «Спам».</p>
-        </div></div></div>
-      </div>
+<div class="upd"><button class="upd-head" type="button" aria-expanded="true">
+<span class="upd-icon"><svg class="ic" viewBox="0 0 24 24"><path d="M12 3v3m0 12v3M3 12h3m12 0h3"/><path d="m5.6 5.6 2.1 2.1m8.6 8.6 2.1 2.1m0-12.8-2.1 2.1m-8.6 8.6-2.1 2.1"/><circle cx="12" cy="12" r="4"/></svg></span>
+<span class="upd-text"><span class="upd-title">Защита от повторного продления</span><span class="upd-sub">Защита от повторного продления</span></span></button>
+<div class="upd-body"><div class="upd-inner"><div class="upd-content">
+<p>Если при продлении произошла сетевая ошибка, кабинет проверит статус первоначального заказа.</p>
+<p>Если продление уже прошло, повторная покупка не потребуется.</p>
+</div></div></div></div>
 
-      <div class="upd">
-        <button class="upd-head" type="button" aria-expanded="false">
-          <span class="upd-icon"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></span>
-          <span class="upd-text">
-            <span class="upd-title">Статус серверов<span class="new-tag">НОВОЕ</span></span>
-            <span class="upd-sub">Доступность каждой локации в реальном времени</span>
-          </span>
-          <svg class="plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-        </button>
-        <div class="upd-body"><div class="upd-inner"><div class="upd-content">
-          <p>Страница <a class="inline" href="https://status.xama.life" target="_blank" rel="noopener">status.xama.life</a> показывает состояние каждого сервера сети.</p>
-          <div class="rows">
-            <div class="row"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Доступность за последние 30 дней</span></div>
-            <div class="row"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Текущая задержка по каждой локации</span></div>
-            <div class="row"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Проверка раз в 5 минут — через настоящее подключение к серверу</span></div>
-          </div>
-          <p class="note">Нет доступа к серверу — откройте страницу статуса и узнаете, на чьей стороне проблема: на нашей или на вашей.</p>
-        </div></div></div>
-      </div>
+<div class="upd"><button class="upd-head" type="button" aria-expanded="true">
+<span class="upd-icon"><svg class="ic" viewBox="0 0 24 24"><path d="M4 4h16v16H4zM8 8h8M8 12h5M8 16h8"/></svg></span>
+<span class="upd-text"><span class="upd-title">Улучшения управления подпиской</span><span class="upd-sub">Доработали управление подпиской</span></span></button>
+<div class="upd-body"><div class="upd-inner"><div class="upd-content">
+<div class="rows">
+<div class="row"><svg class="ic" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg><span>Снова можно сменить тариф, даже если трафик закончился.</span></div>
+<div class="row"><svg class="ic" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg><span>Уточнили уведомления об оплате дополнительного трафика.</span></div>
+<div class="row"><svg class="ic" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg><span>Улучшили загрузку страниц и отображение кабинета на разных экранах.</span></div>
+</div>
+</div></div></div></div>
+</section>
 
-      <div class="upd">
-        <button class="upd-head" type="button" aria-expanded="false">
-          <span class="upd-icon"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M19 12v9H5v-9"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg></span>
-          <span class="upd-text">
-            <span class="upd-title">Подарок в пару кликов</span>
-            <span class="upd-sub">Подписка другу прямо со страницы быстрой покупки</span>
-          </span>
-          <svg class="plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-        </button>
-        <div class="upd-body"><div class="upd-inner"><div class="upd-content">
-          <p>Укажите почту или Telegram получателя и добавьте поздравление. Подписка активируется у него.</p>
-          <p class="note">Заходить в кабинет для этого больше не нужно.</p>
-        </div></div></div>
-      </div>
 
-      <div class="upd">
-        <button class="upd-head" type="button" aria-expanded="false">
-          <span class="upd-icon"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 4v6h-6M2 20v-6h6"/><path d="M19.5 9A8.5 8.5 0 0 0 5.4 5.8L2 10m20 4-3.4 4.2A8.5 8.5 0 0 1 4.5 15"/></svg></span>
-          <span class="upd-text">
-            <span class="upd-title">Автопокупка после пополнения</span>
-            <span class="upd-sub">Пополнили баланс — подписка оформится сама</span>
-          </span>
-          <svg class="plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-        </button>
-        <div class="upd-body"><div class="upd-inner"><div class="upd-content">
-          <p>Раньше, если на балансе не хватало денег, приходилось пополнять и снова нажимать <strong>«Купить»</strong>.</p>
-          <p>Теперь выбранный тариф запоминается на <strong>1 час</strong>. Пополнили баланс — подписка оформится автоматически.</p>
-          <p class="note">С карты без вас ничего не списывается: пополняете и подтверждаете платёж в банке вы сами.</p>
-        </div></div></div>
-      </div>
+<div class="end"><p class="eyebrow">Личный кабинет</p><h2>Всё готово. Приятного пользования!</h2>
+<div class="btn-group">
+<a href="https://lk.xama.life" class="btn btn-primary" target="_blank" rel="noopener">Кабинет в браузере</a>
+<a href="https://t.me/XAMA_life_bot" class="btn btn-primary" target="_blank" rel="noopener">Кабинет в Telegram</a>
+<a href="https://xama.life" class="btn btn-outline">Сетевой портал</a>
+</div></div>
+<footer class="footer"><div class="footer-links">
+<a href="https://xama.life">Портал</a><a href="https://lk.xama.life" target="_blank" rel="noopener">Кабинет</a><a href="https://t.me/XAMA_life_bot" target="_blank" rel="noopener">Telegram</a><a href="https://lk.xama.life/support" target="_blank" rel="noopener">Поддержка</a>
+</div><div class="footer-mark">Команда XAMA</div></footer>
+</div>
 
-      <div class="upd">
-        <button class="upd-head" type="button" aria-expanded="false">
-          <span class="upd-icon"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></span>
-          <span class="upd-text">
-            <span class="upd-title">Новые уведомления</span>
-            <span class="upd-sub">Всегда в курсе, что с подпиской и трафиком</span>
-          </span>
-          <svg class="plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-        </button>
-        <div class="upd-body"><div class="upd-inner"><div class="upd-content">
-          <div class="rows">
-            <div class="row"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Трафик заканчивается, закончился или сброшен</span></div>
-            <div class="row"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Первое подключение и напоминание, если вы ещё не подключались</span></div>
-            <div class="row"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Добавлено или удалено устройство</span></div>
-            <div class="row"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Подписка включена или выключена</span></div>
-          </div>
-          <p class="note">Приходят в Telegram, а если пользуетесь без Telegram — на почту.</p>
-        </div></div></div>
-      </div>
-
-      <div class="upd">
-        <button class="upd-head" type="button" aria-expanded="false">
-          <span class="upd-icon"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="14" height="11" rx="2"/><rect x="16" y="9" width="6" height="11" rx="1.6"/><path d="M7 19h5"/></svg></span>
-          <span class="upd-text">
-            <span class="upd-title">Подключение устройств</span>
-            <span class="upd-sub">Ключ больше не приходит открытой ссылкой в чат</span>
-          </span>
-          <svg class="plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-        </button>
-        <div class="upd-body"><div class="upd-inner"><div class="upd-content">
-          <p>Подключение — кнопкой <strong>«Подключить»</strong> в кабинете или в боте. Там же инструкция под вашу платформу.</p>
-        </div></div></div>
-      </div>
-
-      <div class="upd">
-        <button class="upd-head" type="button" aria-expanded="false">
-          <span class="upd-icon"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 20.5v-1.8a3.6 3.6 0 0 0-3.6-3.6H6.1a3.6 3.6 0 0 0-3.6 3.6v1.8"/><circle cx="9" cy="7.4" r="3.6"/><path d="M21.5 20.5v-1.8a3.6 3.6 0 0 0-2.7-3.5M16 3.9a3.6 3.6 0 0 1 0 7"/></svg></span>
-          <span class="upd-text">
-            <span class="upd-title">Быстрая покупка для партнёров<span class="new-tag">НОВОЕ</span></span>
-            <span class="upd-sub">Своя страница продаж с вашим заголовком и текстом</span>
-          </span>
-          <svg class="plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-        </button>
-        <div class="upd-body"><div class="upd-inner"><div class="upd-content">
-          <p>Страницы быстрой покупки теперь доступны партнёрам. У каждой — свой уникальный заголовок и свой текст.</p>
-          <div class="rows">
-            <div class="row"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Настройка и редактирование — прямо в личном кабинете</span></div>
-            <div class="row"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Статистика покупок по вашей странице — там же</span></div>
-          </div>
-          <p class="note">Как стать партнёром — во вкладке «Реферальная программа».</p>
-        </div></div></div>
-      </div>
-    </section>
-
-    <!-- ======================= РЕФЕРАЛЬНАЯ ПРОГРАММА ======================= -->
-    <section id="ref" class="content-section" role="tabpanel" aria-labelledby="seg-ref" tabindex="0">
-      <p class="eyebrow">Зарабатывайте вместе с XAMA</p>
-      <div class="ref-grid">
-
-        <article class="ref-card inv">
-          <svg class="ref-mark" viewBox="0 0 512 512" aria-hidden="true">
-            <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M106 106 L406 406 M406 106 L106 406" stroke-width="30"/>
-              <path d="M172 106 L256 190 L340 106" stroke-width="18"/>
-              <path d="M172 406 L256 322 L340 406" stroke-width="18"/>
-              <path d="M106 172 L190 256 L106 340" stroke-width="18"/>
-              <path d="M406 172 L322 256 L406 340" stroke-width="18"/>
-            </g>
-          </svg>
-          <span class="ref-label">Для всех</span>
-          <span class="ref-num">30%</span>
-          <p class="ref-lead">с каждой оплаты друга — пожизненно</p>
-          <ul class="ref-list">
-            <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Начисления на реферальный баланс, без ограничения по числу оплат</span></li>
-            <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Засчитываются, когда приглашённый пополняет баланс от 100 ₽</span></li>
-            <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Реферальным балансом можно оплачивать свою подписку</span></li>
-            <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Вывод: от 500 ₽, не чаще раза в 30 дней, по заявке в кабинете</span></li>
-            <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Ссылка и QR-код — раздел «Рефералы» в кабинете или «Партнерка» в боте</span></li>
-          </ul>
-        </article>
-
-        <article class="ref-card">
-          <span class="ref-label">Партнёрам</span>
-          <span class="ref-num">Свой %</span>
-          <p class="ref-lead">индивидуальные условия</p>
-          <ul class="ref-list">
-            <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Заявка: кабинет → «Рефералы» → «Стать партнёром»</span></li>
-            <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Персональные ссылки под каждую площадку — все пришедшие становятся вашими рефералами</span></li>
-            <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Своя страница быстрой покупки с вашим заголовком и текстом</span></li>
-            <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Статистика по ссылкам и странице: регистрации, рефералы, покупки, доход</span></li>
-            <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Особый пробный период для вашей аудитории</span></li>
-            <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Вывод заработка — на тех же условиях</span></li>
-          </ul>
-        </article>
-
-      </div>
-    </section>
-
-    <!-- ============================== КНОПКИ ============================== -->
-    <div class="end">
-      <p class="eyebrow">Всё по одному клику</p>
-      <h2>Попробуйте сами</h2>
-      <div class="btn-group">
-        <a href="https://lk.xama.life/buy/xama-fast" class="btn btn-primary" target="_blank" rel="noopener">
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></svg>
-          Быстрая покупка<span class="new-tag">НОВОЕ</span>
-        </a>
-        <a href="https://status.xama.life" class="btn btn-primary" target="_blank" rel="noopener">
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg>
-          Статус серверов<span class="new-tag">НОВОЕ</span>
-        </a>
-        <a href="https://lk.xama.life" class="btn btn-outline" target="_blank" rel="noopener">Кабинет в браузере</a>
-        <a href="https://t.me/XAMA_life_bot" class="btn btn-outline" target="_blank" rel="noopener">Кабинет в Telegram</a>
-        <a href="https://xama.life" class="btn btn-outline">Сетевой портал</a>
-      </div>
-    </div>
-
-    <footer class="footer">
-      <div class="footer-links">
-        <a href="https://xama.life">Портал</a>
-        <a href="https://lk.xama.life" target="_blank" rel="noopener">Кабинет</a>
-        <a href="https://t.me/XAMA_life_bot" target="_blank" rel="noopener">Telegram</a>
-        <a href="https://status.xama.life" target="_blank" rel="noopener">Статус</a>
-        <a href="https://lk.xama.life/support" target="_blank" rel="noopener">Поддержка</a>
-      </div>
-      <div class="footer-mark">Команда XAMA</div>
-    </footer>
-  </div>
-
-  <script>
-    /* ---------- ВКЛАДКИ ---------- */
-    (function(){
-      var nav = document.getElementById('segmented');
-      var buttons = Array.prototype.slice.call(nav.querySelectorAll('.seg-btn'));
-
-      function activate(id, focusBtn, updateHash){
-        if(!document.getElementById(id)) id = 'upd';
-        nav.setAttribute('data-active', id);
-        buttons.forEach(function(b){
-          var on = b.getAttribute('aria-controls') === id;
-          b.setAttribute('aria-selected', on ? 'true' : 'false');
-          b.tabIndex = on ? 0 : -1;
-          if(on && focusBtn) b.focus();
-          document.getElementById(b.getAttribute('aria-controls')).classList.toggle('active', on);
-        });
-        if(updateHash && history.replaceState) history.replaceState(null, '', id === 'ref' ? '#ref' : location.pathname);
-      }
-
-      buttons.forEach(function(btn, i){
-        btn.addEventListener('click', function(){ activate(btn.getAttribute('aria-controls'), false, true); });
-        btn.addEventListener('keydown', function(e){
-          if(e.key === 'ArrowRight' || e.key === 'ArrowLeft'){
-            e.preventDefault();
-            var n = buttons[(i + (e.key === 'ArrowRight' ? 1 : -1) + buttons.length) % buttons.length];
-            activate(n.getAttribute('aria-controls'), true, true);
-          }
-        });
-      });
-
-      if(location.hash === '#ref') activate('ref', false, false);
-      window.addEventListener('hashchange', function(){ activate(location.hash === '#ref' ? 'ref' : 'upd', false, false); });
-    })();
-
-    /* ---------- КАРТОЧКИ: открыта только одна ---------- */
-    (function(){
-      var cards = Array.prototype.slice.call(document.querySelectorAll('.upd'));
-      cards.forEach(function(card){
-        var head = card.querySelector('.upd-head');
-        head.addEventListener('click', function(){
-          var willOpen = !card.classList.contains('open');
-          cards.forEach(function(c){
-            c.classList.remove('open');
-            c.querySelector('.upd-head').setAttribute('aria-expanded', 'false');
-          });
-          if(willOpen){
-            card.classList.add('open');
-            head.setAttribute('aria-expanded', 'true');
-          }
-        });
-      });
-    })();
-
-    /* ---------- ТЕМА (общая с порталом) ---------- */
-    (function(){
-      var root = document.documentElement;
-      var toggle = document.getElementById('theme-toggle');
-      var meta = document.querySelector('meta[name="theme-color"]');
-      function syncMeta(){
-        if(meta) meta.setAttribute('content', root.getAttribute('data-theme') === 'light' ? '#ffffff' : '#000000');
-      }
-      syncMeta();
-      toggle.addEventListener('click', function(){
-        var isLight = root.getAttribute('data-theme') === 'light';
-        if(isLight){ root.removeAttribute('data-theme'); }
-        else { root.setAttribute('data-theme','light'); }
-        try{ localStorage.setItem('xama-theme', isLight ? 'dark' : 'light'); }catch(e){}
-        syncMeta();
-      });
-    })();
-  </script>
 </body>
 </html>
